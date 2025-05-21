@@ -1,4 +1,4 @@
-# Nerfies
+# From Pixels to Wireframes: 3D Reconstruction via CLIP-Based Sketch Abstraction
 
 This is the repository that contains source code for the [Nerfies website](https://nerfies.github.io).
 
