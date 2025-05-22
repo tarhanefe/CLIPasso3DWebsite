@@ -300,38 +300,76 @@
         <!-- Creating environments. -->
 <!------------------------------------------------------------------------------SPHERICAL GAUSSIANS----------------------------------------------------------------------------->
         
-        <h3 class="title is-4">III-A. Differentiable Rasterization with Spherical Gaussians</h3>
-        <div class="content has-text-justified">
-          <p>
+<h3 class="title is-4">III-A. 3D Differentiable Rasterization with Spherical Gaussians</h3>
+<div class="content has-text-justified">
+  <p>
+    To represent 3D sketches in a differentiable manner, we model 3D Bézier curves using spherical Gaussians (SGs) sampled along each curve’s path. This design allows efficient rasterization of the sketches into 2D images for training. Unlike CLIPasso’s discrete 2D rasterization, our approach supports backpropagation in 3D space and enables full differentiability with respect to the control points. Inspired by recent advances in Gaussian Splatting, we represent Bézier curves as sequences of Gaussians, each defined by a center and a fixed thickness, that can be projected onto 2D views using differentiable camera models.
+  </p>
 
-          </p>
-          
-          <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/image_2.png" alt="3D Bezier curves are used for representing 3D sketches of objects.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">3D Bezier curves are used for representing 3D sketches of objects.</span>
-                  </font>
-                </h5>
-              </div>
-            </div>
-          </div>
-          
-          <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/image_3.png" alt="Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.</span>
-                  </font>
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="columns is-centered">
+    <div class="column is-three-quarters">
+      <div align="center" class="box">
+        <img src="static/website_assets/image_2.png" alt="3D Bezier curves are used for representing 3D sketches of objects.">
+        <h5 class="subtitle has-text-centered">
+          <font size="-0.7">
+            <span style="font-weight:normal">
+              3D Bézier curves are used for representing 3D sketches of objects.
+            </span>
+          </font>
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    Each spherical Gaussian is defined as:
+  </p>
+  <pre><code>
+φ(x; c, r) = exp(-||x - c||² / (2r²))
+  </code></pre>
+  <p>
+    where <code>c ∈ ℝ³</code> is the Gaussian center along the curve, and <code>r</code> defines its thickness. To sample a Bézier curve of length <code>L</code> with overlap ratio <code>αₒ</code>, we define the step size <code>d</code> and number of samples <code>N</code> as:
+  </p>
+  <pre><code>
+d = r * αₒ
+N = ceil(L / d)
+  </code></pre>
+  <p>
+    Let the Bézier curve <code>B</code> have control points <code>p₀, ..., p_M ∈ ℝ³</code>. The Gaussian means <code>cₙ</code> along the curve are sampled using the Bézier basis:
+  </p>
+  <pre><code>
+cₙ,B = Σ₍i=0₎^M γᵢ * (1 - n/N)^(M-i) * (n/N)^i * pᵢ
+  </code></pre>
+  <p>
+    where <code>γᵢ</code> are the Bernstein basis coefficients. This formulation ensures that the Gaussians’ positions are differentiable with respect to the control points of the curve.
+  </p>
+
+  <div class="columns is-centered">
+    <div class="column is-three-quarters">
+      <div align="center" class="box">
+        <img src="static/website_assets/image_3.png" alt="Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.">
+        <h5 class="subtitle has-text-centered">
+          <font size="-0.7">
+            <span style="font-weight:normal">
+              Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.
+            </span>
+          </font>
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <p>
+    After constructing the Gaussians, we render them through a differentiable rasterizer. This process projects the 3D centers into 2D using both intrinsic (<code>In</code>) and extrinsic (<code>Ex</code>) camera matrices. The rasterizer outputs a 2D grayscale image <code>V ∈ ℝ^{W × H}</code> where:
+  </p>
+  <pre><code>
+V = T(c, r, In, Ex, W, H)
+  </code></pre>
+  <p>
+    Each pixel value <code>Vₙ₁,ₙ₂</code> depends on the projection of all Gaussian samples from the Bézier curves. Since the entire pipeline—curve sampling, projection, and rasterization—is differentiable, gradients can be propagated from the image space back to the curve’s control points. This capability is essential for learning sketches from image-level supervision.
+  </p>
+
+</div>
         <!--/ Creating environments. -->
 <!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
         <h3 class="title is-4">III-C. Model Training</h3>
