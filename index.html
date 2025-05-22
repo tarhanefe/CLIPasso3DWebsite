@@ -26,6 +26,7 @@
 <script type="text/javascript"
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
   
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -324,24 +325,37 @@
   <p>
     Each spherical Gaussian is defined as:
   </p>
-  <pre><code>
-φ(x; c, r) = exp(-||x - c||² / (2r²))
-  </code></pre>
   <p>
-    where <code>c ∈ ℝ³</code> is the Gaussian center along the curve, and <code>r</code> defines its thickness. To sample a Bézier curve of length <code>L</code> with overlap ratio <code>αₒ</code>, we define the step size <code>d</code> and number of samples <code>N</code> as:
+    <script type="math/tex; mode=display">
+      \phi\left(\mathbf{x}; \mathbf{c}, r\right) = \exp\left(-\frac{\|\mathbf{x} - \mathbf{c}\|^2}{2r^2}\right)
+    </script>
   </p>
-  <pre><code>
-d = r * αₒ
-N = ceil(L / d)
-  </code></pre>
+
   <p>
-    Let the Bézier curve <code>B</code> have control points <code>p₀, ..., p_M ∈ ℝ³</code>. The Gaussian means <code>cₙ</code> along the curve are sampled using the Bézier basis:
+    where <script type="math/tex">\mathbf{c} \in \mathbb{R}^3</script> is the center of the Gaussian and <script type="math/tex">r</script> is its radius (or thickness). To sample a Bézier curve of length <script type="math/tex">L</script> with a desired overlap ratio <script type="math/tex">\alpha_o</script>, the sampling step <script type="math/tex">d</script> and the number of samples <script type="math/tex">N</script> are computed as:
   </p>
-  <pre><code>
-cₙ,B = Σ₍i=0₎^M γᵢ * (1 - n/N)^(M-i) * (n/N)^i * pᵢ
-  </code></pre>
+
   <p>
-    where <code>γᵢ</code> are the Bernstein basis coefficients. This formulation ensures that the Gaussians’ positions are differentiable with respect to the control points of the curve.
+    <script type="math/tex; mode=display">
+      d = r \alpha_o, \quad
+      N = \left\lceil \frac{L}{d} \right\rceil
+    </script>
+  </p>
+
+  <p>
+    For a Bézier curve <script type="math/tex">\mathbf{B}</script> with control points <script type="math/tex">\mathbf{p}_0, \mathbf{p}_1, \ldots, \mathbf{p}_M \in \mathbb{R}^3</script>, the centers of the Gaussians sampled along the curve are given by:
+  </p>
+
+  <p>
+    <script type="math/tex; mode=display">
+      \mathbf{c}_{n,\mathbf{B}} =
+      \sum_{i=0}^{M}
+      \gamma_i\,\left(1-\frac{n}{N}\right)^{M-i}\,\left(\frac{n}{N}\right)^{i}\,\mathbf{p}_i
+    </script>
+  </p>
+
+  <p>
+    where <script type="math/tex">\gamma_i</script> are the Bernstein basis coefficients. This makes each Gaussian center fully differentiable with respect to the Bézier control points.
   </p>
 
   <div class="columns is-centered">
@@ -360,15 +374,28 @@ cₙ,B = Σ₍i=0₎^M γᵢ * (1 - n/N)^(M-i) * (n/N)^i * pᵢ
   </div>
 
   <p>
-    After constructing the Gaussians, we render them through a differentiable rasterizer. This process projects the 3D centers into 2D using both intrinsic (<code>In</code>) and extrinsic (<code>Ex</code>) camera matrices. The rasterizer outputs a 2D grayscale image <code>V ∈ ℝ^{W × H}</code> where:
-  </p>
-  <pre><code>
-V = T(c, r, In, Ex, W, H)
-  </code></pre>
-  <p>
-    Each pixel value <code>Vₙ₁,ₙ₂</code> depends on the projection of all Gaussian samples from the Bézier curves. Since the entire pipeline—curve sampling, projection, and rasterization—is differentiable, gradients can be propagated from the image space back to the curve’s control points. This capability is essential for learning sketches from image-level supervision.
+    After generating the Gaussians, we render them through a differentiable rasterizer that projects the 3D Gaussians into 2D using camera intrinsics and extrinsics. The resulting image <script type="math/tex">\mathbf{V} \in \mathbb{R}^{W \times H}</script> is given by:
   </p>
 
+  <p>
+    <script type="math/tex; mode=display">
+      \mathbf{V} = T\left(\mathbf{c}, r, \mathbf{In}, \mathbf{Ex}, W, H\right)
+    </script>
+  </p>
+
+  <p>
+    where <script type="math/tex">\mathbf{In}</script> and <script type="math/tex">\mathbf{Ex}</script> denote the intrinsic and extrinsic camera matrices, and <script type="math/tex">W, H</script> define the image resolution. Each pixel <script type="math/tex">\mathbf{V}_{n_1,n_2}</script> can be written as:
+  </p>
+
+  <p>
+    <script type="math/tex; mode=display">
+      \mathbf{V}_{n_1,n_2} = T\left(f(\mathbf{p}_i, \ldots), \ldots\right)
+    </script>
+  </p>
+
+  <p>
+    This end-to-end differentiability allows training the sketch representation directly using image-level loss functions such as CLIP similarity. It was one of the key milestones proposed for the project.
+  </p>
 </div>
         <!--/ Creating environments. -->
 <!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
