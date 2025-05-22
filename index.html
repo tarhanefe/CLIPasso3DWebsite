@@ -272,12 +272,11 @@
         <h2 class="title is-3" id="related-work">II. Related Works</h2>
         <div class="content has-text-justified">
           <p>
-            The intersection of 3D sketch representation and differentiable rendering has seen rapid growth, particularly with the advent of vision-language models and efficient rasterization techniques. Our method draws inspiration from two complementary research directions: CLIP-guided abstraction of visual content, and the use of volumetric primitives like Gaussians for real-time, differentiable scene representation. Below, we summarize the most relevant prior work that laid the foundation for this project.
+            The intersection of 3D sketch abstraction and differentiable rendering is a vibrant area of research. Our project builds directly on two complementary threads: semantically-driven sketch generation using CLIP, and efficient, real-time rendering through Gaussian primitives. Below, we outline key prior work in both directions that inform our method.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Related work. -->
   </div>
   <br>
 
@@ -290,7 +289,7 @@
           <h2 class="title is-6">CLIPasso: Semantically-Aware Object Sketching
                                  <a href="https://arxiv.org/abs/2202.05822">[1]</a></h2>
           <p>
-            CLIPasso introduces a differentiable sketching framework that leverages CLIP embeddings to guide the abstraction of images into vector sketches. By optimizing Bézier curves to match semantic content, it produces human-like line drawings that balance fidelity and abstraction.
+            CLIPasso introduced a novel sketch abstraction pipeline driven by CLIP embeddings. It optimizes 2D Bézier curves to semantically match target images, generating vector sketches that maintain both recognizability and abstraction. CLIP-based supervision enables sketching without pixel-wise supervision, focusing instead on perceptual similarity.
           </p>
           <div class="box">
             <img src="static/website_assets/clipasso_example.png"
@@ -303,7 +302,7 @@
             </h5>
           </div>
           <p>
-            However, CLIPasso is limited to 2D rasterization and does not extend to multiview-consistent 3D representations or differentiable volumetric rendering.
+            However, CLIPasso operates purely in 2D and does not generalize to multiview-consistent or 3D-aware sketching tasks.
           </p>
         </div>
       </div>
@@ -311,23 +310,31 @@
 
       <!-- Gaussian Splatting -->
       <div class="column">
-        <h2 class="title is-6">3D Gaussian Splatting for Real-Time Radiance Field Rendering
-                               <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">[2]</a></h2>
-        <p>
-          This work presents a breakthrough in real-time 3D rendering by replacing dense neural fields with a sparse set of anisotropic Gaussians. The method enables photorealistic novel view synthesis with real-time performance, and introduces a fully differentiable rasterizer for volumetric rendering.
-        </p>
-        <div class="box">
-          <img src="static/website_assets/gaussian_splatting.png"
-               alt="Gaussian Splatting visualized.">
-          <h5 class="subtitle has-text-centered">
-            <font size="-1.5">
-              <span style="font-weight:normal">Sparse 3D Gaussians projected for real-time view synthesis.</span>
-            </font>
-          </h5>
+        <div class="content">
+          <h2 class="title is-6">3D Gaussian Splatting for Real-Time Radiance Field Rendering
+                                 <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">[2]</a></h2>
+          <p>
+            This work replaces dense volumetric representations with a sparse set of view-adaptive anisotropic Gaussians, achieving high-quality and real-time radiance field rendering. The technique offers a fully differentiable rendering pipeline ideal for interactive and fast applications.
+          </p>
+          <div class="box">
+            <a title="Jurdein, CC BY 4.0 &lt;https://creativecommons.org/licenses/by/4.0&gt;, via Wikimedia Commons"
+               href="https://commons.wikimedia.org/wiki/File:Gaussian_Splatting_GIF.gif">
+              <img width="512"
+                   alt="An animated GIF generated from a Gaussian Splatting model"
+                   src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Gaussian_Splatting_GIF.gif">
+            </a>
+            <h5 class="subtitle has-text-centered">
+              <font size="-1.5">
+                <span style="font-weight:normal">
+                  Visualized Gaussian primitives rendered for novel view synthesis.
+                </span>
+              </font>
+            </h5>
+          </div>
+          <p>
+            While highly efficient, this work focuses on photorealistic synthesis and lacks semantic constraints. Our work adapts its rasterization foundation for use with sparse Bézier-based sketches guided by perceptual objectives.
+          </p>
         </div>
-        <p>
-          Although this method focuses on photorealism, it does not capture high-level abstraction or semantic guidance. Our work adapts its differentiable rasterization framework to a sketch-based representation.
-        </p>
       </div>
     </div>
   </div>
@@ -339,7 +346,7 @@
       <div class="column is-full-width">
         <div class="content has-text-justified">
           <p>
-            Building on the perceptual supervision of CLIPasso and the rendering pipeline of Gaussian Splatting, our approach bridges the gap between semantic sketch abstraction and multiview-consistent 3D modeling. By integrating Bézier-based geometry with differentiable rasterization and CLIP-based losses, we present a method capable of learning faithful 3D sketches from image-level supervision.
+            Combining the semantic sketching approach of CLIPasso with the real-time rendering capabilities of Gaussian Splatting, our framework introduces a differentiable 3D sketch representation optimized using CLIP-based supervision. This positions our work uniquely at the intersection of 3D vision, neural rendering, and semantic abstraction.
           </p>
         </div>
       </div>
@@ -347,9 +354,6 @@
     <!--/ Conclusion -->
   </div>
 </section>
-
-
-
 
 
   
