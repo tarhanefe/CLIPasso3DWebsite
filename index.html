@@ -1,3 +1,4 @@
+  <!------------------------------------------------------------------------------DOCUMENT CONFIGURATION----------------------------------------------------------------------------->
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +47,10 @@
 </head>
 <body>
 
+
+<!------------------------------------------------------------------------------NAVIGATION BAR BUTTONS----------------------------------------------------------------------------->
+
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -65,6 +70,8 @@
 
   </div>
 </nav>
+
+<!------------------------------------------------------------------------------AUTHORS SECTION----------------------------------------------------------------------------->
 
 
 <section class="hero">
@@ -88,6 +95,8 @@
           <div class="is-size-5 publication-authors">
             <span class="author-block">Swiss Federal Institute of Technology Lausanne (EPFL)</span>
           </div>
+  
+<!------------------------------------------------------------------------------LINKS UNDER AUTHORS----------------------------------------------------------------------------->
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -129,22 +138,8 @@
   </div>
 </section>
 
-          
-<!--<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body"
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
-      </h2>
-    </div>
-  </div>
-</section> -->
+<!------------------------------------------------------------------------------TEASER GIF----------------------------------------------------------------------------->
+
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
@@ -156,6 +151,9 @@
     </div>
   </div>
 </section>
+
+
+<!------------------------------------------------------------------------------ABSTRACT----------------------------------------------------------------------------->
 
 
 <section class="section hero is-light">
@@ -174,6 +172,8 @@
 
       </div>
     </div>
+
+<!------------------------------------------------------------------------------CONTENT TABLE----------------------------------------------------------------------------->
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
@@ -215,6 +215,9 @@
     </div>
     <!--/ Abstract. -->
 
+
+  <!------------------------------------------------------------------------------PROJECT VIDEO---------------------------------------------------------------------------->
+
     <!-- Paper video.
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -230,6 +233,7 @@
 
 
 
+  <!------------------------------------------------------------------------------INTRODUCTION----------------------------------------------------------------------------->
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -255,7 +259,87 @@
   </div>
 </section>
 
+
+
+<!------------------------------------------------------------------------------RELATED WORK----------------------------------------------------------------------------->
+
+
+
+
+
+
+
   
+<!------------------------------------------------------------------------------METHODOLOGY----------------------------------------------------------------------------->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" id="method">III. Methodology</h2>
+        <div class="content has-text-justified">
+          <p>
+            In this section, we present the methodology utilized for this paper. We first discuss the environment setup,
+            after which we detail how the predator and prey agents are created. Finally, we talk about how the agents are optimized.
+          </p>
+          <p>
+            We create a 3D environment using the Unity game development engine <a href="https://unity.com/">[3]</a>. The selection of Unity as the engine
+            for creating the environment instead of a different simulator is motivated by several key factors. Mainly, Unity's ML-Agents
+            package <a href="https://arxiv.org/abs/1809.02627">[4]</a> offers support for the OpenAI Gym framework
+            <a href="https://arxiv.org/abs/1809.02627">[5]</a>, which is widely used in
+            reinforcement learning research. This way, Unity enables interaction between the environment and the learning algorithms,
+            allowing for efficient experimentation and evaluation of predator-prey agents.
+          </p>
+          <p>
+            Moreover, the engine offers a wide range of built-in tools, such as physics simulations, ray tracing, and collision.
+            Finally, Unity provides a user-friendly and intuitive development environment, making it accessible to researchers with
+             varying levels of expertise.
+          </p>
+        </div>
+        <!-- Creating environments. -->
+        <h3 class="title is-4">III-A. Environments</h3>
+        <div class="content has-text-justified">
+          <p>
+            We present a diverse set of simulated environments aimed at replicating various scenarios involving predator-prey interactions.
+            Our objective is to uncover a wide range of behaviors for the predators and prey. To achieve
+            this diversity, we incorporate obstacles such as trees and rocks within the environments. Additionally, we introduce walls along
+            the boundaries to confine the agents to the designated training area. This confinement allows us to concentrate the actions of an agent
+             and observations within a controlled environment.
+          </p>
+          <p>
+            Furthermore, we integrate physics-based simulations and collision detection mechanisms into the environment.
+            By assigning colliders to the predator and prey agent models, we ensure accurate detection of interactions with the
+            environment and other agents. Each object in the environment is assigned a corresponding tag, such as "obstacle",
+            "predator", or "prey", enabling efficient identification.
+          </p>
+          <p>
+            To speed up the learning process, we design the initial training environment ('Control' shown below) to be free of
+            obstacles. This approach eliminates potential obstructions that could slow down training progress in the early stages.
+            Subsequently, we create three additional training environments ('Forest', 'Escape Room' and 'Rocky') featuring distinct obstacle types:
+            small trees, large rocks, and a split doorway. These environments allow the agents to acquire the skills necessary for
+            navigating through increasingly complex situations involving obstacles, and should allow the prey agent to learn to exploit
+             occlusions.
+          </p>
+        </div>
+        <!--/ Creating environments. -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!------------------------------------------------------------------------------EXPERIMENTS----------------------------------------------------------------------------->
+
+  
+
+
+
+<!------------------------------------------------------------------------------CONCLUSION & LIMITATIONS---------------------------------------------------------------->
+
+  
+
 
   
 <section class="section">
