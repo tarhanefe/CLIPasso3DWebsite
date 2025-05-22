@@ -299,6 +299,8 @@
           </p>
         </div>
         <!-- Creating environments. -->
+
+        
 <!------------------------------------------------------------------------------SPHERICAL GAUSSIANS----------------------------------------------------------------------------->
         
 <h3 class="title is-4">III-A. 3D Differentiable Rasterization with Spherical Gaussians</h3>
@@ -398,6 +400,38 @@
   </p>
 </div>
         <!--/ Creating environments. -->
+
+<!------------------------------------------------------------------------------CLIP LOSS----------------------------------------------------------------------------->
+
+  <h3 class="title is-4">III-B. CLIP-based Objective</h3>
+<div class="content has-text-justified">
+  <p>
+    To guide the optimization of the 3D Bézier sketch toward both geometrically accurate and semantically meaningful representations, we leverage a CLIP-based loss function. This loss encourages the rendered sketch views to match the real images not just pixel-wise but in high-level perceptual and semantic space. Following the strategy of CLIPasso, we define a dual-component objective that combines semantic similarity and geometric alignment, each captured from different layers of a pretrained CLIP model.
+  </p>
+
+  <p>
+    The final loss is a weighted sum of the semantic and geometric components:
+  </p>
+
+  <p>
+    <script type="math/tex; mode=display">
+      \mathcal{L} = w_s \,\mathcal{L}_{\mathrm{semantic}}
+           + w_g \,\mathcal{L}_{\mathrm{geometric}}
+    </script>
+  </p>
+
+  <p>
+    Here, <script type="math/tex">w_s</script> and <script type="math/tex">w_g</script> are hyperparameters that balance the contribution of each term. The semantic loss <script type="math/tex">\mathcal{L}_{\mathrm{semantic}}</script> is computed using the output of CLIP’s final fully connected layer, which captures the global alignment between rendered sketches and their corresponding RGB images in CLIP’s joint vision-language embedding space.
+  </p>
+
+  <p>
+    The geometric loss <script type="math/tex">\mathcal{L}_{\mathrm{geometric}}</script> captures local spatial structure and can be extracted either from CLIP’s early convolutional layers or from token-wise attention maps, depending on the selected variant. This term ensures that the layout and fine-scale details of the projected sketches align with real-world object contours.
+  </p>
+
+  <p>
+    During training, the 3D sketch is projected into 2D using the differentiable rasterizer described in Section III-A. The resulting image is then passed through CLIP alongside its target RGB counterpart. The cosine distance between their embeddings drives the optimization, gradually refining the control points of the Bézier curves so that the rendered sketches become increasingly perceptually and semantically aligned with real views.
+  </p>
+</div>
 <!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
         <h3 class="title is-4">III-C. Model Training</h3>
         <div class="content has-text-justified">
