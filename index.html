@@ -166,7 +166,9 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Sketch abstraction allows objects to be represented with minimal yet meaningful visual elements. While recent methods enable machines to generate 2D sketches from images, they remain limited to flat representations. In this project, we extend sketch abstraction to 3D by optimizing Bézier curves on reconstructed surfaces, using CLIP-based losses to produce semantically meaningful and view-consistent wireframe sketches.
+            Sketch abstraction allows objects to be represented with minimal yet meaningful visual elements. 
+            While recent methods enable machines to generate 2D sketches from images, they remain limited to flat representations. 
+            In this project, we extend sketch abstraction to 3D by optimizing Bézier curves on reconstructed surfaces, using CLIP-based losses to produce semantically meaningful and view-consistent wireframe sketches.
           </p>
         </div>
 
@@ -213,7 +215,7 @@
     </div>
     <!--/ Abstract. -->
 
-    <!-- Paper video. -->
+    <!-- Paper video.
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
@@ -222,7 +224,7 @@
         </div>
       </div>
     </div>
-    <!--/ Paper video. -->
+    Paper video. -->
   </div>
 </section>
 
@@ -237,22 +239,14 @@
         <h2 class="title is-3" id="intro">I. Introduction</h2>
         <div class="content has-text-justified">
           <p>
-            The natural world is full of fascinating and complex interactions between predators and prey, with each constantly
-            adapting and evolving to survive. As researchers seek to better understand these dynamics, visual intelligence has
-            emerged as a critical field of study, allowing us to gain new insights into how animals perceive and react to their
-            environments.
+            Sketching is a powerful form of abstraction that captures the essence of objects using minimal visual elements. 
+            This process requires selecting key visual features that convey meaning while omitting others, which demands a level of semantic understanding that is more difficult for machines than for humans. 
+            Recent advances, such as CLIPasso \cite{vinker2022clipasso}, have enabled machines to automatically convert images into recognizable abstract sketches using semantic information utilizing SOTA image-text representation method Contrastive Language–Image Pretraining (CLIP) \cite{CLIP}. 
+            However, these methods are currently limited to two dimensions. 
           </p>
           <p>
-            In this work, we investigate the role of vision in prey-predator settings by leveraging reinforcement learning
-            to train agents in simulated environments. Specifically, we are interested in how the field of view and the region of
-            binocular vision affect the strategies and effectiveness used by predators and prey to hunt or evade respectively.
-            We train predator and prey agents with varying vision fields in non-trivial environments with obstacles. The
-            vision fields we experiment with are inspired by typical real-world predators and prey.
-          </p>
-          <p>
-            To evaluate the effectiveness of our approach, we both quantitatively evaluate agent performance in new environments and qualitatively observe
-            the emergent strategies and behaviours of the agents under different configurations. Our work builds upon existing literature in this area to gain a deeper understanding of how differences in visual
-            perception can influence predator-prey interactions.
+            In this project, we try to extend this idea to 3D: can machines generate 3D sketches that preserve both semantic and geometric information of an object? 
+            Addressing this question could open up new possibilities for visual communication and rapid prototyping, paving the way for innovative tools in 3D design and visualization.
           </p>
         </div>
       </div>
