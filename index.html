@@ -298,68 +298,27 @@
           </p>
         </div>
         <!-- Creating environments. -->
-        <h3 class="title is-4">III-A. Environments</h3>
+<!------------------------------------------------------------------------------SPHERICAL GAUSSIANS----------------------------------------------------------------------------->
+        
+        <h3 class="title is-4">III-A. Differentiable Rasterization with Spherical Gaussians</h3>
         <div class="content has-text-justified">
           <p>
-            We present a diverse set of simulated environments aimed at replicating various scenarios involving predator-prey interactions.
-            Our objective is to uncover a wide range of behaviors for the predators and prey. To achieve
-            this diversity, we incorporate obstacles such as trees and rocks within the environments. Additionally, we introduce walls along
-            the boundaries to confine the agents to the designated training area. This confinement allows us to concentrate the actions of an agent
-             and observations within a controlled environment.
-          </p>
-          <p>
-            Furthermore, we integrate physics-based simulations and collision detection mechanisms into the environment.
-            By assigning colliders to the predator and prey agent models, we ensure accurate detection of interactions with the
-            environment and other agents. Each object in the environment is assigned a corresponding tag, such as "obstacle",
-            "predator", or "prey", enabling efficient identification.
-          </p>
-          <p>
-            To speed up the learning process, we design the initial training environment ('Control' shown below) to be free of
-            obstacles. This approach eliminates potential obstructions that could slow down training progress in the early stages.
-            Subsequently, we create three additional training environments ('Forest', 'Escape Room' and 'Rocky') featuring distinct obstacle types:
-            small trees, large rocks, and a split doorway. These environments allow the agents to acquire the skills necessary for
-            navigating through increasingly complex situations involving obstacles, and should allow the prey agent to learn to exploit
-             occlusions.
-          </p>
-            <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/method_1.gif" alt="Rasterization of images using camera matrix from the constructred 3D sketch.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">Rasterization of images using camera matrix from the constructred 3D sketch.</span>
-                  </font>
-                </h5>
-              </div>
-            </div>
-          </div>
 
+          </p>
+          
           <div class="columns is-centered">
             <div class="column is-three-quarters">
               <div align="center" class="box">
-                <img src="static/website_assets/method_2.gif" alt="Obtaining the CLIP Loss between the RGB images of the views and sampled sketch views.">
+                <img src="static/website_assets/method_4.gif" alt="Training the model until loss converges.">
                 <h5 class="subtitle has-text-centered">
                   <font size="-0.7">
-                    <span style="font-weight:normal">Obtaining the CLIP Loss between the RGB images of the views and sampled sketch views.</span>
+                    <span style="font-weight:normal">Training the model until loss converges.</span>
                   </font>
                 </h5>
               </div>
             </div>
           </div>
-
-          <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/method_3.gif" alt="Optimizing the control points using the backpropagated loss.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">Optimizing the control points using the backpropagated loss.</span>
-                  </font>
-                </h5>
-              </div>
-            </div>
-          </div>
-
+          
           <div class="columns is-centered">
             <div class="column is-three-quarters">
               <div align="center" class="box">
@@ -374,6 +333,84 @@
           </div>
         </div>
         <!--/ Creating environments. -->
+<!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
+        <h3 class="title is-4">III-C. Model Training</h3>
+        <div class="content has-text-justified">
+          <p>
+            The training phase aims to optimize a set of 3D Bézier curves such that their 2D projections resemble real object images when viewed from different camera angles. This is achieved through an iterative loop involving projection, perceptual comparison, and gradient-based refinement. By leveraging CLIP embeddings as a supervisory signal, the model learns to align the rendered sketch views with the semantics of real RGB views. The training continues until convergence, producing a geometry-aware sketch representation that is both visually and semantically faithful.
+          </p>
+            <div class="columns is-centered">
+            <div class="column is-three-quarters">
+              <div align="center" class="box">
+                <img src="static/website_assets/method_1.gif" alt="Rasterization of images using camera matrix from the constructred 3D sketch.">
+                <h5 class="subtitle has-text-centered">
+                  <font size="-0.7">
+                    <span style="font-weight:normal">Rasterization of images using camera matrix from the constructred 3D sketch.</span>
+                  </font>
+                </h5>
+              </div>
+            </div>
+          </div>
+          
+          <p>
+In each training iteration, the current 3D Bézier sketch is projected into 2D using the known camera intrinsics and extrinsics. This rasterization step generates a view-dependent binary sketch image that mimics how the 3D curves would appear from that specific viewpoint.          
+          </p>
+          
+          <div class="columns is-centered">
+            <div class="column is-three-quarters">
+              <div align="center" class="box">
+                <img src="static/website_assets/method_2.gif" alt="Obtaining the CLIP Loss between the RGB images of the views and sampled sketch views.">
+                <h5 class="subtitle has-text-centered">
+                  <font size="-0.7">
+                    <span style="font-weight:normal">Obtaining the CLIP Loss between the RGB images of the views and sampled sketch views.</span>
+                  </font>
+                </h5>
+              </div>
+            </div>
+          </div>
+
+          <p>
+  The projected sketch view is then compared to the corresponding RGB image of the same view. Both are encoded using CLIP’s vision-language model, and a cosine similarity loss is computed to quantify their perceptual alignment in the embedding space.
+          </p>
+
+          <div class="columns is-centered">
+            <div class="column is-three-quarters">
+              <div align="center" class="box">
+                <img src="static/website_assets/method_3.gif" alt="Optimizing the control points using the backpropagated loss.">
+                <h5 class="subtitle has-text-centered">
+                  <font size="-0.7">
+                    <span style="font-weight:normal">Optimizing the control points using the backpropagated loss.</span>
+                  </font>
+                </h5>
+              </div>
+            </div>
+          </div>
+
+          <p>
+  The CLIP loss is backpropagated through the differentiable projection and rendering pipeline to adjust the 3D control points of the Bézier curves. This step ensures that the curves evolve to better match the visual content of the reference images.
+          </p>
+
+          <div class="columns is-centered">
+            <div class="column is-three-quarters">
+              <div align="center" class="box">
+                <img src="static/website_assets/method_4.gif" alt="Training the model until loss converges.">
+                <h5 class="subtitle has-text-centered">
+                  <font size="-0.7">
+                    <span style="font-weight:normal">Training the model until loss converges.</span>
+                  </font>
+                </h5>
+              </div>
+            </div>
+          </div>
+
+           <p>
+  This process is repeated iteratively for all views in the dataset. Over time, the loss steadily decreases as the curves converge to a semantically accurate and geometrically coherent representation of the object across all viewpoints.
+          </p>
+
+          
+        </div>
+        <!--/ Creating environments. -->
+  <!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
 
       </div>
     </div>
