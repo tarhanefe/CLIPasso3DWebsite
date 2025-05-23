@@ -749,45 +749,63 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
 </section>
 
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
-}</code></pre>
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- References Section -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">References</h2>
+
+        <div class="content has-text-justified">
+          <ol class="references">
+            <li>
+              Y. Vinker, E. Pajouheshgar, J. Y. Bo, R. C. Bachmann, A. H. Bermano, D. Cohen-Or, A. Zamir, and A. Shamir. 
+              CLIPasso: Semantically-aware object sketching. 
+              <i>ACM Transactions on Graphics (TOG)</i>, vol. 41, no. 4, July 2022. 
+              <a href="https://doi.org/10.1145/3528223.3530068">https://doi.org/10.1145/3528223.3530068</a>.
+            </li>
+            <li>
+              B. Kerbl, G. Kopanas, T. Leimkuehler, and G. Drettakis. 
+              3D Gaussian Splatting for Real-Time Radiance Field Rendering. 
+              <i>ACM Transactions on Graphics (TOG)</i>, vol. 42, pp. 1–14, 2023. 
+              <a href="https://api.semanticscholar.org/CorpusID:259267917">https://api.semanticscholar.org/CorpusID:259267917</a>.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!--/ References Section -->
+
   </div>
 </section>
 
+  
 
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+      <!-- Optional icon link (e.g., to GitHub repo) -->
+      <a class="icon-link" href="https://github.com/tarhanefe/clipasso3d" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
     </div>
+
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
+          <h6 class="title is-6">Individual Contributions</h6>
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
+            E.T. developed and implemented the 3D spherical Gaussian splatting structure and the differentiable rasterization algorithms.
+            E.T. also designed the 3D training scheme and ran experiments on both single-view and multi-view datasets.
+            A.R. contributed by evaluating the rendering pipeline with multi-view data.
+            F.M. implemented saliency map computation and constructed the dataset generation pipeline using Blender.
+            E.I. assisted in implementing differentiable rasterization, refining the training loop, and setting up camera sampling.
           </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
-          </p>
+          <p><em>
+            This website is based on the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies website template</a>,
+            which is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </em></p>
         </div>
       </div>
     </div>
