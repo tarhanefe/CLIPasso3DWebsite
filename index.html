@@ -588,199 +588,739 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
           
         </div>
         <!--/ Creating environments. -->
-  <!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
-
       </div>
     </div>
   </div>
 </section>
 
 
+<!------------------------------------------------------------------------------EXPERIMENTS & RESULTS----------------------------------------------------------------------------->
 
 
-
-
-<!------------------------------------------------------------------------------EXPERIMENTS----------------------------------------------------------------------------->
-
-  
-
-
-
-<!------------------------------------------------------------------------------CONCLUSION & LIMITATIONS---------------------------------------------------------------->
-
-  
-
-
-  
-<section class="section">
+  <section class="section">
   <div class="container is-max-desktop">
-
+    <!-- Experiments. -->
     <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" id="exp">IV. Experiments</h2>
 
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
+        <p>
+          In this section, we discuss the setup and results of the experiments in detail. Regarding results, we first discuss the training progression, after which we do both a qualitative and
+          a quantitative analysis of the different agent configurations.
+        </p>
+        <br>
+
+        <!-- Inference environments. -->
+        <h3 class="title is-4">IV-A. Experimental Setup</h3>
+
+        <br/>
+        <div class="content has-text-justified">
+          <div class="container">
+            <!-- <h2 class="title is-2 has-text-centered">Model and Behavior Parameters</h2> -->
+                <h3 class="title is-5">Agent parameters</h3>
+
+                <div class="box">
+                  <div class="table-container">
+                      <table class="table" align="center">
+                          <thead>
+                              <tr>
+                                  <th></th>
+                                  <th>Rays per direction</th>
+                                  <th>Depth rays per direction</th>
+                                  <th>Max ray degrees</th>
+                                  <th>Ray length</th>
+                                  <th>Observation stacks</th>
+                                  <th>Field of view</th>
+                                  <th>Binocular region</th>
+                                  <th>Maximum movement speed</th>
+                                  <th>Maximum rotation speed</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td><b>Prey-style</b></td>
+                                  <td>30</td>
+                                  <td>4</td>
+                                  <td>160</td>
+                                  <td>15</td>
+                                  <td>5</td>
+                                  <td><em>320°</em></td>
+                                  <td><em>43°</em></td>
+                                  <td><em>8</em></td>
+                                  <td><em>8</em></td>
+                              </tr>
+                              <tr>
+                                  <td><b>Predator-style</b></td>
+                                  <td>30</td>
+                                  <td>20</td>
+                                  <td>85</td>
+                                  <td>15</td>
+                                  <td>5</td>
+                                  <td><em>170°</em></td>
+                                  <td><em>113°</em></td>
+                                  <td><em>6</em></td>
+                                  <td><em>2</em></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div align="center">
+                  <font size="-0.7">
+                    <span style="font-weight:normal">
+                      Parameters of the prey and predator-style vision sensors, and the behavioural parameters used for the agents.
+                  </span>
+                  </font>
+                  </div>
+                </div>
+
+                <p>Firstly, we establish two distinct categories of vision: prey-style and predator-style.
+                  This can be seen in the table above.
+                  Prey-style vision emphasizes a broad field of view while limiting the binocular region,
+                  whereas predator-style vision exhibits the opposite characteristics. Additionally, for both agents we
+                  stack the observations to simulate a brief memory of recent events.
+                </p>
+
+                <p>
+                  During inference, we designate the maximum speed of the prey to be greater
+                  than that of the predator. We adopt this approach to give the prey a better chance to play out
+                  its learned strategies rather than getting caught too quickly in each episode.
+
+                </p>
+
+                <div class="columns is-centered">
+                  <div class="column is-three-fifths">
+                    <div class="box">
+                      <img src="static/images/sensor_configs.png" alt="Vision sensor configurations">
+                      <h5 class="subtitle has-text-centered">
+                        <font size="-0.7">
+                          <span style="font-weight:normal">
+                            The combinations of vision sensors used for the predator and prey in the experiments.
+                        </span>
+                        </font>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+
+                <p>
+                  As depicted in the figure above, we train agents in \(4\) configurations to cover each combination of
+                  vision types for the predator and prey. The trained models are then used to perform inferences.
+                </p>
+
+          </div>
+        </div>
+
+        <div class="content has-text-justified">
+          <div class="container">
+
+            <h3 class="title is-5">Training details</h3>
+            <p>
+              The agents are trained on all environments mentioned in the methodology section in parallel, using the parameters mentioned in the agent parameters section.
+              The only difference is that the maximum speed of the prey was set to \(5.5\). By having environments of different difficulties,
+              a speed-up in training can be observed, similar as in curriculum learning <a href="https://dl.acm.org/doi/abs/10.1145/1553374.1553380?casa_token=nh2ZrojaWoAAAAAA:ch-UtBUm-jXdt36EJoGrONsdXTfKYTOF9g3wpMqUjykIzeeCv2_d4p2hoGlyuJRGTlWCdZyWmPVmmg">[13]</a>,
+              <a href="https://dl.acm.org/doi/abs/10.5555/3455716.3455897">[14]</a>. Furthermore, three agents of each type were present
+              in each environment. Although this could make the environment unstable due to partial observability, it greatly enhances training speed.
+            </p>
+            <p>
+              The predator and prey were each trained self-play for \(9 \cdot 10^6\) steps, where one step corresponds to
+              one frame in the simulation. The swap between the frozen training teams happens every \(3 \cdot 10^5\) training steps. At
+              each episode, the agent is spawned with a random rotation the y-axis, and the maximum episode duration is \(10^4\).
+              The model plays against the most recent version of the agent \(80\%\) of the time. The models both consist of
+              a \(3\) hidden-layer MLP with \(512\) neurons with batch normalisation at each layer. The model is optimized using
+              PPO with the Adam <a href="https://arxiv.org/abs/1412.6980">[15]</a> optimizer with a learning rate of \(0.0003\) and no decay. Finally, the buffer sizes of both
+              agents are set to \(40960\).
+            </p>
+
+            <h3 class="title is-5">Inference environments</h3>
+            <p>
+              For testing the agents we design new out of distribution environments with varying levels of complexity. The control
+              environment, like in training, consists of an empty environment. Additional environments include similar obstacles and
+              hiding spots in different configurations, introducing more blind spots for the prey to utilize for protection. The inference
+              environments are shown below.
+            </p>
+
+          </div>
+        </div>
+
+        <br/>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <a href="./static/images/inference/control.jpg" data-lightbox="image">
+            <img src="./static/images/inference/control.jpg" alt="Control Image">
+          </a>
+          <div class="caption">
+            <h2 class="subtitle has-text-centered"><font size="-0.7">Control</font></h2>
+            <p class="subcaption has-text-centered">Screenshot of Training Environment: Control</p>
+          </div>
+        </div>
+        <div class="item">
+          <a href="./static/images/inference/trees.jpg" data-lightbox="image">
+            <img src="./static/images/inference/trees.jpg" alt="Trees Image">
+          </a>
+          <div class="caption">
+            <h2 class="subtitle has-text-centered"><font size="-0.7">Trees</font></h2>
+            <p class="subcaption has-text-centered">Screenshot of Training Environment: Trees</p>
+          </div>
+        </div>
+        <div class="item">
+          <a href="./static/images/inference/rocks.jpg" data-lightbox="image">
+            <img src="./static/images/inference/rocks.jpg" alt="Rocks Image">
+          </a>
+          <div class="caption">
+            <h2 class="subtitle has-text-centered"><font size="-0.7">Rocks</font></h2>
+            <p class="subcaption has-text-centered">Screenshot of Training Environment: Rocks</p>
+          </div>
+        </div>
+        <div class="item">
+          <a href="./static/images/inference/hide.jpg" data-lightbox="image">
+            <img src="./static/images/inference/hide.jpg" alt="Hide Image">
+          </a>
+          <div class="caption">
+            <h2 class="subtitle has-text-centered"><font size="-0.7">Hide</font></h2>
+            <p class="subcaption has-text-centered">Screenshot of Training Environment: Hide</p>
+          </div>
+        </div>
+        <div class="item">
+          <a href="./static/images/inference/seek.jpg" data-lightbox="image">
+            <img src="./static/images/inference/seek.jpg" alt="Seek Image">
+          </a>
+          <div class="caption">
+            <h2 class="subtitle has-text-centered"><font size="-0.7">Seek</font></h2>
+            <p class="subcaption has-text-centered">Screenshot of Training Environment: Seek</p>
+          </div>
         </div>
       </div>
-      <!--/ Visual Effects. -->
+    </div>
+    <h6 class="subtitle has-text-centered">
+      Environments used for inference
+    </h6>
+  </div>
+</section>
 
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Experiments. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+
+        <div class="content has-text-justified">
+          <div class="container">
+            <h3 class="title is-5">Hardware</h3>
             <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
+              The models were trained using a CUDA-enabled NVIDIA
+              V100 PCIe \(32\) GB GPU with \(7\) TFLOPS, a Xeon-Gold processor running with a \(2.1\) GHz clock speed, and \(16\) GB of
+              RAM. Our method is implemented with Unity’s ML-Agents package and PyTorch, running on Linux with Python 3.7.
             </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Experiments. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Experiments. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+
+        <!-- Results. -->
+        <!-- Include median_time_survived.html using an iframe -->
+        <h3 class="title is-4">IV-B. Results</h3>
+        <div class="content has-text-justified">
+          <div class="content has-text-justified">
+            <div class="container">
+              <!-- <h2 class="title is-2 has-text-centered">Model and Behavior Parameters</h2> -->
+                  <h3 class="title is-5">Training results</h3>
+                  <div class="box">
+                      <img src="./static/images/training-plot.png" alt="Reward plot during training">
+                      <h5 class="subtitle has-text-centered">
+                        <font size="-0.7">
+                          <span style="font-weight:normal">
+                            <b>(Left)</b> Average returns over \(9\) million steps of training for each agent configuration.
+                            <b>(Right)</b> Average episode lengths over \(9\) million steps of training for each agent configuration.
+                            Note that, unfortunately, the training logs for 'Normal' vision were lost. However the trend in rewards
+                            was similar to the other plots shown here. Furthermore, take note that the x-axis represents the number of steps,
+                            so if the predator was trained first, it would swap at the step \(300000\), and the x-label for the prey at total step \(300005\)
+                            would be \(5\). An exponential smoothing of strength \(0.8\) is used.
+                        </span>
+                        </font>
+                      </h5>
+                  </div>
+                  <p>
+                    The average returns during training for various vision configurations of predator and prey agents are illustrated in the left figure. It is
+                    observed that the PredatorBoth vision improves at a slower rate compared to other configurations, likely due to the reduced field of
+                    view when both agents have predator vision. However, this effect diminishes over time.
+                  </p>
+                  <p>
+                    In the right figure, we analyze the episode length throughout the training process. Interestingly, we consistently observe a decreasing trend in episode
+                    length across all configurations. It is important to note however that whilst it may seem like the predator is learning to consistenly dominate the
+                    prey, the training environment is heavily biased towards the predator since there are three predators which can all catch the prey. Thus, to judge
+                    the true performance of the agents we perform inference in a more balanced environment.
+                    </thead>
+                  </p>
+                  <br>
+            </div>
+
+
+            <div class="container">
+              <!-- <h2 class="title is-2 has-text-centered">Model and Behavior Parameters</h2> -->
+                <h3 class="title is-5">Inference results</h3>
+                <p>
+                The plot below shows median number of steps survived by the prey in the inference environments for
+                different configurations of vision sensors. We look at time survived in order to study the relative
+                performance of each agent in different settings (higher time indicates more effective prey, lower time indicates more
+                effective predator). We use median so that the results are not swayed by outliers which might be caused due to
+                no interactions between the predator and prey, for example if they get stuck in an obstacle for an episode.
+                </p>
+                <div class="box">
+                  <iframe src="./static/figures/median_time_survived.html" frameborder="0" width="100%" height="500px"></iframe>
+                </div>
+
+                <br>
+                <p>
+                To comment further on the learned strategies of the agents under different configurations and to identify the
+                reasons for the results we see above, we qualitatively assess some key behaviour patterns of the trained agents
+                in each configuration.
+                </p>
+                <h3 class="title is-6">Normal vision</h3>
+                <p>
+                  This configuration features agents that are trained with their typical real-world vision field. We observe
+                  many instances that suggest both agents have learnt strategies to maximize their reward.
+                  The prey performs significantly worse with this configuration in the control environment, suggesting that it has learnt to
+                  effectively use obstacles in the other environments to evade the predator.
+                </p>
+                <p>
+                  <em>Predator:</em> Chases the prey while trying to keep it in its binocular region. When the prey is in the monocular region
+                  it seems to favour rotation with slower movement speed, but when the prey is in its binocular region it makes bigger steps towards
+                  the prey. This likely hints at the importance of depth information for the predator, but it's possible that this is also influenced by the fact
+                  that the agents have very little memory (as evidenced by the predator forgetting about the prey as it falls out of its vision field),
+                  and is thus trying to simply keep the prey within its vision field for as long as possible.
+                </p>
+                <p>
+                  <em>Prey:</em> As seen below, it has visibly learnt ways to evade the predators. It is able to keep track of the
+                  predator using its monocular vision  and also uses obstacles to its advantage
+                  by either hiding behind or going around them. It also uses a zig zag motion to avoid the predator
+                  being in its blind spot.
+                </p>
+            </div>
+          </div>
+        </div>
+
+
+        <!--/ Results. -->
+
+      </div>
+    </div>
+    <!--/ Experiments. -->
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" controls playsinline height="100%">
+            <source src="./static/videos/Normal/Trees1.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey evading the predator using the trees. Predator forgetting about the prey.
+          </h2>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" controls playsinline height="100%">
+            <source src="./static/videos/Normal/hiding.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey hiding behind the rock unseen by the predator
+          </h2>
+        </br>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" controls playsinline height="100%">
+            <source src="./static/videos/Normal/zig-zag.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey exhibitsing zig-zag movement when the predator is behind
+          </h2>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" controls playsinline height="100%">
+            <source src="./static/videos/Normal/prey-bivsmonovison-behaviour-control.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Different behaviours when the prey is in the binocular/monocular FOV of the predator
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Experiments. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+
+        <!-- Results. -->
+        <!-- Include median_time_survived.html using an iframe -->
+        <div class="content has-text-justified">
+          <div class="content has-text-justified">
+            <h3 class="title is-6">Both predator</h3>
+            <p>
+              Since the prey is trained using predator-style vision, its blind spot is much larger, thus the prey is unaware if
+              it is being chased from behind. It can only rely on cues ahead of it to keep track of objects and the predator.
+            </p>
+            <p>
+              Overall in this configuration there are also many instances which show that the prey has failed to properly learn to evade,
+              even when the predator is directly in its vision field, indicating that these agents likely require further training.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" controls playsinline height="100%">
+            <source src="./static/videos/PredatorBoth/Control.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey failed to learn to effectively evade predator
+          </h2>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" controls playsinline height="100%">
+            <source src="./static/videos/PredatorBoth/trees.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey cannot react to predator approaching from behind (blind spot)
+          </h2>
+        </br>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="chair-tp" controls playsinline height="100%">
+            <source src="./static/videos/PredatorBoth/not_trained_enough.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey movement indicating that further training is required
+          </h2>
+        </div>
+        <div class="item item-chair-tp">
+        </div>
             </video>
           </div>
-
         </div>
       </div>
     </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
 
 
 <section class="section">
   <div class="container is-max-desktop">
-
-    <!-- References Section -->
+    <!-- Experiments. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">References</h2>
 
+        <!-- Results. -->
+        <!-- Include median_time_survived.html using an iframe -->
         <div class="content has-text-justified">
-          <ol class="references">
-            <li>
-              Y. Vinker, E. Pajouheshgar, J. Y. Bo, R. C. Bachmann, A. H. Bermano, D. Cohen-Or, A. Zamir, and A. Shamir. 
-              CLIPasso: Semantically-aware object sketching. 
-              <i>ACM Transactions on Graphics (TOG)</i>, vol. 41, no. 4, July 2022. 
-              <a href="https://doi.org/10.1145/3528223.3530068">https://doi.org/10.1145/3528223.3530068</a>.
-            </li>
-            <li>
-              B. Kerbl, G. Kopanas, T. Leimkuehler, and G. Drettakis. 
-              3D Gaussian Splatting for Real-Time Radiance Field Rendering. 
-              <i>ACM Transactions on Graphics (TOG)</i>, vol. 42, pp. 1–14, 2023. 
-              <a href="https://api.semanticscholar.org/CorpusID:259267917">https://api.semanticscholar.org/CorpusID:259267917</a>.
-            </li>
-          </ol>
+          <div class="content has-text-justified">
+            <h3 class="title is-6">Both prey</h3>
+            <p>
+              The median time survived by the prey is significantly higher across all environments in this configuration,
+              indicating that the predator trained with prey-style vision is likely ineffective, whilst the prey is able to
+              learn effetively.
+            </p>
+            <p>
+              <em>Predator:</em> Exhibits less aggressive behaviour and more tracking(in order to keep the prey in its narrow
+              depth FOV) by rotating when the prey is in its monocular
+              vision. The lower aggression exhbited by the predator is a major reason for longer median survival time
+              of the prey.
+            </p>
+            <p>
+              <em>Prey:</em> We observe that the prey has
+              learnt evasive strategies similar to the prey in the normal configuration. This can be
+              seen in the video of the prey evading the predator in the control environment.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <!--/ References Section -->
-
   </div>
 </section>
 
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" controls playsinline height="100%">
+            <source src="./static/videos/PreyBoth/Control.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey both performing well in the control environment
+          </h2>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" controls playsinline height="100%">
+            <source src="./static/videos/PreyBoth/rotation.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Rotational behaviour preferred by agent when the adversary is in the monocular FOV
+          </h2>
+        </br>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" controls playsinline height="100%">
+            <source src="./static/videos/PreyBoth/Trees.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey exhibiting evasive maneuvers
+          </h2>
+        </div>
+        <div class="item item-fullbody">
+        </div>
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Experiments. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+
+        <!-- Results. -->
+        <!-- Include median_time_survived.html using an iframe -->
+        <div class="content has-text-justified">
+          <div class="content has-text-justified">
+            <h3 class="title is-6">Swapped vision</h3>
+            <p>
+              This configuration has lower median time survived for the prey in all environments except control.
+            </p>
+            <p>
+              <em>Prey:</em> Exhibits behaviours suggesting that it has learnt to keep track of the predator in its frontal vision field
+              and move backwards to run away from the predator. However since it is lacking a wide field of view, it is unware of the
+              objects behind it and runs into them, making it an easy target. Thus the prey performs worse in environments with many
+              obstacles (such as trees) and better in control which has no obstacles.
+              In many examples it keeps backing up into the walls and corners until it is eventually caught
+              by the predator. This is likely due to a lack of memory and positional information, which means that the agent doesn't realise that it's
+              actions are futile and it's not moving anywhere.
+            </p>
+            <p>
+              <em>Predator:</em> Since it is trained on prey-style vision, it continues to rotate to try keep the prey in its binocular region,
+              similar to the both-prey configuration. However since the prey is also less effective with predator-style vision, the predator
+              has more success in this case with the median survival time for the prey being lower than the both-prey case (except for in control where the
+              prey can be effective with predator-style vision).
+            </p>
+            <p>
+
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" controls playsinline height="100%">
+            <source src="./static/videos/Swapped/Trees.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey learns to evade by keep predator in the depth FOV
+          </h2>
+        </div>
+
+        <div class="item item-shiba">
+          <video poster="" id="shiba" controls playsinline height="100%">
+            <source src="./static/videos/Swapped/backing-into-corner.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey backs up into a corner trying to evade the predator
+          </h2>
+        </br>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" controls playsinline height="100%">
+            <source src="./static/videos/Swapped/Control-lasts-longer.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey surviving longer in the control environment due to lack of obstacles
+          </h2>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" controls playsinline height="100%">
+            <source src="./static/videos/Swapped/backing-into-wall.mp4"
+                    type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            Prey backing up into the wall lacking memory and perception behind it
+          </h2>
+        </div>
+
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!------------------------------------------------------------------------------CONC  & LIMITATIONS----------------------------------------------------------------------------->
+
   
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Conclusions and limitations. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" id="conclusion">V. Conclusions and Limitations</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Our work investigates the role of vision in simulated predator-prey interactions. By varying the vision fields of predator and prey agents and training them using reinforcement learning, we make the following observations:
+            <ul>
+              <li> Depth information is crucial for predators, while prey also benefit from depth perception to a lesser extent.
+              <li> Prey require a wide field of view to navigate while detecting predators in their periphery, whereas predators primarily look in the direction of their movement and thus don't require as wide a FOV.
+              <li> Memory is crucial to visual perception in predator-prey interactions.
+            </ul>
+
+            These observations support the understanding of why real-world predators prioritize depth perception and prey prioritize a wide field of view in their vision systems.
+            </p>
+        </div>
+
+        <!-- Limitations. -->
+        <h3 class="title is-4">V-A. Limitations and Future Work</h3>
+        <div class="content has-text-justified">
+          <p>
+            Although the initial results are promising, our approach has several limitations.
+            Real-life predator prey interactions are incredibly complex, and it’s almost impossible to capture all these complexities in a simple simulated environment such as this.
+            The most pertinent limitations and potential future work include:
+          </p>
+          <ul>
+            <li>
+              The predator and prey agents sometimes displayed untrained or random behaviour, suggesting a need for further training.
+              For comparison, OpenAI's hide and seek environment required ~\(2.7\) million episodes for seekers to consistently chase hiders, even
+              with the aid of a curriculum learning approach. Our training lasted only around \(10\) million steps (order of magnitude of
+              ~\(10^4\) episodes). Although training on OpenAI's scale is not feasible, additional training or alternative strategies
+              such as curriculum learning could improve the agents.
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+               Memory is crucial to complement vision in predator-prey scenarios, however our agents had virtually no memory.
+               This, coupled with the lack of positional information to understand when they were stuck, greatly affected the agents performance.
+               To address these issues, we could increase the observation stack to give the agents
+               more memory, whilst including past positional information as an additional observation. Using a recurrent neural network
+               instead of a vanilla multi-layer perceptron could also better model the temporal information.
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              Depth perception seems to play an important role for both predators and prey, but our simplified sensor
+              assumes no depth perception outside of the binocular region which isn't strictly true. There are various
+              monocular depth cues as well (as shown in the figure below) that both predators and prey in reality could
+              make use of in their periphery. Thus, using a more complex sensor as such adding noisy depth estimates rather
+              than no depth information in the monocular regions could help improve learning.
+            </li>
+          </ul>
+
+          <div class="columns is-centered">
+            <div class="column is-half">
+              <div align="center" class="box">
+                <img src="static/images/monocular-visual-cues.jpg" alt="https://jackwestin.com/resources/mcat-content/perception/perceptual-organization">
+                <h5 class="subtitle has-text-centered">
+                  <font size="-0.7">
+                    <span style="font-weight:normal">Examples of depth cues available from monocular vision</span>
+                  </font>
+                </h5>
+              </div>
+            </div>
+          </div>
+
+
+          <ul>
+            <li>
+              We simplified the action space for our agents by restricting them to backward/forward movement and rotation. In reality,
+              predators and prey have more degrees of freedom, such as the ability to turn their heads and look in different directions
+              while moving. This additional freedom, combined with memory, could for example provide advantages for prey with predator vision. They
+              could look backward to assess the predator's location and then look forward again to escape, similar to how humans (who have
+              predator-style vision) might behave when being chased.
+            </li>
+          </ul>
+
+          <p>
+            Furthermore, in this initial work, we only investigate a discrete set of vision fields. However, a similar
+            setup could also be used to instead optimise the vision fields for each agent's goal of evading/hunting,
+            given some physical constraints.
+          </p>
+
+        </div>
+        <br/>
+        <!--/ Limitations and future work-->
+
+      </div>
+    </div>
+    <!--/ Conclusions and limitations. -->
+  </div>
+</section>
+
+
+
+<!------------------------------------------------------------------------------CONTRIBUTIONS---------------------------------------------------------------->
+
 
 <footer class="footer">
   <div class="container">
