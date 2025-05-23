@@ -1228,14 +1228,15 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
 
         <div class="content has-text-justified">
           <p>
-            Our work investigates the role of vision in simulated predator-prey interactions. By varying the vision fields of predator and prey agents and training them using reinforcement learning, we make the following observations:
+            Our work explores the use of CLIP-based objectives for 3D sketch abstraction via differentiable Bézier curves. Through our implementation and experimentation, we make the following observations:
             <ul>
-              <li> Depth information is crucial for predators, while prey also benefit from depth perception to a lesser extent.
-              <li> Prey require a wide field of view to navigate while detecting predators in their periphery, whereas predators primarily look in the direction of their movement and thus don't require as wide a FOV.
-              <li> Memory is crucial to visual perception in predator-prey interactions.
+              <li> Depth ambiguity in single-view optimization leads to visually plausible but geometrically inconsistent 3D reconstructions.
+              <li> Multi-view supervision stabilizes depth inference and leads to spatially coherent sketches across viewpoints.
+              <li> Differentiable Gaussian rasterization enables gradient-based optimization over curve control points, but memory efficiency is critical to scale.
+              <li> The 3D sketch generation task can be reduced to a Gaussian Splatting problem with alpha, color and variance parameters are fixed and mean values of the splats are subject to constraints as Beizer Curve control points:
             </ul>
 
-            These observations support the understanding of why real-world predators prioritize depth perception and prey prioritize a wide field of view in their vision systems.
+            These findings highlight the importance of viewpoint diversity and geometry-aware initialization in abstract 3D reconstruction tasks, and support the use of CLIP-based semantic loss as a viable surrogate when explicit 3D supervision is unavailable.
             </p>
         </div>
 
