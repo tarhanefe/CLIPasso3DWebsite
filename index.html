@@ -1244,68 +1244,63 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
         <h3 class="title is-4">V-A. Limitations and Future Work</h3>
         <div class="content has-text-justified">
           <p>
-            Although the initial results are promising, our approach has several limitations.
-            Real-life predator prey interactions are incredibly complex, and it’s almost impossible to capture all these complexities in a simple simulated environment such as this.
-            The most pertinent limitations and potential future work include:
+            Although we have obtained promising results, there are several limitations in our work that could be addressed in future research:
           </p>
           <ul>
             <li>
-              The predator and prey agents sometimes displayed untrained or random behaviour, suggesting a need for further training.
-              For comparison, OpenAI's hide and seek environment required ~\(2.7\) million episodes for seekers to consistently chase hiders, even
-              with the aid of a curriculum learning approach. Our training lasted only around \(10\) million steps (order of magnitude of
-              ~\(10^4\) episodes). Although training on OpenAI's scale is not feasible, additional training or alternative strategies
-              such as curriculum learning could improve the agents.
-            </li>
-          </ul>
-
-          <ul>
-            <li>
-               Memory is crucial to complement vision in predator-prey scenarios, however our agents had virtually no memory.
-               This, coupled with the lack of positional information to understand when they were stuck, greatly affected the agents performance.
-               To address these issues, we could increase the observation stack to give the agents
-               more memory, whilst including past positional information as an additional observation. Using a recurrent neural network
-               instead of a vanilla multi-layer perceptron could also better model the temporal information.
-            </li>
-          </ul>
-
-          <ul>
-            <li>
-              Depth perception seems to play an important role for both predators and prey, but our simplified sensor
-              assumes no depth perception outside of the binocular region which isn't strictly true. There are various
-              monocular depth cues as well (as shown in the figure below) that both predators and prey in reality could
-              make use of in their periphery. Thus, using a more complex sensor as such adding noisy depth estimates rather
-              than no depth information in the monocular regions could help improve learning.
+              Multi-view consistency remains one of the most critical and challenging objectives in the field of 3D image generation and editing. In our work, despite employing batches of multi-view images and experimenting with various hyperparameter settings, we observed failures in achieving semantic consistency across views for certain objects.
+              Notably, we found that the CLIP-based loss occasionally overemphasizes semantic similarity at the expense of geometric coherence. For example, in the case of the horse model, the object may resemble a full horse from one viewpoint but appear as only a horse’s head from another. A similar inconsistency is evident in the GIF below, where the bicycle sketch exhibits view-dependent deformation appearent from the tires.
+              Addressing this issue requires further refinement of the training strategy—particularly in the initialization and optimization of Bézier control points. Additionally, a more careful tuning of the CLIP loss weighting parameters may help balance semantic alignment with geometric structure across views.
             </li>
           </ul>
 
           <div class="columns is-centered">
             <div class="column is-half">
               <div align="center" class="box">
-                <img src="static/images/monocular-visual-cues.jpg" alt="https://jackwestin.com/resources/mcat-content/perception/perceptual-organization">
+                <img src="static/results/bike/14.05 - bike - efe/semihelical.gif" alt="The bicycle sketch exhibits view-dependent deformation apparent from the tires">
                 <h5 class="subtitle has-text-centered">
                   <font size="-0.7">
-                    <span style="font-weight:normal">Examples of depth cues available from monocular vision</span>
+                    <span style="font-weight:normal"><em>The bicycle reconstruction exhibits view-dependent deformation apparent from the tires</em></span>
                   </font>
                 </h5>
               </div>
             </div>
           </div>
 
-
           <ul>
             <li>
-              We simplified the action space for our agents by restricting them to backward/forward movement and rotation. In reality,
-              predators and prey have more degrees of freedom, such as the ability to turn their heads and look in different directions
-              while moving. This additional freedom, combined with memory, could for example provide advantages for prey with predator vision. They
-              could look backward to assess the predator's location and then look forward again to escape, similar to how humans (who have
-              predator-style vision) might behave when being chased.
+               Another challenge encountered during training is the tendency of the optimization process to overfill the volume of the object when the number of Bézier curves becomes too high. As the sketch density increases, the CLIP-based loss drives the model to generate a solid, filled-in representation rather than preserving the sparse, abstract nature of a line-based sketch.
+              This behavior may be partially related to the previously discussed issue, where the CLIP loss struggles to maintain a proper balance between semantic and geometric alignment across views. However, it also appears to be influenced by the number of sketch curves: as more curves are introduced, the optimization increasingly prioritizes semantic coverage, effectively “filling in” the shape.
+              This effect is illustrated in the duck reconstruction GIF below, where the sketch—composed of 40 curves—visibly fills the object’s interior volume rather than outlining its structural features. 
+
+<div class="columns is-centered">
+            <div class="column is-half">
+              <div align="center" class="box">
+                <img src="static/results/duck/18.05 - duck_2 - efe/semihelical.gif" alt="The duck reconstruction exhibits a problem of volume-filling when number of lines to model the sketch is increased.">
+                <h5 class="subtitle has-text-centered">
+                  <font size="-0.7">
+                    <span style="font-weight:normal"><em>The duck reconstruction exhibits a problem of volume-filling when number of lines to model the sketch is increased.</em></span>
+                  </font>
+                </h5>
+              </div>
+            </div>
+          </div>
+
+              To address this problem, additional geometric constraints on curve proximity could be introduced to discourage excessive overlap. 
+              Alternatively, further improvements to the semantic-geometric balance described earlier may also alleviate this behavior. 
+              Exploring dynamic loss weighting strategies or incorporating structural priors remains a promising direction for future work.
             </li>
           </ul>
 
+          <ul>
+            <li>
+The initialization strategy for Bézier curves plays a critical role in achieving high-quality sketch reconstruction. In CLIPasso, curve initialization is guided by thresholding saliency maps produced by the CLIP model, enabling semantically meaningful placements in 2D. However, this approach does not generalize well to 3D, where surface geometry must be taken into account. To keep the scope of the project focused and tractable, we chose not to train a NeRF or Gaussian Splatting model to obtain 3D saliency maps for curve placement.
+
+Instead, we adopted a random initialization strategy, which, despite its simplicity, yielded reasonably good results. Nevertheless, we believe that the visual quality and consistency of the generated sketches could be significantly improved with more informed initialization schemes—particularly those that incorporate geometric priors or 3D-aware saliency cues.            </li>
+          </ul>
+
           <p>
-            Furthermore, in this initial work, we only investigate a discrete set of vision fields. However, a similar
-            setup could also be used to instead optimise the vision fields for each agent's goal of evading/hunting,
-            given some physical constraints.
+            In this project, we developed a novel sketch generation technique built upon the principles of Gaussian splatting, enhanced with task-specific constraints. While the visual quality of our results may fall short compared to state-of-the-art methods in the literature, the framework and research introduced here offer strong potential for reuse and extension. In particular, our approach provides a foundation for future academic work focused on task-oriented, constrained 3D applications—an area that remains largely underexplored and rich with opportunity.
           </p>
 
         </div>
