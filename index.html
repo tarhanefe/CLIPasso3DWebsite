@@ -611,7 +611,86 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
         <br>
 
         <!-- Inference environments. -->
-        <h3 class="title is-4">IV-A. Experimental Setup</h3>
+                <h3 class="title is-4">IV-A. Custom Blender Datasets</h3>
+
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+              <img src="./static/gt_gifs/bike_gt.gif" alt="Ground Truth Bike" style="max-width: 100%; height: auto;">
+              <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck" style="max-width: 100%; height: auto;">
+              <img src="./static/gt_gifs/horse_gt.gif" alt="Ground Truth Horse" style="max-width: 100%; height: auto;">
+              <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose" style="max-width: 100%; height: auto;">
+              <!--<img src="./static/gifs/rose_20.gif" alt="3D Abstract Sketch of Rose" style="max-width: 100%; height: auto;"> -->
+            </div>
+          </div>
+        </div> 
+
+        <h3 class="title is-4">IV-B. Training - Train & Test Splits</h3>
+
+        <section class="hero is-light is-small">
+          <div class="hero-body">
+            <div class="container">
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="item">
+                  <a href="./static/evolution_gif/training_evolution.gif" data-lightbox="image">
+                    <img src="./static/evolution_gif/training_evolution.gif" alt="Rocks Image">
+                  </a>
+                  <div class="caption">
+                    <h2 class="subtitle has-text-centered"><font size="-0.7">Rocks</font></h2>
+                    <p class="subcaption has-text-centered">Screenshot of Training Environment: Rocks</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <a href="./static/evolution_gif/training_evolution-2.gif" data-lightbox="image">
+                    <img src="./static/evolution_gif/training_evolution-2.gif" alt="Control Image">
+                  </a>
+                  <div class="caption">
+                    <h2 class="subtitle has-text-centered"><font size="-0.7">Control</font></h2>
+                    <p class="subcaption has-text-centered">Screenshot of Training Environment: Control</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <a href="./static/evolution_gif/training_evolution-3.gif" data-lightbox="image">
+                    <img src="./static/evolution_gif/training_evolution-3.gif" alt="Trees Image">
+                  </a>
+                  <div class="caption">
+                    <h2 class="subtitle has-text-centered"><font size="-0.7">Trees</font></h2>
+                    <p class="subcaption has-text-centered">Screenshot of Training Environment: Trees</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <a href="./static/evolution_gif/training_evolution-5.gif" data-lightbox="image">
+                    <img src="./static/evolution_gif/training_evolution-5.gif" alt="Hide Image">
+                  </a>
+                  <div class="caption">
+                    <h2 class="subtitle has-text-centered"><font size="-0.7">Hide</font></h2>
+                    <p class="subcaption has-text-centered">Screenshot of Training Environment: Hide</p>
+                  </div>
+                </div>
+                <div class="item">
+                  <a href="./static/evolution_gif/training_evolution-6.gif" data-lightbox="image">
+                    <img src="./static/evolution_gif/training_evolution-6.gif" alt="Seek Image">
+                  </a>
+                  <div class="caption">
+                    <h2 class="subtitle has-text-centered"><font size="-0.7">Seek</font></h2>
+                    <p class="subcaption has-text-centered">Screenshot of Training Environment: Seek</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h6 class="subtitle has-text-centered">
+              Environments used for inference
+            </h6>
+          </div>
+        </section>
+        
+        <h3 class="title is-4">IV-C. Experiments with hyperparameters</h3>
+
+        <h3 class="title is-5">Number of curves</h3>
+
+        <h3 class="title is-5">Batch size</h3>
+
+        <h3 class="title is-5">Curve thickness</h3>
 
         <br/>
         <div class="content has-text-justified">
