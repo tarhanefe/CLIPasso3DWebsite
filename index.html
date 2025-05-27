@@ -636,9 +636,8 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
 
         <h3 class="title is-4">IV-B. Training - Train & Test Splits</h3>
 
-        <section class="hero is-light is-small">
-          <div class="hero-body">
-            <div class="container">
+        <section class="section">
+            <div class="container is-max-desktop">
               <div id="results-carousel" class="carousel results-carousel">
                 <div class="item">
                   <a href="./static/evolution_gif/training_evolution.gif" data-lightbox="image">
@@ -690,7 +689,7 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
             <h6 class="subtitle has-text-centered">
               Environments used for inference
             </h6>
-          </div>
+          
         </section>
         
         <h3 class="title is-4">IV-C. Experiments with hyperparameters</h3>
@@ -698,6 +697,69 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
         <h3 class="title is-5">Number of curves</h3>
 
         <h3 class="title is-5">Batch size</h3>
+
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/gt_gifs/duck_gt.gif" 
+                  alt="Ground Truth Duck" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  Ground Truth Duck
+                </figcaption>
+              </figure>
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/experiments/batch_size/batch_size_1.gif" 
+                  alt="Duck batch size 1" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  1
+                </figcaption>
+              </figure>
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/experiments/batch_size/batch_size_2.gif" 
+                  alt="Duck batch size 2" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  2
+                </figcaption>
+              </figure>
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/experiments/batch_size/batch_size_3.gif" 
+                  alt="Duck batch size 3" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  3
+                </figcaption>
+              </figure>
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/experiments/batch_size/batch_size_4.gif" 
+                  alt="Duck batch size 4" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  4
+                </figcaption>
+              </figure>
+
+            </div>
+          </div>
+        </div>
 
         <h3 class="title is-5">Curve thickness</h3>
 
