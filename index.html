@@ -364,21 +364,13 @@
         <h2 class="title is-3" id="method">III. Methodology</h2>
         <div class="content has-text-justified">
           <p>
-            In this section, we present the methodology utilized for this paper. We first discuss the environment setup,
-            after which we detail how the predator and prey agents are created. Finally, we talk about how the agents are optimized.
+            In this section, we present the three key building blocks of our framework. First, we introduce a fully differentiable rasterization pipeline in which each Bézier curve is modeled as a sequence of spherical Gaussians sampled along its path and projected into 2D via camera intrinsics and extrinsics.
           </p>
           <p>
-            We create a 3D environment using the Unity game development engine <a href="https://unity.com/">[3]</a>. The selection of Unity as the engine
-            for creating the environment instead of a different simulator is motivated by several key factors. Mainly, Unity's ML-Agents
-            package <a href="https://arxiv.org/abs/1809.02627">[4]</a> offers support for the OpenAI Gym framework
-            <a href="https://arxiv.org/abs/1809.02627">[5]</a>, which is widely used in
-            reinforcement learning research. This way, Unity enables interaction between the environment and the learning algorithms,
-            allowing for efficient experimentation and evaluation of predator-prey agents.
+            To steer our 3D Bézier sketch toward both semantic fidelity and geometric precision, we use a CLIP-based loss function: a high-level semantic similarity term—aligning rendered views in the semantic space, and a geometric alignment term that preserves pixel-wise detail.
           </p>
           <p>
-            Moreover, the engine offers a wide range of built-in tools, such as physics simulations, ray tracing, and collision.
-            Finally, Unity provides a user-friendly and intuitive development environment, making it accessible to researchers with
-             varying levels of expertise.
+            Finally, we describe the model training, which alternates between projecting the current 3D curve set into 2D, computing the CLIP loss against ground-truth images for the current view, and backpropagating through the differentiable renderer to refine the Bézier control points until convergence.
           </p>
         </div>
         <!-- Creating environments. -->
