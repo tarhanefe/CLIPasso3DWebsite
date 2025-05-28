@@ -836,6 +836,13 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
 
         <h3 class="title is-5">Batch size</h3>
 
+        <p>
+          This hyperparameter determines how many camera views are processed together in each optimization step. 
+          With a batch size of 1, the curves are updated based on the loss from a single viewpoint at each step. 
+          Increasing the batch size aggregates the loss over multiple views, optimizing simultaneously for x views before performing a parameter update.
+          We experimented with batch sizes of 1, 2, 3, and 4.
+        </p>
+
         <div class="container is-max-desktop">
           <div class="hero-body">
             <div style="display: flex; justify-content: center; gap: 1rem;">
