@@ -183,9 +183,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Sketch abstraction allows objects to be represented with minimal yet meaningful visual elements. 
-            While recent methods enable machines to generate 2D sketches from images, they remain limited to flat representations. 
-            In this project, we extend sketch abstraction to 3D by optimizing Bézier curves on reconstructed surfaces, using CLIP-based losses to produce semantically meaningful and view-consistent wireframe sketches.
+            Sketch abstraction captures objects using minimal yet expressive visual elements. While recent advances have enabled the generation of 2D sketches from images, such representations remain limited to flat, two-dimensional views. In this project, we introduce a novel extension of sketch abstraction into 3D by optimizing Bézier curves using a constrained Gaussian splatting approach. We specifically restrict Gaussians to matte, single-color, spherical blobs that are placed strictly along Bézier curve paths. This constraint enforces a structured and interpretable wireframe representation while preserving the essence of visual abstraction. Our method generates 3D wireframe-like sketches that serve as compact and meaningful representations of objects, demonstrating strong qualitative results.
           </p>
         </div>
 
