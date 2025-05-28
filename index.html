@@ -889,6 +889,48 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
           </div>
         </div>
 
+        <h3 class="title is-5">Semantic loss weight</h3>
+
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/gt_gifs/rrose_gt.gif" 
+                  alt="Ground Truth Rose" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  
+                </figcaption>
+              </figure>
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/experiments/fc_loss/0.01_fc_loss.gif" 
+                  alt="Semantic loss weight 0.01" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  0.01
+                </figcaption>
+              </figure>
+
+              <figure style="display: flex; flex-direction: column; align-items: center;">
+                <img 
+                  src="./static/experiments/fc_loss/05_fc_loss.gif" 
+                  alt="Semantic loss weight 0.5" 
+                  style="max-width: 100%; height: auto;"
+                >
+                <figcaption class="subtitle is-6 has-text-centered">
+                  0.5
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
         <h3 class="title is-5">Curve thickness</h3>
 
         <div class="container is-max-desktop">
