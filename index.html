@@ -903,6 +903,12 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
 
         <h3 class="title is-5">Semantic loss weight</h3>
 
+        <p>
+          This hyperparameter controls the contribution of the semantic component within the CLIP-based loss function.
+          A higher weight places more emphasis on matching high-level semantic features of the input image rather than its exact geometry.
+          We experimented with semantic loss weights of 0.01 and 0.5.
+        </p>
+
         <div class="container is-max-desktop">
           <div class="hero-body">
             <div style="display: flex; justify-content: center; gap: 1rem;">
