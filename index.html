@@ -635,6 +635,13 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
 
         <h3 class="title is-4">IV-B. Training - Train & Test Splits</h3>
 
+        <p>
+        To verify that our 3D sketch abstractions remain spatially consistent from viewpoints not used during optimization, we split each multiview dataset into training and test sets.
+        During training, curve parameters are updated using the CLIP-based loss computed on the training views. 
+        Simultaneously, at each iteration, we render the current sketch from unseen test viewpoints and compute the CLIP loss against the corresponding test images. 
+        Below, we present the evolution of both training and test losses throughout the optimization process, along with visual snapshots illustrating the evolution of the 3D curves at different stages.        
+        </p>
+
         <section class="section">
             <div class="container is-max-desktop">
               <div id="results-carousel" class="carousel results-carousel">
