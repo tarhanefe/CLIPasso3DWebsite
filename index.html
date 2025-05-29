@@ -457,7 +457,7 @@
   </div>
 
   <p>
-  After generating the Gaussians, we render them through a differentiable rasterizer that projects the 3D Gaussians into 2D using camera intrinsics and extrinsics. The resulting image <script type="math/tex">\mathbf{V} \in \mathbb{R}^{W \times H}</script> is given by:
+  After generating the Gaussians, we render them through a differentiable rasterizer that projects the 3D Gaussians into 2D using camera intrinsics and extrinsics <a href="https://doi.org/10.1007/978-3-030-34372-9">[6]</a>. The resulting image <script type="math/tex">\mathbf{V} \in \mathbb{R}^{W \times H}</script> is given by:
 </p>
 
 <p>
@@ -520,7 +520,7 @@
 </p>
 
 <p>
-  This parametric formulation enables fine control over stroke shape and spatial distribution in 3D. The end-to-end differentiability of the pipeline allows training the sketch representation directly using image-level loss functions such as CLIP similarity. This was one of the key milestones proposed for the project.
+  This parametric formulation enables fine control over stroke shape and spatial distribution in 3D. The end-to-end differentiability of the pipeline allows training the sketch representation directly using image-level loss functions such as CLIP similarity.
 </p>
 </div>
         <!--/ Creating environments. -->
@@ -1170,6 +1170,9 @@ Instead, we adopted a random initialization strategy, which, despite its simplic
               </li>
               <li>
                 Y. Zhang, L. Wang, C. Zou, T. Wu, and R. Ma, “Diff3DS: Generating View-Consistent 3D Sketch via Differentiable Curve Rendering,” in Proc. 13th Int. Conf. Learning Representations (ICLR), 2025, <a href="https://doi.org/10.48550/arXiv.2405.15305">https://doi.org/10.48550/arXiv.2405.15305</a>.
+              </li>
+              <li>
+                R. Szeliski, Computer Vision: Algorithms and Applications, 2nd ed. Cham, Switzerland: Springer, 2022. [Online]. Available: <a href="https://doi.org/10.1007/978-3-030-34372-9">https://doi.org/10.1007/978-3-030-34372-9</a>.
               </li>
 
               <!-- Add more references as needed -->
