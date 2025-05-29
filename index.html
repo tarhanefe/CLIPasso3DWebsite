@@ -1041,13 +1041,11 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
           <p>
             Although we have obtained promising results, there are several limitations in our work that could be addressed in future research:
           </p>
-          <ul>
-            <li>
+          <p>
               Multi-view consistency remains one of the most critical and challenging objectives in the field of 3D image generation and editing. In our work, despite employing batches of multi-view images and experimenting with various hyperparameter settings, we observed failures in achieving semantic consistency across views for certain objects.
               Notably, we found that the CLIP-based loss occasionally overemphasizes semantic similarity at the expense of geometric coherence. For example, in the case of the horse model, the object may resemble a full horse from one viewpoint but appear as only a horse’s head from another. A similar inconsistency is evident in the GIF below, where the bicycle sketch exhibits view-dependent deformation appearent from the tires.
               Addressing this issue requires further refinement of the training strategy—particularly in the initialization and optimization of Bézier control points. Additionally, a more careful tuning of the CLIP loss weighting parameters may help balance semantic alignment with geometric structure across views.
-            </li>
-          </ul>
+          </p>
 
           <div class="columns is-centered">
             <div class="column is-half">
@@ -1062,8 +1060,7 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
             </div>
           </div>
 
-          <ul>
-            <li>
+          <p>
                Another challenge encountered during training is the tendency of the optimization process to overfill the volume of the object when the number of Bézier curves becomes too high. As the sketch density increases, the CLIP-based loss drives the model to generate a solid, filled-in representation rather than preserving the sparse, abstract nature of a line-based sketch.
               This behavior may be partially related to the previously discussed issue, where the CLIP loss struggles to maintain a proper balance between semantic and geometric alignment across views. However, it also appears to be influenced by the number of sketch curves: as more curves are introduced, the optimization increasingly prioritizes semantic coverage, effectively “filling in” the shape.
               This effect is illustrated in the duck reconstruction GIF below, where the sketch—composed of 40 curves—visibly fills the object’s interior volume rather than outlining its structural features. 
@@ -1084,15 +1081,13 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
               To address this problem, additional geometric constraints on curve proximity could be introduced to discourage excessive overlap. 
               Alternatively, further improvements to the semantic-geometric balance described earlier may also alleviate this behavior. 
               Exploring dynamic loss weighting strategies or incorporating structural priors remains a promising direction for future work.
-            </li>
-          </ul>
+          </p>
 
-          <ul>
-            <li>
+          <p>
 The initialization strategy for Bézier curves plays a critical role in achieving high-quality sketch reconstruction. In CLIPasso, curve initialization is guided by thresholding saliency maps produced by the CLIP model, enabling semantically meaningful placements in 2D. However, this approach does not generalize well to 3D, where surface geometry must be taken into account. To keep the scope of the project focused and tractable, we chose not to train a NeRF or Gaussian Splatting model to obtain 3D saliency maps for curve placement.
 
 Instead, we adopted a random initialization strategy, which, despite its simplicity, yielded reasonably good results. Nevertheless, we believe that the visual quality and consistency of the generated sketches could be significantly improved with more informed initialization schemes—particularly those that incorporate geometric priors or 3D-aware saliency cues.            </li>
-          </ul>
+          </p>
 
           <p>
             In this project, we developed a novel sketch generation technique built upon the principles of Gaussian splatting, enhanced with task-specific constraints. While the visual quality of our results may fall short compared to state-of-the-art methods in the literature, the framework and research introduced here offer strong potential for reuse and extension. In particular, our approach provides a foundation for future academic work focused on task-oriented, constrained 3D applications—an area that remains largely underexplored and rich with opportunity.
