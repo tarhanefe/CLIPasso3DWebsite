@@ -654,25 +654,47 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
           Finally, we report the outcomes of a series of experiments that vary key hyperparameters.
         </p>
         <br>
+<!------------------------------------------------------------------------------BLENDER DATASETS----------------------------------------------------------------------------->
 
         <!-- Inference environments. -->
         <h3 class="title is-4">IV-A. Custom Blender Datasets</h3>
 
         <p>
-          Classical NeRF datasets emphasize high‐resolution detail and sharp features to benchmark rendering accuracy. Such geometric complexity can impede our abstraction‐focused optimization. Therefore, we generated our own simplified multiview datasets in Blender.
+          Classical NeRF datasets emphasize high‐resolution detail and sharp features to benchmark rendering accuracy. Such geometric complexity can impede our abstraction‐focused optimization. Therefore, we generated our own multiview datasets using semantically and visually simple objects using Blender. To assess the performance of the used method, we have generated both training and the testing views.
         </p>
 
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-              <img src="./static/gt_gifs/bike_gt.gif" alt="Ground Truth Bike" style="max-width: 100%; height: auto;">
-              <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck" style="max-width: 100%; height: auto;">
-              <img src="./static/gt_gifs/horse_gt.gif" alt="Ground Truth Horse" style="max-width: 100%; height: auto;">
-              <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose" style="max-width: 100%; height: auto;">
-              <!--<img src="./static/gifs/rose_20.gif" alt="3D Abstract Sketch of Rose" style="max-width: 100%; height: auto;"> -->
-            </div>
-          </div>
-        </div> 
+        <section class="section">
+  <div class="container is-max-desktop">
+    <div id="dataset-carousel" class="carousel">
+      <div class="item">
+        <figure class="image is-4by3">
+          <img src="./static/gt_gifs/bike_gt.gif" alt="Ground Truth Bike">
+        </figure>
+        <div class="has-text-centered mt-2">Bike</div>
+      </div>
+      <div class="item">
+        <figure class="image is-4by3">
+          <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck">
+        </figure>
+        <div class="has-text-centered mt-2">Duck</div>
+      </div>
+      <div class="item">
+        <figure class="image is-4by3">
+          <img src="./static/gt_gifs/horse_gt.gif" alt="Ground Truth Horse">
+        </figure>
+        <div class="has-text-centered mt-2">Horse</div>
+      </div>
+      <div class="item">
+        <figure class="image is-4by3">
+          <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
+        </figure>
+        <div class="has-text-centered mt-2">Rose</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!------------------------------------------------------------------------------TRAIN-TEST SPLITS----------------------------------------------------------------------------->
 
         <h3 class="title is-4">IV-B. Training - Train & Test Splits</h3>
 
@@ -738,7 +760,9 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
             </h6>
           
         </section>
-        
+    
+    <!------------------------------------------------------------------------------HYPERPARAMETER EXPERIMENTS----------------------------------------------------------------------------->
+
         <h3 class="title is-4">IV-C. Experiments with hyperparameters</h3>
         <p>
           In order to understand how key hyperparameters affect both the visual quality and convergence behavior of our 3D sketches, we conducted a series of controlled experiments. 
