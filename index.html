@@ -373,7 +373,7 @@
             In this section, we present the three key building blocks of our framework. First, we introduce a fully differentiable rasterization pipeline in which each Bézier curve is modeled as a sequence of spherical Gaussians sampled along its path and projected into 2D via camera intrinsics and extrinsics.
           </p>
           <p>
-            To steer our 3D Bézier sketch toward both semantic fidelity and geometric precision, we use a CLIP-based loss function: a high-level semantic similarity term—aligning rendered views in the semantic space, and a geometric alignment term that preserves pixel-wise detail.
+            To steer our 3D Bézier sketch toward both semantic fidelity and geometric precision, we use a CLIP-based loss function: a high-level semantic similarity term, aligning rendered views in the semantic space, and a geometric alignment term that preserves pixel-wise detail.
           </p>
           <p>
             Finally, we describe the model training, which alternates between projecting the current 3D curve set into 2D, computing the CLIP loss against ground-truth images for the current view, and backpropagating through the differentiable renderer to refine the Bézier control points until convergence.
@@ -457,28 +457,71 @@
   </div>
 
   <p>
-    After generating the Gaussians, we render them through a differentiable rasterizer that projects the 3D Gaussians into 2D using camera intrinsics and extrinsics. The resulting image <script type="math/tex">\mathbf{V} \in \mathbb{R}^{W \times H}</script> is given by:
-  </p>
+  After generating the Gaussians, we render them through a differentiable rasterizer that projects the 3D Gaussians into 2D using camera intrinsics and extrinsics. The resulting image <script type="math/tex">\mathbf{V} \in \mathbb{R}^{W \times H}</script> is given by:
+</p>
 
-  <p>
-    <script type="math/tex; mode=display">
-      \mathbf{V} = T\left(\mathbf{c}, r, \mathbf{In}, \mathbf{Ex}, W, H\right)
-    </script>
-  </p>
+<p>
+  <script type="math/tex; mode=display">
+    \mathbf{V} = T\left(\mathbf{c}, r, \mathbf{In}, \mathbf{Ex}, W, H\right)
+  </script>
+</p>
 
-  <p>
-    where <script type="math/tex">\mathbf{In}</script> and <script type="math/tex">\mathbf{Ex}</script> denote the intrinsic and extrinsic camera matrices, and <script type="math/tex">W, H</script> define the image resolution. Each pixel <script type="math/tex">\mathbf{V}_{n_1,n_2}</script> can be written as:
-  </p>
+<p>
+  where <script type="math/tex">\mathbf{In} \in \mathbb{R}^{3 \times 3}</script> is the intrinsic matrix encoding camera parameters such as focal length and principal point:
+</p>
 
-  <p>
-    <script type="math/tex; mode=display">
-      \mathbf{V}_{n_1,n_2} = T\left(f(\mathbf{p}_i, \ldots), \ldots\right)
-    </script>
-  </p>
+<p>
+  <script type="math/tex; mode=display">
+    \mathbf{In} =
+    \begin{bmatrix}
+      f_x & 0 & c_x \\
+      0 & f_y & c_y \\
+      0 & 0 & 1
+    \end{bmatrix},
+  </script>
+</p>
 
-  <p>
-    This end-to-end differentiability allows training the sketch representation directly using image-level loss functions such as CLIP similarity. It was one of the key milestones proposed for the project.
-  </p>
+<p>
+  and <script type="math/tex">\mathbf{Ex} \in \mathbb{R}^{4 \times 4}</script> is the extrinsic matrix representing the camera pose in the world frame, given by:
+</p>
+
+<p>
+  <script type="math/tex; mode=display">
+    \mathbf{Ex} =
+    \begin{bmatrix}
+      \mathbf{R} & \mathbf{t} \\
+      \mathbf{0}^{1 \times 3} & 1
+    \end{bmatrix},
+  </script>
+</p>
+
+<p>
+  where <script type="math/tex">\mathbf{R} \in \mathbb{R}^{3 \times 3}</script> is the rotation matrix and <script type="math/tex">\mathbf{t} \in \mathbb{R}^{3}</script> is the translation vector. Together, these matrices map a 3D point from world coordinates to 2D pixel coordinates in the image plane.
+</p>
+
+<p>
+  Each pixel <script type="math/tex">\mathbf{V}_{n_1,n_2}</script> corresponds to a projection and accumulation over 3D Gaussians, which are parameterized by their mean positions, covariance matrices, and opacity values:
+</p>
+
+<p>
+  <script type="math/tex; mode=display">
+    \mathbf{V}_{n_1,n_2} = T\left(f(\mathbf{p}_i, \boldsymbol{\Sigma}_i, \alpha_i, \ldots), \ldots\right)
+  </script>
+</p>
+
+<p>
+  Notably, the strokes used in our sketch abstraction are represented as Bézier curves with 4 control points <script type="math/tex">\{\mathbf{P}_0, \mathbf{P}_1, \mathbf{P}_2, \mathbf{P}_3\}</script>, forming a cubic Bézier formulation:
+</p>
+
+<p>
+  <script type="math/tex; mode=display">
+    \mathbf{B}(t) = (1 - t)^3 \mathbf{P}_0 + 3(1 - t)^2 t \mathbf{P}_1 + 3(1 - t) t^2 \mathbf{P}_2 + t^3 \mathbf{P}_3,\quad t \in [0, 1]
+  </script>
+</p>
+
+<p>
+  This parametric formulation enables fine control over stroke shape and spatial distribution in 3D. The end-to-end differentiability of the pipeline allows training the sketch representation directly using image-level loss functions such as CLIP similarity. This was one of the key milestones proposed for the project.
+</p>
 </div>
         <!--/ Creating environments. -->
 
