@@ -663,37 +663,40 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
           Classical NeRF datasets emphasize high‐resolution detail and sharp features to benchmark rendering accuracy. Such geometric complexity can impede our abstraction‐focused optimization. Therefore, we generated our own multiview datasets using semantically and visually simple objects using Blender. To assess the performance of the used method, we have generated both training and the testing views.
         </p>
 
-        <section class="section">
-  <div class="container is-max-desktop">
-    <div id="dataset-carousel" class="carousel">
-      <div class="item">
-        <figure class="image is-4by3">
-          <img src="./static/gt_gifs/bike_gt.gif" alt="Ground Truth Bike">
-        </figure>
-        <div class="has-text-centered mt-2">Bike</div>
-      </div>
-      <div class="item">
-        <figure class="image is-4by3">
-          <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck">
-        </figure>
-        <div class="has-text-centered mt-2">Duck</div>
-      </div>
-      <div class="item">
-        <figure class="image is-4by3">
-          <img src="./static/gt_gifs/horse_gt.gif" alt="Ground Truth Horse">
-        </figure>
-        <div class="has-text-centered mt-2">Horse</div>
-      </div>
-      <div class="item">
-        <figure class="image is-4by3">
-          <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
-        </figure>
-        <div class="has-text-centered mt-2">Rose</div>
-      </div>
-    </div>
-  </div>
-</section>
 
+<section class="section">
+            <div class="container is-max-desktop">
+              <div id="dataset-carousel" class="carousel dataset-carousel">
+                <div class="item">
+                  <a href="./static/gt_gifs/bike_gt.gif" data-lightbox="image">
+                    <img src="./static/gt_gifs/bike_gt.gif" alt="Bike Object">
+                  </a>
+                </div>
+                
+                <div class="item">
+                  <a href="./static/gt_gifs/duck_gt.gif" data-lightbox="image">
+                    <img src="./static/gt_gifs/duck_gt.gif" alt="Duck Object">
+                  </a>
+                </div>
+                
+                <div class="item">
+                  <a href="./static/gt_gifs/horse_gt.gif" data-lightbox="image">
+                    <img src="./static/gt_gifs/horse_gt.gif" alt="Horse Object">
+                  </a>
+                </div>
+                
+                <div class="item">
+                  <a href="./static/gt_gifs/rrose_gt.gif" data-lightbox="image">
+                    <img src="./static/gt_gifs/rrose_gt.gif" alt="Rose Object">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <h6 class="subtitle has-text-centered">
+              The loss values of the train and test splits for each object through iterations.
+            </h6>
+          
+        </section>
 <!------------------------------------------------------------------------------TRAIN-TEST SPLITS----------------------------------------------------------------------------->
 
         <h3 class="title is-4">IV-B. Training - Train & Test Splits</h3>
