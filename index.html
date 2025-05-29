@@ -248,14 +248,16 @@
         <h2 class="title is-3" id="intro">I. Introduction</h2>
         <div class="content has-text-justified">
           <p>
-            Sketching is a powerful form of abstraction that captures the essence of objects using minimal visual elements. 
-            This process requires selecting key visual features that convey meaning while omitting others, which demands a level of semantic understanding that is more difficult for machines than for humans. 
-            Recent advances, such as CLIPasso \cite{vinker2022clipasso}, have enabled machines to automatically convert images into recognizable abstract sketches using semantic information utilizing SOTA image-text representation method Contrastive Language–Image Pretraining (CLIP) \cite{CLIP}. 
-            However, these methods are currently limited to two dimensions. 
+            Sketch-based abstraction serves as a powerful mechanism for compactly encoding the essential structure and semantics of objects. While recent developments such as CLIPasso <a href="https://doi.org/10.1145/3528223.3530068">[1]</a> have demonstrated the effectiveness of semantic supervision via CLIP <a href="https://doi.org/10.48550/arXiv.2103.00020">[2]</a> for generating 2D Bézier-based sketches from images, these methods are inherently restricted to two-dimensional representations. As such, they fail to capture the spatial consistency and geometric coherence required for applications involving 3D perception, modeling, and interaction.
           </p>
           <p>
-            In this project, we try to extend this idea to 3D: can machines generate 3D sketches that preserve both semantic and geometric information of an object? 
-            Addressing this question could open up new possibilities for visual communication and rapid prototyping, paving the way for innovative tools in 3D design and visualization.
+            This work addresses the extension of sketch abstraction to three dimensions by proposing a fully differentiable framework for 3D sketch reconstruction. Specifically, we introduce a method that optimizes a set of 3D Bézier curves, discretized via spherical Gaussian primitives, to form structured and semantically meaningful wireframe representations. Each curve is modeled as a continuous path sampled into isotropic Gaussian kernels, constrained to lie in 3D space, and rendered through a differentiable rasterization pipeline.
+          </p>
+          <p>
+            To supervise the optimization process, we leverage a composite CLIP-based objective comprising both global semantic alignment—captured via the final projection layer of a pretrained CLIP model, and localized geometric correspondence, derived from intermediate convolutional activations or attention maps. The optimization proceeds by iteratively projecting the 3D sketch into 2D views, computing perceptual similarity with reference RGB images, and backpropagating through the rendering pipeline to refine the control points of the Bézier curves.
+          </p>
+          <p>
+            By constraining the sketch abstraction problem to a subset of differentiable Gaussian splatting <a href="https://doi.org/10.1145/3592433">[3]</a> —where the means are fixed along Bézier paths and the variances and colors remain constant—we obtain a compact and interpretable 3D representation. This formulation enables efficient optimization, multi-view supervision, and strong semantic fidelity without requiring explicit 3D ground truth. The resulting sketch abstractions demonstrate both structural coherence and semantic alignment across a variety of synthetic object datasets.
           </p>
         </div>
       </div>
@@ -1116,6 +1118,9 @@ Instead, we adopted a random initialization strategy, which, despite its simplic
               <li>
                 Y. Vinker, E. Pajouheshgar, J. Y. Bo, R. C. Bachmann, A. H. Bermano, D. Cohen-Or, A. Zamir, and A. Shamir, “CLIPasso: Semantically-Aware Object Sketching,” ACM Transactions on Graphics, vol. 41, no. 4, art. no. 86, pp. 1–11, Jul. 2022, <a href="https://doi.org/10.1145/3528223.3530068">https://doi.org/10.1145/3528223.3530068</a>.
               </li>
+              <li>
+             A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P. Mishkin, J. Clark, G. Krueger, and I. Sutskever, "Learning Transferable Visual Models From Natural Language Supervision," in Proc. 38th Int. Conf. Machine Learning (ICML), vol. 139, pp. 8748–8763, 2021, <a href="https://doi.org/10.48550/arXiv.2103.00020">https://doi.org/10.48550/arXiv.2103.00020</a>.
+              </li>  
               <li>
                 B. Kerbl, G. Kopanas, T. Leimkühler, and G. Drettakis, “3D Gaussian Splatting for Real-Time Radiance Field Rendering,” ACM Transactions on Graphics, vol. 42, no. 4, Article 139, pp. 1–14, Jul. 2023, <a href="https://doi.org/10.1145/3592433">https://doi.org/10.1145/3592433</a>.
               </li>
