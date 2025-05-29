@@ -248,14 +248,16 @@
         <h2 class="title is-3" id="intro">I. Introduction</h2>
         <div class="content has-text-justified">
           <p>
-            Sketching is a powerful form of abstraction that captures the essence of objects using minimal visual elements. 
-            This process requires selecting key visual features that convey meaning while omitting others, which demands a level of semantic understanding that is more difficult for machines than for humans. 
-            Recent advances, such as CLIPasso \cite{vinker2022clipasso}, have enabled machines to automatically convert images into recognizable abstract sketches using semantic information utilizing SOTA image-text representation method Contrastive Language–Image Pretraining (CLIP) \cite{CLIP}. 
-            However, these methods are currently limited to two dimensions. 
+            Sketch-based abstraction serves as a powerful mechanism for compactly encoding the essential structure and semantics of objects. While recent developments such as CLIPasso <a href="https://doi.org/10.1145/3528223.3530068">[1]</a> have demonstrated the effectiveness of semantic supervision via CLIP <a href="https://doi.org/10.48550/arXiv.2103.00020">[2]</a> for generating 2D Bézier-based sketches from images, these methods are inherently restricted to two-dimensional representations. As such, they fail to capture the spatial consistency and geometric coherence required for applications involving 3D perception, modeling, and interaction.
           </p>
           <p>
-            In this project, we try to extend this idea to 3D: can machines generate 3D sketches that preserve both semantic and geometric information of an object? 
-            Addressing this question could open up new possibilities for visual communication and rapid prototyping, paving the way for innovative tools in 3D design and visualization.
+            This work addresses the extension of sketch abstraction to three dimensions by proposing a fully differentiable framework for 3D sketch reconstruction. Specifically, we introduce a method that optimizes a set of 3D Bézier curves, discretized via spherical Gaussian primitives, to form structured and semantically meaningful wireframe representations. Each curve is modeled as a continuous path sampled into isotropic Gaussian kernels, constrained to lie in 3D space, and rendered through a differentiable rasterization pipeline.
+          </p>
+          <p>
+            To supervise the optimization process, we leverage a composite CLIP-based objective comprising both global semantic alignment, captured via the final projection layer of a pretrained CLIP model, and localized geometric correspondence, derived from intermediate convolutional activations or attention maps. The optimization proceeds by iteratively projecting the 3D sketch into 2D views, computing perceptual similarity with reference RGB images, and backpropagating through the rendering pipeline to refine the control points of the Bézier curves.
+          </p>
+          <p>
+            By constraining the sketch abstraction problem to a subset of differentiable Gaussian splatting <a href="https://doi.org/10.1145/3592433">[3]</a> —where the means are fixed along Bézier paths and the variances and colors remain constant, we obtain a compact and interpretable 3D representation. This formulation enables efficient optimization, multi-view supervision, and strong semantic fidelity without requiring explicit 3D ground truth. The resulting sketch abstractions demonstrate both structural coherence and semantic alignment across a variety of synthetic object datasets.
           </p>
         </div>
       </div>
@@ -276,7 +278,11 @@
         <h2 class="title is-3" id="related-work">II. Related Works</h2>
         <div class="content has-text-justified">
           <p>
-            The intersection of 3D sketch abstraction and differentiable rendering is a vibrant area of research. Our project builds directly on two complementary threads: semantically-driven sketch generation using CLIP, and efficient, real-time rendering through Gaussian primitives. Below, we outline key prior work in both directions that inform our method.
+            The task of generating semantically meaningful 3D sketch abstractions has gained recent attention through works such as <em>3Doodle</em> <a href="https://doi.org/10.1145/3658156">[4]</a> and <em>Diff3DS</em> <a href="https://doi.org/10.48550/arXiv.2405.15305">[5]</a>, both of which propose novel pipelines for constructing view-consistent 3D stroke representations. These approaches differ from ours in their design choices: 3Doodle employs neural abstraction from mesh data via 3D stroke optimization, while Diff3DS leverages differentiable curve rendering combined with Score Distillation Sampling (SDS) method which utilizes diffusion generation for text2Image and Image2Image synthesis which is commonly used in 3D domain. These methods validate the feasibility of 3D sketch generation using neural optimization pipelines under perceptual or geometric constraints.
+          </p>
+
+          <p>
+            In contrast, our approach formulates the problem as a constrained instance of Gaussian Splatting, wherein each 3D Bézier curve is discretized into a series of spherical Gaussians with fixed appearance parameters. These primitives are optimized under CLIP-based semantic and geometric losses, enabling an interpretable and differentiable 3D sketch abstraction framework without relying on explicit depth supervision or mesh inputs. Our work builds on two key prior directions: (i) CLIP-driven 2D sketch abstraction and (ii) real-time differentiable rendering with Gaussian primitives, discussed in detail below.
           </p>
         </div>
       </div>
@@ -291,7 +297,7 @@
       <div class="column">
         <div class="content">
           <h2 class="title is-6">CLIPasso: Semantically-Aware Object Sketching
-                                 <a href="https://clipasso.github.io/clipasso/">[1]</a></h2>
+                                 <a href="https://doi.org/10.1145/3528223.3530068">[1]</a></h2>
           <p>
             CLIPasso introduced a novel sketch abstraction pipeline driven by CLIP embeddings. It optimizes 2D Bézier curves to semantically match target images, generating vector sketches that maintain both recognizability and abstraction. CLIP-based supervision enables sketching without pixel-wise supervision, focusing instead on perceptual similarity.
           </p>
@@ -315,7 +321,7 @@
       <div class="column">
         <div class="content">
           <h2 class="title is-6">3D Gaussian Splatting for Real-Time Radiance Field Rendering
-                                 <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">[2]</a></h2>
+                                 <a href="https://doi.org/10.1145/3592433">[3]</a></h2>
           <p>
             This work replaces dense volumetric representations with a sparse set of view-adaptive anisotropic Gaussians, achieving high-quality and real-time radiance field rendering. The technique offers a fully differentiable rendering pipeline ideal for interactive and fast applications.
           </p>
@@ -601,8 +607,8 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
         <h2 class="title is-3" id="results">IV. Results</h2>
 
         <p>
-          In this section, we discuss the setup and results of the experiments in detail. Regarding results, we first discuss the training progression, after which we do both a qualitative and
-          a quantitative analysis of the different agent configurations.
+          In this section, we present the results of our 3D sketch abstraction pipeline. We begin by introducing the custom multiview datasets we created, then illustrate the training process using train/test splits to evaluate spatial consistency throughout optimization.
+          Finally, we report the outcomes of a series of experiments that vary key hyperparameters.
         </p>
         <br>
 
@@ -1033,13 +1039,11 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
           <p>
             Although we have obtained promising results, there are several limitations in our work that could be addressed in future research:
           </p>
-          <ul>
-            <li>
+          <p>
               Multi-view consistency remains one of the most critical and challenging objectives in the field of 3D image generation and editing. In our work, despite employing batches of multi-view images and experimenting with various hyperparameter settings, we observed failures in achieving semantic consistency across views for certain objects.
               Notably, we found that the CLIP-based loss occasionally overemphasizes semantic similarity at the expense of geometric coherence. For example, in the case of the horse model, the object may resemble a full horse from one viewpoint but appear as only a horse’s head from another. A similar inconsistency is evident in the GIF below, where the bicycle sketch exhibits view-dependent deformation appearent from the tires.
               Addressing this issue requires further refinement of the training strategy—particularly in the initialization and optimization of Bézier control points. Additionally, a more careful tuning of the CLIP loss weighting parameters may help balance semantic alignment with geometric structure across views.
-            </li>
-          </ul>
+          </p>
 
           <div class="columns is-centered">
             <div class="column is-half">
@@ -1054,8 +1058,7 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
             </div>
           </div>
 
-          <ul>
-            <li>
+          <p>
                Another challenge encountered during training is the tendency of the optimization process to overfill the volume of the object when the number of Bézier curves becomes too high. As the sketch density increases, the CLIP-based loss drives the model to generate a solid, filled-in representation rather than preserving the sparse, abstract nature of a line-based sketch.
               This behavior may be partially related to the previously discussed issue, where the CLIP loss struggles to maintain a proper balance between semantic and geometric alignment across views. However, it also appears to be influenced by the number of sketch curves: as more curves are introduced, the optimization increasingly prioritizes semantic coverage, effectively “filling in” the shape.
               This effect is illustrated in the duck reconstruction GIF below, where the sketch—composed of 40 curves—visibly fills the object’s interior volume rather than outlining its structural features. 
@@ -1076,15 +1079,13 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
               To address this problem, additional geometric constraints on curve proximity could be introduced to discourage excessive overlap. 
               Alternatively, further improvements to the semantic-geometric balance described earlier may also alleviate this behavior. 
               Exploring dynamic loss weighting strategies or incorporating structural priors remains a promising direction for future work.
-            </li>
-          </ul>
+          </p>
 
-          <ul>
-            <li>
+          <p>
 The initialization strategy for Bézier curves plays a critical role in achieving high-quality sketch reconstruction. In CLIPasso, curve initialization is guided by thresholding saliency maps produced by the CLIP model, enabling semantically meaningful placements in 2D. However, this approach does not generalize well to 3D, where surface geometry must be taken into account. To keep the scope of the project focused and tractable, we chose not to train a NeRF or Gaussian Splatting model to obtain 3D saliency maps for curve placement.
 
 Instead, we adopted a random initialization strategy, which, despite its simplicity, yielded reasonably good results. Nevertheless, we believe that the visual quality and consistency of the generated sketches could be significantly improved with more informed initialization schemes—particularly those that incorporate geometric priors or 3D-aware saliency cues.            </li>
-          </ul>
+          </p>
 
           <p>
             In this project, we developed a novel sketch generation technique built upon the principles of Gaussian splatting, enhanced with task-specific constraints. While the visual quality of our results may fall short compared to state-of-the-art methods in the literature, the framework and research introduced here offer strong potential for reuse and extension. In particular, our approach provides a foundation for future academic work focused on task-oriented, constrained 3D applications—an area that remains largely underexplored and rich with opportunity.
@@ -1114,6 +1115,9 @@ Instead, we adopted a random initialization strategy, which, despite its simplic
               <li>
                 Y. Vinker, E. Pajouheshgar, J. Y. Bo, R. C. Bachmann, A. H. Bermano, D. Cohen-Or, A. Zamir, and A. Shamir, “CLIPasso: Semantically-Aware Object Sketching,” ACM Transactions on Graphics, vol. 41, no. 4, art. no. 86, pp. 1–11, Jul. 2022, <a href="https://doi.org/10.1145/3528223.3530068">https://doi.org/10.1145/3528223.3530068</a>.
               </li>
+              <li>
+             A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P. Mishkin, J. Clark, G. Krueger, and I. Sutskever, "Learning Transferable Visual Models From Natural Language Supervision," in Proc. 38th Int. Conf. Machine Learning (ICML), vol. 139, pp. 8748–8763, 2021, <a href="https://doi.org/10.48550/arXiv.2103.00020">https://doi.org/10.48550/arXiv.2103.00020</a>.
+              </li>  
               <li>
                 B. Kerbl, G. Kopanas, T. Leimkühler, and G. Drettakis, “3D Gaussian Splatting for Real-Time Radiance Field Rendering,” ACM Transactions on Graphics, vol. 42, no. 4, Article 139, pp. 1–14, Jul. 2023, <a href="https://doi.org/10.1145/3592433">https://doi.org/10.1145/3592433</a>.
               </li>
