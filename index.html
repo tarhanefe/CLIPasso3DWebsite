@@ -743,71 +743,78 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
 </p>
 
         
-<h3>🔧 Argument Descriptions</h3>
+<div class="content has-text-justified">
+  <div class="container">
+    <h3 class="title is-5">🔧 Argument Descriptions</h3>
 
-<table style="width:100%; border-collapse: collapse;">
-  <thead>
-    <tr>
-      <th style="text-align: left; border-bottom: 1px solid #ccc;">Argument</th>
-      <th style="text-align: left; border-bottom: 1px solid #ccc;">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>--batch_size</code></td>
-      <td>Number of images processed per training batch.</td>
-    </tr>
-    <tr>
-      <td><code>--epochs</code></td>
-      <td>Number of training epochs.</td>
-    </tr>
-    <tr>
-      <td><code>--inner_steps</code></td>
-      <td>Inner optimization steps per batch.</td>
-    </tr>
-    <tr>
-      <td><code>--learning_rate</code></td>
-      <td>Learning rate for Adam optimizer.</td>
-    </tr>
-    <tr>
-      <td><code>--n_curves</code></td>
-      <td>Number of Bézier curves initialized in the scene.</td>
-    </tr>
-    <tr>
-      <td><code>--thickness</code></td>
-      <td>Radius (thickness) of each rendered curve/sphere segment.</td>
-    </tr>
-    <tr>
-      <td><code>--radius</code></td>
-      <td>Distance from the scene center to place initial curve points.</td>
-    </tr>
-    <tr>
-      <td><code>--length</code></td>
-      <td>Initial length of the randomly created curve segments.</td>
-    </tr>
-    <tr>
-      <td><code>--overlap</code></td>
-      <td>Degree of allowed overlap between nearby spherical gaussians on the same curve.</td>
-    </tr>
-    <tr>
-      <td><code>--clip_weight</code></td>
-      <td>Total CLIP loss weight.</td>
-    </tr>
-    <tr>
-      <td><code>--clip_conv_loss</code></td>
-      <td>Weight of the convolutional CLIP loss.</td>
-    </tr>
-    <tr>
-      <td><code>--clip_fc_loss_weight</code></td>
-      <td>Weight of CLIP’s final-layer (semantic) similarity loss.</td>
-    </tr>
-    <tr>
-      <td><code>--clip_conv_layer_weights</code></td>
-      <td>Weights for each CLIP convolutional layer (ViT-B/32 has 5 layers).</td>
-    </tr>
-  </tbody>
-</table>
-
+    <div class="box">
+      <div class="table-container">
+        <table class="table is-striped is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>Argument</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--batch_size</code></td>
+              <td>Number of images processed per training batch.</td>
+            </tr>
+            <tr>
+              <td><code>--epochs</code></td>
+              <td>Number of training epochs.</td>
+            </tr>
+            <tr>
+              <td><code>--inner_steps</code></td>
+              <td>Inner optimization steps per batch.</td>
+            </tr>
+            <tr>
+              <td><code>--learning_rate</code></td>
+              <td>Learning rate for Adam optimizer.</td>
+            </tr>
+            <tr>
+              <td><code>--n_curves</code></td>
+              <td>Number of Bézier curves initialized in the scene.</td>
+            </tr>
+            <tr>
+              <td><code>--thickness</code></td>
+              <td>Radius (thickness) of each rendered curve/sphere segment.</td>
+            </tr>
+            <tr>
+              <td><code>--radius</code></td>
+              <td>Distance from the scene center to place initial curve points.</td>
+            </tr>
+            <tr>
+              <td><code>--length</code></td>
+              <td>Initial length of the randomly created curve segments.</td>
+            </tr>
+            <tr>
+              <td><code>--overlap</code></td>
+              <td>Degree of allowed overlap between nearby spherical Gaussians on the same curve.</td>
+            </tr>
+            <tr>
+              <td><code>--clip_weight</code></td>
+              <td>Total CLIP loss weight.</td>
+            </tr>
+            <tr>
+              <td><code>--clip_conv_loss</code></td>
+              <td>Weight of the convolutional CLIP loss.</td>
+            </tr>
+            <tr>
+              <td><code>--clip_fc_loss_weight</code></td>
+              <td>Weight of CLIP’s final-layer (semantic) similarity loss.</td>
+            </tr>
+            <tr>
+              <td><code>--clip_conv_layer_weights</code></td>
+              <td>Weights for each CLIP convolutional layer (ViT-B/32 has 5 layers).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
         
 
         
