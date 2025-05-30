@@ -735,318 +735,171 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
     
     <!------------------------------------------------------------------------------HYPERPARAMETER EXPERIMENTS----------------------------------------------------------------------------->
 
-        <h3 class="title is-4">IV-C. Experiments with hyperparameters</h3>
-        <p>
-          In order to understand how key hyperparameters affect both the visual quality and convergence behavior of our 3D sketches, we conducted a series of controlled experiments. 
-          In each experiment, we vary a single parameter while keeping all others fixed, and observe its impact. 
-          Below, we present qualitative results from these experiments.
-        </p>
+        <h3 class="title is-4">IV-C. Experiments with Hyperparameters</h3>
+<p>
+  To evaluate the impact of key hyperparameters on both the convergence behavior and the visual fidelity of our 3D sketch abstractions, we performed a series of controlled experiments. 
+  In each case, a single parameter was varied while all others were held constant. Below, we present qualitative results illustrating how these parameters influence the final renderings.
+</p>
 
-        <h3 class="title is-5">Number of curves</h3>
+<h3 class="title is-5">Number of Curves</h3>
 
-        <p>
-          This hyperparameter controls how many 3D Bézier curves are used to approximate the 3D sketch.
-          We experimented with 10, 15, 20, and 25 curves.
-        </p>
+<p>
+  This hyperparameter controls how many 3D Bézier curves are used to represent the sketch. A higher number of curves allows for more detailed reconstruction, while fewer curves enforce abstraction.
+  We experimented with 10, 15, 20, and 25 curves. Results are shown below for both the rose and duck objects.
+</p>
 
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
+<!-- Rose curve experiment -->
+<div class="container is-max-desktop">
+  <div class="hero-body">
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+      <figure style="display: flex; flex-direction: column; align-items: center;">
+        <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
+        <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves/10_curve.gif" alt="10 curves">
+        <figcaption class="subtitle is-6 has-text-centered">10 Curves</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves/15_curve.gif" alt="15 curves">
+        <figcaption class="subtitle is-6 has-text-centered">15 Curves</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves/20_curve.gif" alt="20 curves">
+        <figcaption class="subtitle is-6 has-text-centered">20 Curves</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves/25_curve.gif" alt="25 curves">
+        <figcaption class="subtitle is-6 has-text-centered">25 Curves</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/rrose_gt.gif" 
-                  alt="Ground Truth Rose" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
+<!-- Duck curve experiment -->
+<div class="container is-max-desktop">
+  <div class="hero-body">
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+      <figure>
+        <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck">
+        <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves_duck/10_curve.gif" alt="10 curves duck">
+        <figcaption class="subtitle is-6 has-text-centered">10 Curves</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves_duck/15_curve.gif" alt="15 curves duck">
+        <figcaption class="subtitle is-6 has-text-centered">15 Curves</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves_duck/20_curve.gif" alt="20 curves duck">
+        <figcaption class="subtitle is-6 has-text-centered">20 Curves</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/n_curves_duck/25_curve.gif" alt="25 curves duck">
+        <figcaption class="subtitle is-6 has-text-centered">25 Curves</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/10_curve.gif" 
-                  alt="Rose 10 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
+<h3 class="title is-5">Batch Size</h3>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/15_curve.gif" 
-                  alt="Rose 15 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
+<p>
+  The batch size controls how many camera views are processed jointly during each optimization step.
+  A larger batch size enables more consistent updates across viewpoints, potentially improving multiview coherence.
+  We tested batch sizes of 1, 2, 3, and 4 on the duck object.
+</p>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/20_curve.gif" 
-                  alt="Rose 20 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
+<div class="container is-max-desktop">
+  <div class="hero-body">
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+      <figure>
+        <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck">
+        <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/batch_size/batch_size_1.gif" alt="Batch size 1">
+        <figcaption class="subtitle is-6 has-text-centered">Batch Size 1</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/batch_size/batch_size_2.gif" alt="Batch size 2">
+        <figcaption class="subtitle is-6 has-text-centered">Batch Size 2</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/batch_size/batch_size_3.gif" alt="Batch size 3">
+        <figcaption class="subtitle is-6 has-text-centered">Batch Size 3</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/batch_size/batch_size_4.gif" alt="Batch size 4">
+        <figcaption class="subtitle is-6 has-text-centered">Batch Size 4</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/25_curve.gif" 
-                  alt="Rose 25 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
+<h3 class="title is-5">Semantic Loss Weight</h3>
 
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
+<p>
+  This weight controls the influence of high-level semantics (CLIP FC loss) during optimization. 
+  A low value prioritizes geometric alignment, while a higher value emphasizes perceptual similarity with the reference image.
+  We experimented with weights of 0.01 and 0.5 using the rose object.
+</p>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/duck_gt.gif" 
-                  alt="Ground Truth Duck" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
+<div class="container is-max-desktop">
+  <div class="hero-body">
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+      <figure>
+        <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
+        <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/fc_loss/0.01_fc_loss.gif" alt="Semantic weight 0.01">
+        <figcaption class="subtitle is-6 has-text-centered">Weight = 0.01</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/fc_loss/05_fc_loss.gif" alt="Semantic weight 0.5">
+        <figcaption class="subtitle is-6 has-text-centered">Weight = 0.5</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/10_curve.gif" 
-                  alt="Duck 10 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  10
-                </figcaption>
-              </figure>
+<h3 class="title is-5">Curve Thickness</h3>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/15_curve.gif" 
-                  alt="Duck 15 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  15
-                </figcaption>
-              </figure>
+<p>
+  The stroke thickness affects how bold each curve appears in the sketch. While it does not impact optimization, it influences visual clarity and stylistic choices.
+  We experimented with thickness values of 0.02 and 0.03.
+</p>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/20_curve.gif" 
-                  alt="Duck 20 curve" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  20
-                </figcaption>
-              </figure>
+<div class="container is-max-desktop">
+  <div class="hero-body">
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+      <figure>
+        <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
+        <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/thickness/semihelical_thickness-020.gif" alt="Thickness 0.02">
+        <figcaption class="subtitle is-6 has-text-centered">Thickness = 0.02</figcaption>
+      </figure>
+      <figure>
+        <img src="./static/experiments/thickness/semihelical_thickness-030.gif" alt="Thickness 0.03">
+        <figcaption class="subtitle is-6 has-text-centered">Thickness = 0.03</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/25_curve.gif" 
-                  alt="Duck 25 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  25
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-        
-        <h3 class="title is-5">Batch size</h3>
-  
-        <p>
-          This hyperparameter determines how many camera views are processed together in each optimization step. 
-          With a batch size of 1, the curves are updated based on the loss from a single viewpoint at each step. 
-          Increasing the batch size aggregates the loss over multiple views, optimizing simultaneously for x views before performing a parameter update.
-          We experimented with batch sizes of 1, 2, 3, and 4.
-        </p>
+<h3 class="title is-4">IV-D. Interactive Visualisation</h3>
+<p>
+  Below is an interactive rendering of the final 3D sketch of the rose object. You may rotate and zoom to inspect the stroke configuration from different viewpoints.
+</p>
 
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/duck_gt.gif" 
-                  alt="Ground Truth Duck" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  Ground Truth Duck
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_1.gif" 
-                  alt="Duck batch size 1" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  1
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_2.gif" 
-                  alt="Duck batch size 2" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  2
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_3.gif" 
-                  alt="Duck batch size 3" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  3
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_4.gif" 
-                  alt="Duck batch size 4" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  4
-                </figcaption>
-              </figure>
-
-            </div>
-          </div>
-        </div>
-
-        <h3 class="title is-5">Semantic loss weight</h3>
-
-        <p>
-          This hyperparameter controls the contribution of the semantic component within the CLIP-based loss function.
-          A higher weight places more emphasis on matching high-level semantic features of the input image rather than its exact geometry.
-          We experimented with semantic loss weights of 0.01 and 0.5.
-        </p>
-
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/rrose_gt.gif" 
-                  alt="Ground Truth Rose" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/fc_loss/0.01_fc_loss.gif" 
-                  alt="Semantic loss weight 0.01" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.01
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/fc_loss/05_fc_loss.gif" 
-                  alt="Semantic loss weight 0.5" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.5
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-
-        <h3 class="title is-5">Curve thickness</h3>
-
-        <p>
-          This hyperparameter sets the stroke width of each Bézier curve, controlling how bold or fine the resulting sketch appears.
-          We experimented with thickness values of 0.02 and 0.03.
-        </p>
-
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/rrose_gt.gif" 
-                  alt="Ground Truth Rose" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/thickness/semihelical_thickness-020.gif" 
-                  alt="Rose thickness 0.02" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.02
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/thickness/semihelical_thickness-030.gif" 
-                  alt="Rose thickness 0.03" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.03
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-
-        <h3 class="title is-4">IV-D. Interactive Visualisation</h3>
-          Here you can interact with the 3D sketch generated for the rose object.
-        <div class="box">
-            <iframe src="./static/plotly/efe_rose_plot_interactive" frameborder="0" width="100%" height="500px"></iframe>
-        </div>
-
-</section>
+<div class="box">
+  <iframe src="./static/plotly/efe_rose_plot_interactive" frameborder="0" width="100%" height="500px"></iframe>
+</div>
 
 
 
