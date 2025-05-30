@@ -1,39 +1,36 @@
 <!------------------------------------------------------------------------------DOCUMENT CONFIGURATION----------------------------------------------------------------------------->
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="From Pixels to Wireframes: 3D Reconstruction via CLIP-Based Sketch Abstraction.">
+  <meta name="description" content="From Pixels to Wireframes: 3D Reconstruction via CLIP-Based Sketch Abstraction.">
   <meta name="keywords" content="3D Sketches, Wireframes, 3D Vision, CLIP, CLIPasso">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>From Pixels to Wireframes: 3D Reconstruction via CLIP-Based Sketch Abstraction</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
- <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQXL0D54M7"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-BQXL0D54M7');
   </script>
-  
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 
-  
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
@@ -43,187 +40,205 @@
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
 </head>
+
 <body>
 
 
-<!------------------------------------------------------------------------------NAVIGATION BAR BUTTONS----------------------------------------------------------------------------->
+  <!------------------------------------------------------------------------------NAVIGATION BAR BUTTONS----------------------------------------------------------------------------->
 
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://vilab.epfl.ch/">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </a>
     </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://vilab.epfl.ch/">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+      </div>
 
-  </div>
-</nav>
+    </div>
+  </nav>
 
-<!------------------------------------------------------------------------------AUTHORS SECTION----------------------------------------------------------------------------->
+  <!------------------------------------------------------------------------------AUTHORS SECTION----------------------------------------------------------------------------->
 
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">From Pixels to Wireframes: 3D Reconstruction via CLIP-Based Sketch Abstraction</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://tarhanefe.github.io/">Efe Tarhan</a>,</span>
-            <span class="author-block">
-              <a href="https://people.epfl.ch/filip.mikoviny/?lang=en">Filip Mikovíny</a>,</span>
-            <span class="author-block">
-              <a href="https://people.epfl.ch/eylul.ipci?lang=en">Eylül Ipçi</a>,</span>
-            <span class="author-block">
-              <a href="https://people.epfl.ch/alberts.reisons">Alberts Reisons</a>
-            </span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Swiss Federal Institute of Technology Lausanne (EPFL)</span>
-          </div>
-  
-<!------------------------------------------------------------------------------LINKS UNDER AUTHORS----------------------------------------------------------------------------->
-
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
           <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/tarhanefe/clipasso3d"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
+            <h1 class="title is-1 publication-title">From Pixels to Wireframes: 3D Reconstruction via CLIP-Based Sketch
+              Abstraction</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://tarhanefe.github.io/">Efe Tarhan</a>,</span>
+              <span class="author-block">
+                <a href="https://people.epfl.ch/filip.mikoviny/?lang=en">Filip Mikovíny</a>,</span>
+              <span class="author-block">
+                <a href="https://people.epfl.ch/eylul.ipci?lang=en">Eylül Ipçi</a>,</span>
+              <span class="author-block">
+                <a href="https://people.epfl.ch/alberts.reisons">Alberts Reisons</a>
               </span>
-              <!-- Video Link. -->
-              <span class="link-block">
-                <a href="https://youtu.be/Qa8kh6aMo-8"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://github.com/tarhanefe/CLIPasso3DWebsite"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Website</span>
-                  </a>
-              </span>
-              <span class="link-block">
-              <a href="https://drive.google.com/drive/folders/13W_453e-h2TWAfAnp6Ga00TYwEzTnMtg?usp=sharing" 
-                 class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                  <i class="fab fa-google-drive"></i>
-                </span>
-                <span>Dataset</span>
-              </a>
-            </span>
             </div>
 
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Swiss Federal Institute of Technology Lausanne (EPFL)</span>
+            </div>
+
+            <!------------------------------------------------------------------------------LINKS UNDER AUTHORS----------------------------------------------------------------------------->
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/tarhanefe/clipasso3d"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href="https://youtu.be/Qa8kh6aMo-8" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/tarhanefe/CLIPasso3DWebsite"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Website</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://drive.google.com/drive/folders/13W_453e-h2TWAfAnp6Ga00TYwEzTnMtg?usp=sharing"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-google-drive"></i>
+                    </span>
+                    <span>Dataset</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!------------------------------------------------------------------------------TEASER GIF----------------------------------------------------------------------------->
-
-
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <div style="display: flex; justify-content: center; gap: 1rem;">
-        <img src="./static/gifs/rose_gt.gif" alt="Ground Truth Rose" style="max-width: 100%; height: auto;">
-        <img src="./static/gifs/rose_20.gif" alt="3D Abstract Sketch of Rose" style="max-width: 100%; height: auto;">
-      </div>
-    </div>
-  </div>
-</section>
+  <!------------------------------------------------------------------------------TEASER GIF----------------------------------------------------------------------------->
 
 
-<!------------------------------------------------------------------------------ABSTRACT----------------------------------------------------------------------------->
-
-
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Sketch abstraction captures objects using minimal yet expressive visual elements. While recent advances have enabled the generation of 2D sketches from images, such representations remain limited to flat, two-dimensional views. In this project, we introduce a novel extension of sketch abstraction into 3D by optimizing Bézier curves using a constrained Gaussian splatting approach. We specifically restrict Gaussians to matte, single-color, spherical blobs that are placed strictly along Bézier curve paths. This constraint enforces a structured and interpretable wireframe representation while preserving the essence of visual abstraction. Our method generates 3D wireframe-like sketches that serve as compact and meaningful representations of objects, demonstrating strong qualitative results.
-          </p>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div style="display: flex; justify-content: center; gap: 1rem;">
+          <img src="./static/gifs/rose_gt.gif" alt="Ground Truth Rose" style="max-width: 100%; height: auto;">
+          <img src="./static/gifs/rose_20.gif" alt="3D Abstract Sketch of Rose" style="max-width: 100%; height: auto;">
         </div>
-
       </div>
     </div>
+  </section>
 
-<!------------------------------------------------------------------------------CONTENT TABLE----------------------------------------------------------------------------->
 
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
+  <!------------------------------------------------------------------------------ABSTRACT----------------------------------------------------------------------------->
 
-        <h2 class="title is-3">Overview</h2>
-        <div class="tile is-ancestor is-centered" style="vertical-align: middle;">
-          <div class="tile is-parent">
-            <a href="#intro" class="tile is-child box">
-              <p class="subtitle"><font size="-1">Introduction</font></p>
-            </a>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Sketch abstraction captures objects using minimal yet expressive visual elements. While recent advances
+              have enabled the generation of 2D sketches from images, such representations remain limited to flat,
+              two-dimensional views. In this project, we introduce a novel extension of sketch abstraction into 3D by
+              optimizing Bézier curves using a constrained Gaussian splatting approach. We specifically restrict
+              Gaussians to matte, single-color, spherical blobs that are placed strictly along Bézier curve paths. This
+              constraint enforces a structured and interpretable wireframe representation while preserving the essence
+              of visual abstraction. Our method generates 3D wireframe-like sketches that serve as compact and
+              meaningful representations of objects, demonstrating strong qualitative results.
+            </p>
           </div>
 
-          <div class="tile is-parent">
-            <a href="#related-work" class="tile is-child box">
-              <p class="subtitle"><font size="-1">Related Works</font></p>
-            </a>
-          </div>
-
-          <div class="tile is-parent">
-            <a href="#method" class="tile is-child box">
-              <p class="subtitle"><font size="-1">Methodology</font></p>
-            </a>
-          </div>
-
-          <div class="tile is-parent">
-            <a href="#results" class="tile is-child box">
-              <p class="subtitle"><font size="-1">Results</font></p>
-            </a>
-          </div>
-
-          <div class="tile is-parent">
-            <a href="#conclusion" class="tile is-child box">
-              <p class="subtitle"><font size="-1">Conclusion and Limitations</font></p>
-            </a>
-          </div>
         </div>
-
       </div>
-    </div>
-    <!--/ Abstract. -->
+
+      <!------------------------------------------------------------------------------CONTENT TABLE----------------------------------------------------------------------------->
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+
+          <h2 class="title is-3">Overview</h2>
+          <div class="tile is-ancestor is-centered" style="vertical-align: middle;">
+            <div class="tile is-parent">
+              <a href="#intro" class="tile is-child box">
+                <p class="subtitle">
+                  <font size="-1">Introduction</font>
+                </p>
+              </a>
+            </div>
+
+            <div class="tile is-parent">
+              <a href="#related-work" class="tile is-child box">
+                <p class="subtitle">
+                  <font size="-1">Related Works</font>
+                </p>
+              </a>
+            </div>
+
+            <div class="tile is-parent">
+              <a href="#method" class="tile is-child box">
+                <p class="subtitle">
+                  <font size="-1">Methodology</font>
+                </p>
+              </a>
+            </div>
+
+            <div class="tile is-parent">
+              <a href="#results" class="tile is-child box">
+                <p class="subtitle">
+                  <font size="-1">Results</font>
+                </p>
+              </a>
+            </div>
+
+            <div class="tile is-parent">
+              <a href="#conclusion" class="tile is-child box">
+                <p class="subtitle">
+                  <font size="-1">Conclusion and Limitations</font>
+                </p>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--/ Abstract. -->
 
 
-  <!------------------------------------------------------------------------------PROJECT VIDEO---------------------------------------------------------------------------->
+      <!------------------------------------------------------------------------------PROJECT VIDEO---------------------------------------------------------------------------->
 
-    <!-- Paper video.
+      <!-- Paper video.
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
@@ -233,245 +248,319 @@
       </div>
     </div>
     Paper video. -->
-  </div>
-</section>
+    </div>
+  </section>
 
 
 
   <!------------------------------------------------------------------------------INTRODUCTION----------------------------------------------------------------------------->
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Introduction. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3" id="intro">I. Introduction</h2>
-        <div class="content has-text-justified">
-          <p>
-            Sketch-based abstraction serves as a powerful mechanism for compactly encoding the essential structure and semantics of objects. While recent developments such as CLIPasso <a href="https://doi.org/10.1145/3528223.3530068">[1]</a> have demonstrated the effectiveness of semantic supervision via CLIP <a href="https://doi.org/10.48550/arXiv.2103.00020">[2]</a> for generating 2D Bézier-based sketches from images, these methods are inherently restricted to two-dimensional representations. As such, they fail to capture the spatial consistency and geometric coherence required for applications involving 3D perception, modeling, and interaction.
-          </p>
-          <p>
-            This work addresses the extension of sketch abstraction to three dimensions by proposing a fully differentiable framework for 3D sketch reconstruction. Specifically, we introduce a method that optimizes a set of 3D Bézier curves, discretized via spherical Gaussian primitives, to form structured and semantically meaningful wireframe representations. Each curve is modeled as a continuous path sampled into isotropic Gaussian kernels, constrained to lie in 3D space, and rendered through a differentiable rasterization pipeline.
-          </p>
-          <p>
-            To supervise the optimization process, we leverage a composite CLIP-based objective comprising both global semantic alignment, captured via the final projection layer of a pretrained CLIP model, and localized geometric correspondence, derived from intermediate convolutional activations or attention maps. The optimization proceeds by iteratively projecting the 3D sketch into 2D views, computing perceptual similarity with reference RGB images, and backpropagating through the rendering pipeline to refine the control points of the Bézier curves.
-          </p>
-          <p>
-            By constraining the sketch abstraction problem to a subset of differentiable Gaussian splatting <a href="https://doi.org/10.1145/3592433">[3]</a> —where the means are fixed along Bézier paths and the variances and colors remain constant, we obtain a compact and interpretable 3D representation. This formulation enables efficient optimization, multi-view supervision, and strong semantic fidelity without requiring explicit 3D ground truth. The resulting sketch abstractions demonstrate both structural coherence and semantic alignment across a variety of synthetic object datasets.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Introduction. -->
-  </div>
-</section>
-
-
-
-<!------------------------------------------------------------------------------RELATED WORK----------------------------------------------------------------------------->
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Related work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3" id="related-work">II. Related Works</h2>
-        <div class="content has-text-justified">
-          <p>
-            The task of generating semantically meaningful 3D sketch abstractions has gained recent attention through works such as <em>3Doodle</em> <a href="https://doi.org/10.1145/3658156">[4]</a> and <em>Diff3DS</em> <a href="https://doi.org/10.48550/arXiv.2405.15305">[5]</a>, both of which propose novel pipelines for constructing view-consistent 3D stroke representations. These approaches differ from ours in their design choices: 3Doodle employs neural abstraction from mesh data via 3D stroke optimization, while Diff3DS leverages differentiable curve rendering combined with Score Distillation Sampling (SDS) method which utilizes diffusion generation for text2Image and Image2Image synthesis which is commonly used in 3D domain. These methods validate the feasibility of 3D sketch generation using neural optimization pipelines under perceptual or geometric constraints.
-          </p>
-
-          <p>
-            In contrast, our approach formulates the problem as a constrained instance of Gaussian Splatting, wherein each 3D Bézier curve is discretized into a series of spherical Gaussians with fixed appearance parameters. These primitives are optimized under CLIP-based semantic and geometric losses, enabling an interpretable and differentiable 3D sketch abstraction framework without relying on explicit depth supervision or mesh inputs. Our work builds on two key prior directions: (i) CLIP-driven 2D sketch abstraction and (ii) real-time differentiable rendering with Gaussian primitives, discussed in detail below.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br>
-
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-
-      <!-- CLIPasso -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-6">CLIPasso: Semantically-Aware Object Sketching
-                                 <a href="https://doi.org/10.1145/3528223.3530068">[1]</a></h2>
-          <p>
-            CLIPasso introduced a novel sketch abstraction pipeline driven by CLIP embeddings. It optimizes 2D Bézier curves to semantically match target images, generating vector sketches that maintain both recognizability and abstraction. CLIP-based supervision enables sketching without pixel-wise supervision, focusing instead on perceptual similarity.
-          </p>
-          <div class="box">
-            <img src="static/website_assets/related_1.gif"
-                 alt="CLIPasso vector sketch abstraction.">
-            <h5 class="subtitle has-text-centered">
-              <font size="-1.5">
-                <span style="font-weight:normal">Sketches of objects obtained from 2D images using CLIPasso.</span>
-              </font>
-            </h5>
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Introduction. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3" id="intro">I. Introduction</h2>
+          <div class="content has-text-justified">
+            <p>
+              Sketch-based abstraction serves as a powerful mechanism for compactly encoding the essential structure and
+              semantics of objects. While recent developments such as CLIPasso <a
+                href="https://doi.org/10.1145/3528223.3530068">[1]</a> have demonstrated the effectiveness of semantic
+              supervision via CLIP <a href="https://doi.org/10.48550/arXiv.2103.00020">[2]</a> for generating 2D
+              Bézier-based sketches from images, these methods are inherently restricted to two-dimensional
+              representations. As such, they fail to capture the spatial consistency and geometric coherence required
+              for applications involving 3D perception, modeling, and interaction.
+            </p>
+            <p>
+              This work addresses the extension of sketch abstraction to three dimensions by proposing a fully
+              differentiable framework for 3D sketch reconstruction. Specifically, we introduce a method that optimizes
+              a set of 3D Bézier curves, discretized via spherical Gaussian primitives, to form structured and
+              semantically meaningful wireframe representations. Each curve is modeled as a continuous path sampled into
+              isotropic Gaussian kernels, constrained to lie in 3D space, and rendered through a differentiable
+              rasterization pipeline.
+            </p>
+            <p>
+              To supervise the optimization process, we leverage a composite CLIP-based objective comprising both global
+              semantic alignment, captured via the final projection layer of a pretrained CLIP model, and localized
+              geometric correspondence, derived from intermediate convolutional activations or attention maps. The
+              optimization proceeds by iteratively projecting the 3D sketch into 2D views, computing perceptual
+              similarity with reference RGB images, and backpropagating through the rendering pipeline to refine the
+              control points of the Bézier curves.
+            </p>
+            <p>
+              By constraining the sketch abstraction problem to a subset of differentiable Gaussian splatting <a
+                href="https://doi.org/10.1145/3592433">[3]</a> —where the means are fixed along Bézier paths and the
+              variances and colors remain constant, we obtain a compact and interpretable 3D representation. This
+              formulation enables efficient optimization, multi-view supervision, and strong semantic fidelity without
+              requiring explicit 3D ground truth. The resulting sketch abstractions demonstrate both structural
+              coherence and semantic alignment across a variety of synthetic object datasets.
+            </p>
           </div>
-          <p>
-            However, CLIPasso operates purely in 2D and does not generalize to multiview-consistent or 3D-aware sketching tasks.
-          </p>
         </div>
       </div>
-      <!--/ CLIPasso -->
+      <!--/ Introduction. -->
+    </div>
+  </section>
 
-      <!-- Gaussian Splatting -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-6">3D Gaussian Splatting for Real-Time Radiance Field Rendering
-                                 <a href="https://doi.org/10.1145/3592433">[3]</a></h2>
-          <p>
-            This work replaces dense volumetric representations with a sparse set of view-adaptive anisotropic Gaussians, achieving high-quality and real-time radiance field rendering. The technique offers a fully differentiable rendering pipeline ideal for interactive and fast applications.
-          </p>
-          <div class="box">
-            <img src="static/website_assets/related_2.gif"
-                 alt="CLIPasso vector sketch abstraction.">
-            <h5 class="subtitle has-text-centered">
-              <font size="-1.5">
-                <span style="font-weight:normal">Representing 3D scenes using Gaussians</span>
-              </font>
-            </h5>
+
+
+  <!------------------------------------------------------------------------------RELATED WORK----------------------------------------------------------------------------->
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Related work. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3" id="related-work">II. Related Works</h2>
+          <div class="content has-text-justified">
+            <p>
+              The task of generating semantically meaningful 3D sketch abstractions has gained recent attention through
+              works such as <em>3Doodle</em> <a href="https://doi.org/10.1145/3658156">[4]</a> and <em>Diff3DS</em> <a
+                href="https://doi.org/10.48550/arXiv.2405.15305">[5]</a>, both of which propose novel pipelines for
+              constructing view-consistent 3D stroke representations. These approaches differ from ours in their design
+              choices: 3Doodle employs neural abstraction from mesh data via 3D stroke optimization, while Diff3DS
+              leverages differentiable curve rendering combined with Score Distillation Sampling (SDS) method which
+              utilizes diffusion generation for text2Image and Image2Image synthesis which is commonly used in 3D
+              domain. These methods validate the feasibility of 3D sketch generation using neural optimization pipelines
+              under perceptual or geometric constraints.
+            </p>
+
+            <p>
+              In contrast, our approach formulates the problem as a constrained instance of Gaussian Splatting, wherein
+              each 3D Bézier curve is discretized into a series of spherical Gaussians with fixed appearance parameters.
+              These primitives are optimized under CLIP-based semantic and geometric losses, enabling an interpretable
+              and differentiable 3D sketch abstraction framework without relying on explicit depth supervision or mesh
+              inputs. Our work builds on two key prior directions: (i) CLIP-driven 2D sketch abstraction and (ii)
+              real-time differentiable rendering with Gaussian primitives, discussed in detail below.
+            </p>
           </div>
-          <p>
-            While highly efficient, this work focuses on photorealistic synthesis and lacks semantic constraints. Our work adapts its rasterization foundation for use with sparse Bézier-based sketches guided by perceptual objectives.
-          </p>
         </div>
       </div>
     </div>
-  </div>
-  <br>
+    <br>
 
-  <div class="container is-max-desktop">
-    <!-- Conclusion of Related Work -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <div class="content has-text-justified">
-          <p>
-            Combining the semantic sketching approach of CLIPasso with the real-time rendering capabilities of Gaussian Splatting, our framework introduces a differentiable 3D sketch representation optimized using CLIP-based supervision. This positions our work uniquely at the intersection of 3D vision, neural rendering, and semantic abstraction.
-          </p>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+
+        <!-- CLIPasso -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-6">CLIPasso: Semantically-Aware Object Sketching
+              <a href="https://doi.org/10.1145/3528223.3530068">[1]</a>
+            </h2>
+            <p>
+              CLIPasso introduced a novel sketch abstraction pipeline driven by CLIP embeddings. It optimizes 2D Bézier
+              curves to semantically match target images, generating vector sketches that maintain both recognizability
+              and abstraction. CLIP-based supervision enables sketching without pixel-wise supervision, focusing instead
+              on perceptual similarity.
+            </p>
+            <div class="box">
+              <img src="static/website_assets/related_1.gif" alt="CLIPasso vector sketch abstraction.">
+              <h5 class="subtitle has-text-centered">
+                <font size="-1.5">
+                  <span style="font-weight:normal">Sketches of objects obtained from 2D images using CLIPasso.</span>
+                </font>
+              </h5>
+            </div>
+            <p>
+              However, CLIPasso operates purely in 2D and does not generalize to multiview-consistent or 3D-aware
+              sketching tasks.
+            </p>
+          </div>
+        </div>
+        <!--/ CLIPasso -->
+
+        <!-- Gaussian Splatting -->
+        <div class="column">
+          <div class="content">
+            <h2 class="title is-6">3D Gaussian Splatting for Real-Time Radiance Field Rendering
+              <a href="https://doi.org/10.1145/3592433">[3]</a>
+            </h2>
+            <p>
+              This work replaces dense volumetric representations with a sparse set of view-adaptive anisotropic
+              Gaussians, achieving high-quality and real-time radiance field rendering. The technique offers a fully
+              differentiable rendering pipeline ideal for interactive and fast applications.
+            </p>
+            <div class="box">
+              <img src="static/website_assets/related_2.gif" alt="CLIPasso vector sketch abstraction.">
+              <h5 class="subtitle has-text-centered">
+                <font size="-1.5">
+                  <span style="font-weight:normal">Representing 3D scenes using Gaussians</span>
+                </font>
+              </h5>
+            </div>
+            <p>
+              While highly efficient, this work focuses on photorealistic synthesis and lacks semantic constraints. Our
+              work adapts its rasterization foundation for use with sparse Bézier-based sketches guided by perceptual
+              objectives.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <!--/ Conclusion -->
-  </div>
-</section>
+    <br>
 
-
-  
-<!------------------------------------------------------------------------------METHODOLOGY----------------------------------------------------------------------------->
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Method. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3" id="method">III. Methodology</h2>
-        <div class="content has-text-justified">
-          <p>
-            In this section, we present the three key building blocks of our framework. First, we introduce a fully differentiable rasterization pipeline in which each Bézier curve is modeled as a sequence of spherical Gaussians sampled along its path and projected into 2D via camera intrinsics and extrinsics.
-          </p>
-          <p>
-            To steer our 3D Bézier sketch toward both semantic fidelity and geometric precision, we use a CLIP-based loss function: a high-level semantic similarity term, aligning rendered views in the semantic space, and a geometric alignment term that preserves pixel-wise detail.
-          </p>
-          <p>
-            Finally, we describe the model training, which alternates between projecting the current 3D curve set into 2D, computing the CLIP loss against ground-truth images for the current view, and backpropagating through the differentiable renderer to refine the Bézier control points until convergence.
-          </p>
+    <div class="container is-max-desktop">
+      <!-- Conclusion of Related Work -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            <p>
+              Combining the semantic sketching approach of CLIPasso with the real-time rendering capabilities of
+              Gaussian Splatting, our framework introduces a differentiable 3D sketch representation optimized using
+              CLIP-based supervision. This positions our work uniquely at the intersection of 3D vision, neural
+              rendering, and semantic abstraction.
+            </p>
+          </div>
         </div>
-        <!-- Creating environments. -->
-
-        
-<!------------------------------------------------------------------------------SPHERICAL GAUSSIANS----------------------------------------------------------------------------->
-        
-<h3 class="title is-4">III-A. 3D Differentiable Rasterization with Spherical Gaussians</h3>
-<div class="content has-text-justified">
-  <p>
-    To represent 3D sketches in a differentiable manner, we model 3D Bézier curves using spherical Gaussians (SGs) sampled along each curve’s path. This design allows efficient rasterization of the sketches into 2D images for training. Unlike CLIPasso’s discrete 2D rasterization, our approach supports backpropagation in 3D space and enables full differentiability with respect to the control points. Inspired by recent advances in Gaussian Splatting, we represent Bézier curves as sequences of Gaussians, each defined by a center and a fixed thickness, that can be projected onto 2D views using differentiable camera models.
-  </p>
-
-  <div class="columns is-centered">
-    <div class="column is-three-quarters">
-      <div align="center" class="box">
-        <img src="static/website_assets/image_2.png" alt="3D Bezier curves are used for representing 3D sketches of objects.">
-        <h5 class="subtitle has-text-centered">
-          <font size="-0.7">
-            <span style="font-weight:normal">
-              3D Bézier curves are used for representing 3D sketches of objects.
-            </span>
-          </font>
-        </h5>
       </div>
+      <!--/ Conclusion -->
     </div>
-  </div>
+  </section>
 
-  <p>
-    Each spherical Gaussian is defined as:
-  </p>
-  <p>
-    <script type="math/tex; mode=display">
+
+
+  <!------------------------------------------------------------------------------METHODOLOGY----------------------------------------------------------------------------->
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Method. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3" id="method">III. Methodology</h2>
+          <div class="content has-text-justified">
+            <p>
+              In this section, we present the three key building blocks of our framework. First, we introduce a fully
+              differentiable rasterization pipeline in which each Bézier curve is modeled as a sequence of spherical
+              Gaussians sampled along its path and projected into 2D via camera intrinsics and extrinsics.
+            </p>
+            <p>
+              To steer our 3D Bézier sketch toward both semantic fidelity and geometric precision, we use a CLIP-based
+              loss function: a high-level semantic similarity term, aligning rendered views in the semantic space, and a
+              geometric alignment term that preserves pixel-wise detail.
+            </p>
+            <p>
+              Finally, we describe the model training, which alternates between projecting the current 3D curve set into
+              2D, computing the CLIP loss against ground-truth images for the current view, and backpropagating through
+              the differentiable renderer to refine the Bézier control points until convergence.
+            </p>
+          </div>
+          <!-- Creating environments. -->
+
+
+          <!------------------------------------------------------------------------------SPHERICAL GAUSSIANS----------------------------------------------------------------------------->
+
+          <h3 class="title is-4">III-A. 3D Differentiable Rasterization with Spherical Gaussians</h3>
+          <div class="content has-text-justified">
+            <p>
+              To represent 3D sketches in a differentiable manner, we model 3D Bézier curves using spherical Gaussians
+              (SGs) sampled along each curve’s path. This design allows efficient rasterization of the sketches into 2D
+              images for training. Unlike CLIPasso’s discrete 2D rasterization, our approach supports backpropagation in
+              3D space and enables full differentiability with respect to the control points. Inspired by recent
+              advances in Gaussian Splatting, we represent Bézier curves as sequences of Gaussians, each defined by a
+              center and a fixed thickness, that can be projected onto 2D views using differentiable camera models.
+            </p>
+
+            <div class="columns is-centered">
+              <div class="column is-three-quarters">
+                <div align="center" class="box">
+                  <img src="static/website_assets/image_2.png"
+                    alt="3D Bezier curves are used for representing 3D sketches of objects.">
+                  <h5 class="subtitle has-text-centered">
+                    <font size="-0.7">
+                      <span style="font-weight:normal">
+                        3D Bézier curves are used for representing 3D sketches of objects.
+                      </span>
+                    </font>
+                  </h5>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              Each spherical Gaussian is defined as:
+            </p>
+            <p>
+              <script type="math/tex; mode=display">
       \phi\left(\mathbf{x}; \mathbf{c}, r\right) = \exp\left(-\frac{\|\mathbf{x} - \mathbf{c}\|^2}{2r^2}\right)
     </script>
-  </p>
+            </p>
 
-  <p>
-    where <script type="math/tex">\mathbf{c} \in \mathbb{R}^3</script> is the center of the Gaussian and <script type="math/tex">r</script> is its radius (or thickness). To sample a Bézier curve of length <script type="math/tex">L</script> with a desired overlap ratio <script type="math/tex">\alpha_o</script>, the sampling step <script type="math/tex">d</script> and the number of samples <script type="math/tex">N</script> are computed as:
-  </p>
+            <p>
+              where
+              <script type="math/tex">\mathbf{c} \in \mathbb{R}^3</script> is the center of the Gaussian and
+              <script type="math/tex">r</script> is its radius (or thickness). To sample a Bézier curve of length
+              <script type="math/tex">L</script> with a desired overlap ratio
+              <script type="math/tex">\alpha_o</script>, the sampling step
+              <script type="math/tex">d</script> and the number of samples
+              <script type="math/tex">N</script> are computed as:
+            </p>
 
-  <p>
-    <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
       d = r \alpha_o, \quad
       N = \left\lceil \frac{L}{d} \right\rceil
     </script>
-  </p>
+            </p>
 
-  <p>
-    For a Bézier curve <script type="math/tex">\mathbf{B}</script> with control points <script type="math/tex">\mathbf{p}_0, \mathbf{p}_1, \ldots, \mathbf{p}_M \in \mathbb{R}^3</script>, the centers of the Gaussians sampled along the curve are given by:
-  </p>
+            <p>
+              For a Bézier curve
+              <script type="math/tex">\mathbf{B}</script> with control points
+              <script type="math/tex">\mathbf{p}_0, \mathbf{p}_1, \ldots, \mathbf{p}_M \in \mathbb{R}^3</script>, the
+              centers of the Gaussians sampled along the curve are given by:
+            </p>
 
-  <p>
-    <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
       \mathbf{c}_{n,\mathbf{B}} =
       \sum_{i=0}^{M}
       \gamma_i\,\left(1-\frac{n}{N}\right)^{M-i}\,\left(\frac{n}{N}\right)^{i}\,\mathbf{p}_i
     </script>
-  </p>
+            </p>
 
-  <p>
-    where <script type="math/tex">\gamma_i</script> are the Bernstein basis coefficients. This makes each Gaussian center fully differentiable with respect to the Bézier control points.
-  </p>
+            <p>
+              where
+              <script type="math/tex">\gamma_i</script> are the Bernstein basis coefficients. This makes each Gaussian
+              center fully differentiable with respect to the Bézier control points.
+            </p>
 
-  <div class="columns is-centered">
-    <div class="column is-three-quarters">
-      <div align="center" class="box">
-        <img src="static/website_assets/image_3.png" alt="Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.">
-        <h5 class="subtitle has-text-centered">
-          <font size="-0.7">
-            <span style="font-weight:normal">
-              Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.
-            </span>
-          </font>
-        </h5>
-      </div>
-    </div>
-  </div>
+            <div class="columns is-centered">
+              <div class="column is-three-quarters">
+                <div align="center" class="box">
+                  <img src="static/website_assets/image_3.png"
+                    alt="Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.">
+                  <h5 class="subtitle has-text-centered">
+                    <font size="-0.7">
+                      <span style="font-weight:normal">
+                        Spherical Gaussians are utilized for differentiable rasterization of the 3D sketches.
+                      </span>
+                    </font>
+                  </h5>
+                </div>
+              </div>
+            </div>
 
-  <p>
-  After generating the Gaussians, we render them through a differentiable rasterizer that projects the 3D Gaussians into 2D using camera intrinsics and extrinsics <a href="https://doi.org/10.1007/978-3-030-34372-9">[6]</a>. The resulting image <script type="math/tex">\mathbf{V} \in \mathbb{R}^{W \times H}</script> is given by:
-</p>
+            <p>
+              After generating the Gaussians, we render them through a differentiable rasterizer that projects the 3D
+              Gaussians into 2D using camera intrinsics and extrinsics <a
+                href="https://doi.org/10.1007/978-3-030-34372-9">[6]</a>. The resulting image
+              <script type="math/tex">\mathbf{V} \in \mathbb{R}^{W \times H}</script> is given by:
+            </p>
 
-<p>
-  <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
     \mathbf{V} = T\left(\mathbf{c}, r, \mathbf{In}, \mathbf{Ex}, W, H\right)
   </script>
-</p>
+            </p>
 
-<p>
-  where <script type="math/tex">\mathbf{In} \in \mathbb{R}^{3 \times 3}</script> is the intrinsic matrix encoding camera parameters such as focal length and principal point:
-</p>
+            <p>
+              where
+              <script type="math/tex">\mathbf{In} \in \mathbb{R}^{3 \times 3}</script> is the intrinsic matrix encoding
+              camera parameters such as focal length and principal point:
+            </p>
 
-<p>
-  <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
     \mathbf{In} =
     \begin{bmatrix}
       f_x & 0 & c_x \\
@@ -479,229 +568,285 @@
       0 & 0 & 1
     \end{bmatrix},
   </script>
-</p>
+            </p>
 
-<p>
-  and <script type="math/tex">\mathbf{Ex} \in \mathbb{R}^{4 \times 4}</script> is the extrinsic matrix representing the camera pose in the world frame, given by:
-</p>
+            <p>
+              and
+              <script type="math/tex">\mathbf{Ex} \in \mathbb{R}^{4 \times 4}</script> is the extrinsic matrix
+              representing the camera pose in the world frame, given by:
+            </p>
 
-<p>
-  <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
     \mathbf{Ex} =
     \begin{bmatrix}
       \mathbf{R} & \mathbf{t} \\
       \mathbf{0}^{1 \times 3} & 1
     \end{bmatrix},
   </script>
-</p>
+            </p>
 
-<p>
-  where <script type="math/tex">\mathbf{R} \in \mathbb{R}^{3 \times 3}</script> is the rotation matrix and <script type="math/tex">\mathbf{t} \in \mathbb{R}^{3}</script> is the translation vector. Together, these matrices map a 3D point from world coordinates to 2D pixel coordinates in the image plane.
-</p>
+            <p>
+              where
+              <script type="math/tex">\mathbf{R} \in \mathbb{R}^{3 \times 3}</script> is the rotation matrix and
+              <script type="math/tex">\mathbf{t} \in \mathbb{R}^{3}</script> is the translation vector. Together, these
+              matrices map a 3D point from world coordinates to 2D pixel coordinates in the image plane.
+            </p>
 
-<p>
-  Each pixel <script type="math/tex">\mathbf{V}_{n_1,n_2}</script> corresponds to a projection and accumulation over 3D Gaussians, which are parameterized by their mean positions, covariance matrices, and opacity values:
-</p>
+            <p>
+              Each pixel
+              <script type="math/tex">\mathbf{V}_{n_1,n_2}</script> corresponds to a projection and accumulation over 3D
+              Gaussians, which are parameterized by their mean positions, covariance matrices, and opacity values:
+            </p>
 
-<p>
-  <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
     \mathbf{V}_{n_1,n_2} = T\left(f(\mathbf{p}_i, \boldsymbol{\Sigma}_i, \alpha_i, \ldots), \ldots\right)
   </script>
-</p>
+            </p>
 
-<p>
-  Notably, the strokes used in our sketch abstraction are represented as Bézier curves with 4 control points <script type="math/tex">\{\mathbf{P}_0, \mathbf{P}_1, \mathbf{P}_2, \mathbf{P}_3\}</script>, forming a cubic Bézier formulation:
-</p>
+            <p>
+              Notably, the strokes used in our sketch abstraction are represented as Bézier curves with 4 control points
+              <script type="math/tex">\{\mathbf{P}_0, \mathbf{P}_1, \mathbf{P}_2, \mathbf{P}_3\}</script>, forming a
+              cubic Bézier formulation:
+            </p>
 
-<p>
-  <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
     \mathbf{B}(t) = (1 - t)^3 \mathbf{P}_0 + 3(1 - t)^2 t \mathbf{P}_1 + 3(1 - t) t^2 \mathbf{P}_2 + t^3 \mathbf{P}_3,\quad t \in [0, 1]
   </script>
-</p>
+            </p>
 
-<p>
-  This parametric formulation enables fine control over stroke shape and spatial distribution in 3D. The end-to-end differentiability of the pipeline allows training the sketch representation directly using image-level loss functions such as CLIP similarity.
-</p>
-</div>
-        <!--/ Creating environments. -->
+            <p>
+              This parametric formulation enables fine control over stroke shape and spatial distribution in 3D. The
+              end-to-end differentiability of the pipeline allows training the sketch representation directly using
+              image-level loss functions such as CLIP similarity.
+            </p>
+          </div>
+          <!--/ Creating environments. -->
 
-<!------------------------------------------------------------------------------CLIP LOSS----------------------------------------------------------------------------->
+          <!------------------------------------------------------------------------------CLIP LOSS----------------------------------------------------------------------------->
 
-  <h3 class="title is-4">III-B. CLIP-based Objective</h3>
-<div class="content has-text-justified">
-  <p>
-    To guide the optimization of the 3D Bézier sketch toward both geometrically accurate and semantically meaningful representations, we leverage a CLIP-based loss function. This loss encourages the rendered sketch views to match the real images not just pixel-wise but in high-level perceptual and semantic space. Following the strategy of CLIPasso, we define a dual-component objective that combines semantic similarity and geometric alignment, each captured from different layers of a pretrained CLIP model.
-  </p>
+          <h3 class="title is-4">III-B. CLIP-based Objective</h3>
+          <div class="content has-text-justified">
+            <p>
+              To guide the optimization of the 3D Bézier sketch toward both geometrically accurate and semantically
+              meaningful representations, we leverage a CLIP-based loss function. This loss encourages the rendered
+              sketch views to match the real images not just pixel-wise but in high-level perceptual and semantic space.
+              Following the strategy of CLIPasso, we define a dual-component objective that combines semantic similarity
+              and geometric alignment, each captured from different layers of a pretrained CLIP model.
+            </p>
 
-  <p>
-    The final loss is a weighted sum of the semantic and geometric components:
-  </p>
+            <p>
+              The final loss is a weighted sum of the semantic and geometric components:
+            </p>
 
-  <p>
-    <script type="math/tex; mode=display">
+            <p>
+              <script type="math/tex; mode=display">
       \mathcal{L} = w_s \,\mathcal{L}_{\mathrm{semantic}}
            + w_g \,\mathcal{L}_{\mathrm{geometric}}
     </script>
-  </p>
+            </p>
 
-  <p>
-    Here, <script type="math/tex">w_s</script> and <script type="math/tex">w_g</script> are hyperparameters that balance the contribution of each term. The semantic loss <script type="math/tex">\mathcal{L}_{\mathrm{semantic}}</script> is computed using the output of CLIP’s final fully connected layer, which captures the global alignment between rendered sketches and their corresponding RGB images in CLIP’s joint vision-language embedding space.
-  </p>
+            <p>
+              Here,
+              <script type="math/tex">w_s</script> and
+              <script type="math/tex">w_g</script> are hyperparameters that balance the contribution of each term. The
+              semantic loss
+              <script type="math/tex">\mathcal{L}_{\mathrm{semantic}}</script> is computed using the output of CLIP’s
+              final fully connected layer, which captures the global alignment between rendered sketches and their
+              corresponding RGB images in CLIP’s joint vision-language embedding space.
+            </p>
 
-  <p>
-    The geometric loss <script type="math/tex">\mathcal{L}_{\mathrm{geometric}}</script> captures local spatial structure and can be extracted either from CLIP’s early convolutional layers or from token-wise attention maps, depending on the selected variant. This term ensures that the layout and fine-scale details of the projected sketches align with real-world object contours.
-  </p>
+            <p>
+              The geometric loss
+              <script type="math/tex">\mathcal{L}_{\mathrm{geometric}}</script> captures local spatial structure and can
+              be extracted either from CLIP’s early convolutional layers or from token-wise attention maps, depending on
+              the selected variant. This term ensures that the layout and fine-scale details of the projected sketches
+              align with real-world object contours.
+            </p>
 
-  <p>
-    During training, the 3D sketch is projected into 2D using the differentiable rasterizer described in Section III-A. The resulting image is then passed through CLIP alongside its target RGB counterpart. The cosine distance between their embeddings drives the optimization, gradually refining the control points of the Bézier curves so that the rendered sketches become increasingly perceptually and semantically aligned with real views.
-  </p>
-</div>
-<!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
-        <h3 class="title is-4">III-C. Model Training</h3>
-        <div class="content has-text-justified">
-          <p>
-            The training phase aims to optimize a set of 3D Bézier curves such that their 2D projections resemble real object images when viewed from different camera angles. This is achieved through an iterative loop involving projection, perceptual comparison, and gradient-based refinement. By leveraging CLIP embeddings as a supervisory signal, the model learns to align the rendered sketch views with the semantics of real RGB views. The training continues until convergence, producing a geometry-aware sketch representation that is both visually and semantically faithful.
-          </p>
+            <p>
+              During training, the 3D sketch is projected into 2D using the differentiable rasterizer described in
+              Section III-A. The resulting image is then passed through CLIP alongside its target RGB counterpart. The
+              cosine distance between their embeddings drives the optimization, gradually refining the control points of
+              the Bézier curves so that the rendered sketches become increasingly perceptually and semantically aligned
+              with real views.
+            </p>
+          </div>
+          <!------------------------------------------------------------------------------TRAINING----------------------------------------------------------------------------->
+          <h3 class="title is-4">III-C. Model Training</h3>
+          <div class="content has-text-justified">
+            <p>
+              The training phase aims to optimize a set of 3D Bézier curves such that their 2D projections resemble real
+              object images when viewed from different camera angles. This is achieved through an iterative loop
+              involving projection, perceptual comparison, and gradient-based refinement. By leveraging CLIP embeddings
+              as a supervisory signal, the model learns to align the rendered sketch views with the semantics of real
+              RGB views. The training continues until convergence, producing a geometry-aware sketch representation that
+              is both visually and semantically faithful.
+            </p>
             <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/method_1.gif" alt="Rasterization of images using camera matrix from the constructred 3D sketch.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">Rasterization of images using camera matrix from the constructred 3D sketch.</span>
-                  </font>
-                </h5>
+              <div class="column is-three-quarters">
+                <div align="center" class="box">
+                  <img src="static/website_assets/method_1.gif"
+                    alt="Rasterization of images using camera matrix from the constructred 3D sketch.">
+                  <h5 class="subtitle has-text-centered">
+                    <font size="-0.7">
+                      <span style="font-weight:normal">Rasterization of images using camera matrix from the constructred
+                        3D sketch.</span>
+                    </font>
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <p>
-In each training iteration, the current 3D Bézier sketch is projected into 2D using the known camera intrinsics and extrinsics. This rasterization step generates a view-dependent binary sketch image that mimics how the 3D curves would appear from that specific viewpoint.          
-          </p>
-          
-          <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/method_2.gif" alt="Obtaining the CLIP Loss between the RGB images of the views and sampled sketch views.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">Obtaining the CLIP Loss between the RGB images of the views and sampled sketch views.</span>
-                  </font>
-                </h5>
+
+            <p>
+              In each training iteration, the current 3D Bézier sketch is projected into 2D using the known camera
+              intrinsics and extrinsics. This rasterization step generates a view-dependent binary sketch image that
+              mimics how the 3D curves would appear from that specific viewpoint.
+            </p>
+
+            <div class="columns is-centered">
+              <div class="column is-three-quarters">
+                <div align="center" class="box">
+                  <img src="static/website_assets/method_2.gif"
+                    alt="Obtaining the CLIP Loss between the RGB images of the views and sampled sketch views.">
+                  <h5 class="subtitle has-text-centered">
+                    <font size="-0.7">
+                      <span style="font-weight:normal">Obtaining the CLIP Loss between the RGB images of the views and
+                        sampled sketch views.</span>
+                    </font>
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
 
-          <p>
-  The projected sketch view is then compared to the corresponding RGB image of the same view. Both are encoded using CLIP’s vision-language model, and a cosine similarity loss is computed to quantify their perceptual alignment in the embedding space.
-          </p>
+            <p>
+              The projected sketch view is then compared to the corresponding RGB image of the same view. Both are
+              encoded using CLIP’s vision-language model, and a cosine similarity loss is computed to quantify their
+              perceptual alignment in the embedding space.
+            </p>
 
-          <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/method_3.gif" alt="Optimizing the control points using the backpropagated loss.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">Optimizing the control points using the backpropagated loss.</span>
-                  </font>
-                </h5>
+            <div class="columns is-centered">
+              <div class="column is-three-quarters">
+                <div align="center" class="box">
+                  <img src="static/website_assets/method_3.gif"
+                    alt="Optimizing the control points using the backpropagated loss.">
+                  <h5 class="subtitle has-text-centered">
+                    <font size="-0.7">
+                      <span style="font-weight:normal">Optimizing the control points using the backpropagated
+                        loss.</span>
+                    </font>
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
 
-          <p>
-  The CLIP loss is backpropagated through the differentiable projection and rendering pipeline to adjust the 3D control points of the Bézier curves. This step ensures that the curves evolve to better match the visual content of the reference images.
-          </p>
+            <p>
+              The CLIP loss is backpropagated through the differentiable projection and rendering pipeline to adjust the
+              3D control points of the Bézier curves. This step ensures that the curves evolve to better match the
+              visual content of the reference images.
+            </p>
 
-          <div class="columns is-centered">
-            <div class="column is-three-quarters">
-              <div align="center" class="box">
-                <img src="static/website_assets/method_4.gif" alt="Training the model until loss converges.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal">Training the model until loss converges.</span>
-                  </font>
-                </h5>
+            <div class="columns is-centered">
+              <div class="column is-three-quarters">
+                <div align="center" class="box">
+                  <img src="static/website_assets/method_4.gif" alt="Training the model until loss converges.">
+                  <h5 class="subtitle has-text-centered">
+                    <font size="-0.7">
+                      <span style="font-weight:normal">Training the model until loss converges.</span>
+                    </font>
+                  </h5>
+                </div>
               </div>
             </div>
+
+            <p>
+              This process is repeated iteratively for all views in the dataset. Over time, the loss steadily decreases
+              as the curves converge to a semantically accurate and geometrically coherent representation of the object
+              across all viewpoints.
+            </p>
+
+
           </div>
-
-           <p>
-  This process is repeated iteratively for all views in the dataset. Over time, the loss steadily decreases as the curves converge to a semantically accurate and geometrically coherent representation of the object across all viewpoints.
-          </p>
-
-          
+          <!--/ Creating environments. -->
         </div>
-        <!--/ Creating environments. -->
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-<!------------------------------------------------------------------------------EXPERIMENTS & RESULTS----------------------------------------------------------------------------->
+  <!------------------------------------------------------------------------------EXPERIMENTS & RESULTS----------------------------------------------------------------------------->
 
 
   <section class="section">
-  <div class="container is-max-desktop">
-    <!-- Experiments. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3" id="results">IV. Results</h2>
+    <div class="container is-max-desktop">
+      <!-- Experiments. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3" id="results">IV. Results</h2>
 
-        <p>
-          In this section, we present the results of our 3D sketch abstraction pipeline. We begin by introducing the custom multiview datasets we created, then illustrate the training process using train/test splits to evaluate spatial consistency throughout optimization.
-          Finally, we report the outcomes of a series of experiments that vary key hyperparameters.
-        </p>
-        <br>
-<!------------------------------------------------------------------------------BLENDER DATASETS----------------------------------------------------------------------------->
+          <p>
+            In this section, we present the results of our 3D sketch abstraction pipeline. We begin by introducing the
+            custom multiview datasets we created, then illustrate the training process using train/test splits to
+            evaluate spatial consistency throughout optimization.
+            Finally, we report the outcomes of a series of experiments that vary key hyperparameters.
+          </p>
+          <br>
+          <!------------------------------------------------------------------------------BLENDER DATASETS----------------------------------------------------------------------------->
 
-        <!-- Inference environments. -->
-        <h3 class="title is-4">IV-A. Custom Blender Datasets</h3>
+          <!-- Inference environments. -->
+          <h3 class="title is-4">IV-A. Custom Blender Datasets</h3>
 
-        <p>
-          Classical NeRF datasets emphasize high‐resolution detail and sharp features to benchmark rendering accuracy. Such geometric complexity can impede our abstraction‐focused optimization. Therefore, we generated our own multiview datasets using semantically and visually simple objects using Blender. To assess the performance of the used method, we have generated both training and the testing views.
-        </p>
+          <p>
+            Classical NeRF datasets emphasize high‐resolution detail and sharp features to benchmark rendering accuracy.
+            Such geometric complexity can impede our abstraction‐focused optimization. Therefore, we generated our own
+            multiview datasets using semantically and visually simple objects using Blender. To assess the performance
+            of the used method, we have generated both training and the testing views.
+          </p>
 
 
-<section class="section">
+          <section class="section">
             <div class="container is-max-desktop">
               <div id="dataset-carousel" class="carousel results-carousel">
-                  <a href="./static/gt_gifs/bike_gt.gif" data-lightbox="image">
-                    <img src="./static/gt_gifs/bike_gt.gif" alt="Bike Object">
-                  </a>
-                
-                  <a href="./static/gt_gifs/duck_gt.gif" data-lightbox="image">
-                    <img src="./static/gt_gifs/duck_gt.gif" alt="Duck Object">
-                  </a>
-                
-                  <a href="./static/gt_gifs/horse_gt.gif" data-lightbox="image">
-                    <img src="./static/gt_gifs/horse_gt.gif" alt="Horse Object">
-                  </a>
-                
-                  <a href="./static/gt_gifs/rrose_gt.gif" data-lightbox="image">
-                    <img src="./static/gt_gifs/rrose_gt.gif" alt="Rose Object">
-                  </a>
+                <a href="./static/gt_gifs/bike_gt.gif" data-lightbox="image">
+                  <img src="./static/gt_gifs/bike_gt.gif" alt="Bike Object">
+                </a>
+
+                <a href="./static/gt_gifs/duck_gt.gif" data-lightbox="image">
+                  <img src="./static/gt_gifs/duck_gt.gif" alt="Duck Object">
+                </a>
+
+                <a href="./static/gt_gifs/horse_gt.gif" data-lightbox="image">
+                  <img src="./static/gt_gifs/horse_gt.gif" alt="Horse Object">
+                </a>
+
+                <a href="./static/gt_gifs/rrose_gt.gif" data-lightbox="image">
+                  <img src="./static/gt_gifs/rrose_gt.gif" alt="Rose Object">
+                </a>
               </div>
             </div>
-          
-        </section>
-<!------------------------------------------------------------------------------TRAIN-TEST SPLITS----------------------------------------------------------------------------->
 
-        <h3 class="title is-4">IV-B. Training - Train & Test Splits</h3>
+          </section>
+          <!------------------------------------------------------------------------------TRAIN-TEST SPLITS----------------------------------------------------------------------------->
 
-        <p>
-        To verify that our 3D sketch abstractions remain spatially consistent from viewpoints not used during optimization, we split each multiview dataset into training and test sets.
-        During training, curve parameters are updated using the CLIP-based loss computed on the training views. 
-        Simultaneously, at each iteration, we render the current sketch from unseen test viewpoints and compute the CLIP loss against the corresponding test images. 
-        Below, we present the evolution of both training and test losses throughout the optimization process, along with visual snapshots illustrating the evolution of the 3D curves at different stages.        
-        </p>
+          <h3 class="title is-4">IV-B. Training - Train & Test Splits</h3>
 
-        <section class="section">
+          <p>
+            To verify that our 3D sketch abstractions remain spatially consistent from viewpoints not used during
+            optimization, we split each multiview dataset into training and test sets.
+            During training, curve parameters are updated using the CLIP-based loss computed on the training views.
+            Simultaneously, at each iteration, we render the current sketch from unseen test viewpoints and compute the
+            CLIP loss against the corresponding test images.
+            Below, we present the evolution of both training and test losses throughout the optimization process, along
+            with visual snapshots illustrating the evolution of the 3D curves at different stages.
+          </p>
+
+          <section class="section">
             <div class="container is-max-desktop">
               <div id="results-carousel" class="carousel results-carousel">
                 <div class="item">
-                <a href="./static/evolution_gif/training_evolution.gif" data-lightbox="image">
+                  <a href="./static/evolution_gif/training_evolution.gif" data-lightbox="image">
                     <img src="./static/evolution_gif/training_evolution.gif" alt="Evolution 1">
                   </a>
                 </div>
@@ -709,511 +854,519 @@ In each training iteration, the current 3D Bézier sketch is projected into 2D u
                   <a href="./static/evolution_gif/training_evolution-2.gif" data-lightbox="image">
                     <img src="./static/evolution_gif/training_evolution-2.gif" alt="Evolution 2">
                   </a>
-                  </div>
+                </div>
                 <div class="item">
                   <a href="./static/evolution_gif/training_evolution-3.gif" data-lightbox="image">
                     <img src="./static/evolution_gif/training_evolution-3.gif" alt="Evolution 3">
                   </a>
-                  </div>
+                </div>
                 <div class="item">
                   <a href="./static/evolution_gif/training_evolution-5.gif" data-lightbox="image">
                     <img src="./static/evolution_gif/training_evolution-5.gif" alt="Evolution 4">
                   </a>
-                  </div>
+                </div>
                 <div class="item">
                   <a href="./static/evolution_gif/training_evolution-6.gif" data-lightbox="image">
                     <img src="./static/evolution_gif/training_evolution-6.gif" alt="Evolution 5">
                   </a>
-                  </div>
+                </div>
               </div>
             </div>
             <h6 class="subtitle has-text-centered">
               The loss values of the train and test splits for each object through iterations.
             </h6>
-          
-        </section>
-    
-    <!------------------------------------------------------------------------------HYPERPARAMETER EXPERIMENTS----------------------------------------------------------------------------->
 
-        <h3 class="title is-4">IV-C. Experiments with hyperparameters</h3>
-        <p>
-          In order to understand how key hyperparameters affect both the visual quality and convergence behavior of our 3D sketches, we conducted a series of controlled experiments. 
-          In each experiment, we vary a single parameter while keeping all others fixed, and observe its impact. 
-          Below, we present qualitative results from these experiments.
-        </p>
+          </section>
 
-        <h3 class="title is-5">Number of curves</h3>
+          <!------------------------------------------------------------------------------HYPERPARAMETER EXPERIMENTS----------------------------------------------------------------------------->
 
-        <p>
-          This hyperparameter controls how many 3D Bézier curves are used to approximate the 3D sketch.
-          We experimented with 10, 15, 20, and 25 curves.
-        </p>
-
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/rrose_gt.gif" 
-                  alt="Ground Truth Rose" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/10_curve.gif" 
-                  alt="Rose 10 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/15_curve.gif" 
-                  alt="Rose 15 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/20_curve.gif" 
-                  alt="Rose 20 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves/25_curve.gif" 
-                  alt="Rose 25 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/duck_gt.gif" 
-                  alt="Ground Truth Duck" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/10_curve.gif" 
-                  alt="Duck 10 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  10
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/15_curve.gif" 
-                  alt="Duck 15 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  15
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/20_curve.gif" 
-                  alt="Duck 20 curve" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  20
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/n_curves_duck/25_curve.gif" 
-                  alt="Duck 25 curves" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  25
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-        
-        <h3 class="title is-5">Batch size</h3>
-  
-        <p>
-          This hyperparameter determines how many camera views are processed together in each optimization step. 
-          With a batch size of 1, the curves are updated based on the loss from a single viewpoint at each step. 
-          Increasing the batch size aggregates the loss over multiple views, optimizing simultaneously for x views before performing a parameter update.
-          We experimented with batch sizes of 1, 2, 3, and 4.
-        </p>
-
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/duck_gt.gif" 
-                  alt="Ground Truth Duck" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  Ground Truth Duck
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_1.gif" 
-                  alt="Duck batch size 1" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  1
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_2.gif" 
-                  alt="Duck batch size 2" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  2
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_3.gif" 
-                  alt="Duck batch size 3" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  3
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/batch_size/batch_size_4.gif" 
-                  alt="Duck batch size 4" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  4
-                </figcaption>
-              </figure>
-
-            </div>
-          </div>
-        </div>
-
-        <h3 class="title is-5">Semantic loss weight</h3>
-
-        <p>
-          This hyperparameter controls the contribution of the semantic component within the CLIP-based loss function.
-          A higher weight places more emphasis on matching high-level semantic features of the input image rather than its exact geometry.
-          We experimented with semantic loss weights of 0.01 and 0.5.
-        </p>
-
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/rrose_gt.gif" 
-                  alt="Ground Truth Rose" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/fc_loss/0.01_fc_loss.gif" 
-                  alt="Semantic loss weight 0.01" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.01
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/fc_loss/05_fc_loss.gif" 
-                  alt="Semantic loss weight 0.5" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.5
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-
-        <h3 class="title is-5">Curve thickness</h3>
-
-        <p>
-          This hyperparameter sets the stroke width of each Bézier curve, controlling how bold or fine the resulting sketch appears.
-          We experimented with thickness values of 0.02 and 0.03.
-        </p>
-
-        <div class="container is-max-desktop">
-          <div class="hero-body">
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/gt_gifs/rrose_gt.gif" 
-                  alt="Ground Truth Rose" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/thickness/semihelical_thickness-020.gif" 
-                  alt="Rose thickness 0.02" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.02
-                </figcaption>
-              </figure>
-
-              <figure style="display: flex; flex-direction: column; align-items: center;">
-                <img 
-                  src="./static/experiments/thickness/semihelical_thickness-030.gif" 
-                  alt="Rose thickness 0.03" 
-                  style="max-width: 100%; height: auto;"
-                >
-                <figcaption class="subtitle is-6 has-text-centered">
-                  0.03
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-
-        <h3 class="title is-4">IV-D. Interactive Visualisation</h3>
-          Here you can interact with the 3D sketch generated for the rose object.
-        <div class="box">
-            <iframe src="./static/plotly/efe_rose_plot_interactive.html" frameborder="0" width="100%" height="500px"></iframe>
-        </div>
-
-</section>
-
-
-
-<!------------------------------------------------------------------------------CONC  & LIMITATIONS----------------------------------------------------------------------------->
-
-  
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Conclusions and limitations. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3" id="conclusion">V. Conclusion and Limitations</h2>
-
-        <div class="content has-text-justified">
+          <h3 class="title is-4">IV-C. Experiments with Hyperparameters</h3>
           <p>
-            Our work explores the use of CLIP-based objectives for 3D sketch abstraction via differentiable Bézier curves. Through our implementation and experimentation, we make the following observations:
-            <ul>
-              <li> Depth ambiguity in single-view optimization leads to visually plausible but geometrically inconsistent 3D reconstructions.
-              <li> Multi-view supervision stabilizes depth inference and leads to spatially coherent sketches across viewpoints.
-              <li> Differentiable Gaussian rasterization enables gradient-based optimization over curve control points, but memory efficiency is critical to scale.
-              <li> The 3D sketch generation task can be reduced to a Gaussian Splatting problem with alpha, color and variance parameters are fixed and mean values of the splats are subject to constraints as Beizer Curve control points:
-            </ul>
-
-            These findings highlight the importance of viewpoint diversity and geometry-aware initialization in abstract 3D reconstruction tasks, and support the use of CLIP-based semantic loss as a viable surrogate when explicit 3D supervision is unavailable.
-            </p>
-        </div>
-
-        <!-- Limitations. -->
-        <h3 class="title is-4">V-A. Limitations and Future Work</h3>
-        <div class="content has-text-justified">
-          <p>
-            Although we have obtained promising results, there are several limitations in our work that could be addressed in future research:
-          </p>
-          <p>
-              Multi-view consistency remains one of the most critical and challenging objectives in the field of 3D image generation and editing. In our work, despite employing batches of multi-view images and experimenting with various hyperparameter settings, we observed failures in achieving semantic consistency across views for certain objects.
-              Notably, we found that the CLIP-based loss occasionally overemphasizes semantic similarity at the expense of geometric coherence. For example, in the case of the horse model, the object may resemble a full horse from one viewpoint but appear as only a horse’s head from another. A similar inconsistency is evident in the GIF below, where the bicycle sketch exhibits view-dependent deformation appearent from the tires.
-              Addressing this issue requires further refinement of the training strategy—particularly in the initialization and optimization of Bézier control points. Additionally, a more careful tuning of the CLIP loss weighting parameters may help balance semantic alignment with geometric structure across views.
+            To evaluate the impact of key hyperparameters on both the convergence behavior and the visual fidelity of
+            our 3D sketch abstractions, we performed a series of controlled experiments.
+            In each case, a single parameter was varied while all others were held constant. Below, we present
+            qualitative results illustrating how these parameters influence the final renderings.
+            An extensive list of hyperparameters that can be passed through the parser can be seen from the list of
+            hyperparameters below.
           </p>
 
-          <div class="columns is-centered">
-            <div class="column is-half">
-              <div align="center" class="box">
-                <img src="static/results/bike/14.05 - bike - efe/semihelical.gif" alt="The bicycle sketch exhibits view-dependent deformation apparent from the tires">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal"><em>The bicycle reconstruction exhibits view-dependent deformation apparent from the tires</em></span>
-                  </font>
-                </h5>
+
+          <div class="content has-text-justified">
+            <div class="container">
+              <div class="box">
+                <div class="table-container">
+                  <table class="table is-striped is-hoverable is-fullwidth">
+                    <thead>
+                      <tr>
+                        <th>Argument</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>--batch_size</code></td>
+                        <td>Number of images processed per training batch.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--epochs</code></td>
+                        <td>Number of training epochs.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--inner_steps</code></td>
+                        <td>Inner optimization steps per batch.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--learning_rate</code></td>
+                        <td>Learning rate for Adam optimizer.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--n_curves</code></td>
+                        <td>Number of Bézier curves initialized in the scene.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--thickness</code></td>
+                        <td>Radius (thickness) of each rendered curve/sphere segment.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--radius</code></td>
+                        <td>Distance from the scene center to place initial curve points.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--length</code></td>
+                        <td>Initial length of the randomly created curve segments.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--overlap</code></td>
+                        <td>Degree of allowed overlap between nearby spherical Gaussians on the same curve.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--clip_weight</code></td>
+                        <td>Total CLIP loss weight.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--clip_conv_loss</code></td>
+                        <td>Weight of the convolutional CLIP loss.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--clip_fc_loss_weight</code></td>
+                        <td>Weight of CLIP’s final-layer (semantic) similarity loss.</td>
+                      </tr>
+                      <tr>
+                        <td><code>--clip_conv_layer_weights</code></td>
+                        <td>Weights for each CLIP convolutional layer (ViT-B/32 has 5 layers).</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
 
-          <p>
-               Another challenge encountered during training is the tendency of the optimization process to overfill the volume of the object when the number of Bézier curves becomes too high. As the sketch density increases, the CLIP-based loss drives the model to generate a solid, filled-in representation rather than preserving the sparse, abstract nature of a line-based sketch.
-              This behavior may be partially related to the previously discussed issue, where the CLIP loss struggles to maintain a proper balance between semantic and geometric alignment across views. However, it also appears to be influenced by the number of sketch curves: as more curves are introduced, the optimization increasingly prioritizes semantic coverage, effectively “filling in” the shape.
-              This effect is illustrated in the duck reconstruction GIF below, where the sketch—composed of 40 curves—visibly fills the object’s interior volume rather than outlining its structural features. 
 
-<div class="columns is-centered">
-            <div class="column is-half">
-              <div align="center" class="box">
-                <img src="static/results/duck/18.05 - duck_2 - efe/25_curve.gif" alt="The duck reconstruction exhibits a problem of volume-filling when number of lines to model the sketch is increased.">
-                <h5 class="subtitle has-text-centered">
-                  <font size="-0.7">
-                    <span style="font-weight:normal"><em>The duck reconstruction exhibits a problem of volume-filling when number of lines to model the sketch is increased.</em></span>
-                  </font>
-                </h5>
+
+          <h3 class="title is-5">Number of curves</h3>
+          <p>
+            This hyperparameter controls how many 3D Bézier curves are used to represent the sketch. A higher number of
+            curves allows for more detailed reconstruction, while fewer curves enforce abstraction.
+            We experimented with 10, 15, 20, and 25 curves. Results are shown below for both the rose and duck objects.
+          </p>
+
+          <!-- Rose curve experiment -->
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <div style="display: flex; justify-content: center; gap: 1rem;">
+                <figure style="display: flex; flex-direction: column; align-items: center;">
+                  <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
+                  <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves/10_curve.gif" alt="10 curves">
+                  <figcaption class="subtitle is-6 has-text-centered">10 Curves</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves/15_curve.gif" alt="15 curves">
+                  <figcaption class="subtitle is-6 has-text-centered">15 Curves</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves/20_curve.gif" alt="20 curves">
+                  <figcaption class="subtitle is-6 has-text-centered">20 Curves</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves/25_curve.gif" alt="25 curves">
+                  <figcaption class="subtitle is-6 has-text-centered">25 Curves</figcaption>
+                </figure>
               </div>
             </div>
           </div>
 
-              To address this problem, additional geometric constraints on curve proximity could be introduced to discourage excessive overlap. 
-              Alternatively, further improvements to the semantic-geometric balance described earlier may also alleviate this behavior. 
-              Exploring dynamic loss weighting strategies or incorporating structural priors remains a promising direction for future work.
-          </p>
+          <!-- Duck curve experiment -->
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <div style="display: flex; justify-content: center; gap: 1rem;">
+                <figure>
+                  <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck">
+                  <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves_duck/10_curve.gif" alt="10 curves duck">
+                  <figcaption class="subtitle is-6 has-text-centered">10 Curves</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves_duck/15_curve.gif" alt="15 curves duck">
+                  <figcaption class="subtitle is-6 has-text-centered">15 Curves</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves_duck/20_curve.gif" alt="20 curves duck">
+                  <figcaption class="subtitle is-6 has-text-centered">20 Curves</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/n_curves_duck/25_curve.gif" alt="25 curves duck">
+                  <figcaption class="subtitle is-6 has-text-centered">25 Curves</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="title is-5">Batch Size</h3>
 
           <p>
-The initialization strategy for Bézier curves plays a critical role in achieving high-quality sketch reconstruction. In CLIPasso, curve initialization is guided by thresholding saliency maps produced by the CLIP model, enabling semantically meaningful placements in 2D. However, this approach does not generalize well to 3D, where surface geometry must be taken into account. To keep the scope of the project focused and tractable, we chose not to train a NeRF or Gaussian Splatting model to obtain 3D saliency maps for curve placement.
-
-Instead, we adopted a random initialization strategy, which, despite its simplicity, yielded reasonably good results. Nevertheless, we believe that the visual quality and consistency of the generated sketches could be significantly improved with more informed initialization schemes—particularly those that incorporate geometric priors or 3D-aware saliency cues.            </li>
+            The batch size controls how many camera views are processed jointly during each optimization step.
+            A larger batch size enables more consistent updates across viewpoints, potentially improving multiview
+            coherence.
+            We tested batch sizes of 1, 2, 3, and 4 on the duck object.
           </p>
+
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <div style="display: flex; justify-content: center; gap: 1rem;">
+                <figure>
+                  <img src="./static/gt_gifs/duck_gt.gif" alt="Ground Truth Duck">
+                  <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/batch_size/batch_size_1.gif" alt="Batch size 1">
+                  <figcaption class="subtitle is-6 has-text-centered">Batch Size 1</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/batch_size/batch_size_2.gif" alt="Batch size 2">
+                  <figcaption class="subtitle is-6 has-text-centered">Batch Size 2</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/batch_size/batch_size_3.gif" alt="Batch size 3">
+                  <figcaption class="subtitle is-6 has-text-centered">Batch Size 3</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/batch_size/batch_size_4.gif" alt="Batch size 4">
+                  <figcaption class="subtitle is-6 has-text-centered">Batch Size 4</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="title is-5">Semantic Loss Weight</h3>
 
           <p>
-            In this project, we developed a novel sketch generation technique built upon the principles of Gaussian splatting, enhanced with task-specific constraints. While the visual quality of our results may fall short compared to state-of-the-art methods in the literature, the framework and research introduced here offer strong potential for reuse and extension. In particular, our approach provides a foundation for future academic work focused on task-oriented, constrained 3D applications—an area that remains largely underexplored and rich with opportunity.
+            This weight controls the influence of high-level semantics (CLIP FC loss) during optimization.
+            A low value prioritizes geometric alignment, while a higher value emphasizes perceptual similarity with the
+            reference image.
+            We experimented with weights of 0.01 and 0.5 using the rose object.
           </p>
 
-        </div>
-        <br/>
-        <!--/ Limitations and future work-->
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <div style="display: flex; justify-content: center; gap: 1rem;">
+                <figure>
+                  <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
+                  <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/fc_loss/0.01_fc_loss.gif" alt="Semantic weight 0.01">
+                  <figcaption class="subtitle is-6 has-text-centered">Weight = 0.01</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/fc_loss/05_fc_loss.gif" alt="Semantic weight 0.5">
+                  <figcaption class="subtitle is-6 has-text-centered">Weight = 0.5</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
 
-      </div>
-    </div>
-    <!--/ Conclusions and limitations. -->
-  </div>
-</section>
-<!------------------------------------------------------------------------------CONTRIBUTIONS---------------------------------------------------------------->
+          <h3 class="title is-5">Curve Thickness</h3>
 
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">References</h2>
-
-        <div class="content has-text-justified">
-          <ol class="references">
-              <li>
-                Y. Vinker, E. Pajouheshgar, J. Y. Bo, R. C. Bachmann, A. H. Bermano, D. Cohen-Or, A. Zamir, and A. Shamir, “CLIPasso: Semantically-Aware Object Sketching,” ACM Transactions on Graphics, vol. 41, no. 4, art. no. 86, pp. 1–11, Jul. 2022, <a href="https://doi.org/10.1145/3528223.3530068">https://doi.org/10.1145/3528223.3530068</a>.
-              </li>
-              <li>
-             A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P. Mishkin, J. Clark, G. Krueger, and I. Sutskever, "Learning Transferable Visual Models From Natural Language Supervision," in Proc. 38th Int. Conf. Machine Learning (ICML), vol. 139, pp. 8748–8763, 2021, <a href="https://doi.org/10.48550/arXiv.2103.00020">https://doi.org/10.48550/arXiv.2103.00020</a>.
-              </li>  
-              <li>
-                B. Kerbl, G. Kopanas, T. Leimkühler, and G. Drettakis, “3D Gaussian Splatting for Real-Time Radiance Field Rendering,” ACM Transactions on Graphics, vol. 42, no. 4, Article 139, pp. 1–14, Jul. 2023, <a href="https://doi.org/10.1145/3592433">https://doi.org/10.1145/3592433</a>.
-              </li>
-              <li>
-                C. Choi, J. Lee, J. Park, and Y. M. Kim, “3Doodle: Compact Abstraction of Objects with 3D Strokes,” ACM Transactions on Graphics, vol. 43, no. 4, art. no. 107, pp. 1–13, Jul. 2024, <a href="https://doi.org/10.1145/3658156">https://doi.org/10.1145/3658156</a>.
-              </li>
-              <li>
-                Y. Zhang, L. Wang, C. Zou, T. Wu, and R. Ma, “Diff3DS: Generating View-Consistent 3D Sketch via Differentiable Curve Rendering,” in Proc. 13th Int. Conf. Learning Representations (ICLR), 2025, <a href="https://doi.org/10.48550/arXiv.2405.15305">https://doi.org/10.48550/arXiv.2405.15305</a>.
-              </li>
-              <li>
-                R. Szeliski, Computer Vision: Algorithms and Applications, 2nd ed. Cham, Switzerland: Springer, 2022. [Online]. Available: <a href="https://doi.org/10.1007/978-3-030-34372-9">https://doi.org/10.1007/978-3-030-34372-9</a>.
-              </li>
-
-              <!-- Add more references as needed -->
-          </ol>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
-  </div>
-</section>
-
-<!------------------------------------------------------------------------------CONTRIBUTIONS---------------------------------------------------------------->
-
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <!-- Optional icon link (e.g., to GitHub repo) -->
-      <a class="icon-link" href="https://github.com/tarhanefe/clipasso3d" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <h6 class="title is-6">Individual Contributions</h6>
           <p>
-            E.T. developed and implemented the 3D spherical Gaussian splatting structure and the differentiable rasterization algorithms.
-            E.T. also designed the 3D training scheme and ran experiments on both single-view and multi-view datasets.
-            A.R. contributed by evaluating the rendering pipeline with multi-view data, running experiments and creating visualizations.
-            F.M. implemented saliency map computation and constructed the dataset generation pipeline using Blender.
-            E.I. assisted in implementing differentiable rasterization, refining the training loop, and setting up camera sampling.
+            The stroke thickness affects how bold each curve appears in the sketch. While it does not impact
+            optimization, it influences visual clarity and stylistic choices.
+            We experimented with thickness values of 0.02 and 0.03.
           </p>
-          <p><em>
-            This website is based on the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies website template</a>,
-            which is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-          </em></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <div style="display: flex; justify-content: center; gap: 1rem;">
+                <figure>
+                  <img src="./static/gt_gifs/rrose_gt.gif" alt="Ground Truth Rose">
+                  <figcaption class="subtitle is-6 has-text-centered">Ground Truth</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/thickness/semihelical_thickness-020.gif" alt="Thickness 0.02">
+                  <figcaption class="subtitle is-6 has-text-centered">Thickness = 0.02</figcaption>
+                </figure>
+                <figure>
+                  <img src="./static/experiments/thickness/semihelical_thickness-030.gif" alt="Thickness 0.03">
+                  <figcaption class="subtitle is-6 has-text-centered">Thickness = 0.03</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="title is-4">IV-D. Interactive Visualisation</h3>
+          <p>
+            Below is an interactive rendering of the final 3D sketch of the rose object. You may rotate and zoom to
+            inspect the stroke configuration from different viewpoints.
+          </p>
+
+          <div class="box">
+            <iframe src="./static/plotly/efe_rose_plot_interactive.html" frameborder="0" width="100%"
+              height="500px"></iframe>
+          </div>
+
+
+
+          <!------------------------------------------------------------------------------CONC  & LIMITATIONS----------------------------------------------------------------------------->
+
+
+          <section class="section">
+            <div class="container is-max-desktop">
+              <!-- Conclusions and limitations. -->
+              <div class="columns is-centered">
+                <div class="column is-full-width">
+                  <h2 class="title is-3" id="conclusion">V. Conclusion and Limitations</h2>
+
+                  <div class="content has-text-justified">
+                    <p>
+                      Our work explores the use of CLIP-based objectives for 3D sketch abstraction via differentiable
+                      Bézier curves. Through our implementation and experimentation, we make the following observations:
+                    <ul>
+                      <li> Depth ambiguity in single-view optimization leads to visually plausible but geometrically
+                        inconsistent 3D reconstructions.
+                      <li> Multi-view supervision stabilizes depth inference and leads to spatially coherent sketches
+                        across viewpoints.
+                      <li> Differentiable Gaussian rasterization enables gradient-based optimization over curve control
+                        points, but memory efficiency is critical to scale.
+                      <li> The 3D sketch generation task can be reduced to a Gaussian Splatting problem with alpha,
+                        color and variance parameters are fixed and mean values of the splats are subject to constraints
+                        as Beizer Curve control points:
+                    </ul>
+
+                    These findings highlight the importance of viewpoint diversity and geometry-aware initialization in
+                    abstract 3D reconstruction tasks, and support the use of CLIP-based semantic loss as a viable
+                    surrogate when explicit 3D supervision is unavailable.
+                    </p>
+                  </div>
+
+                  <!-- Limitations. -->
+                  <h3 class="title is-4">V-A. Limitations and Future Work</h3>
+                  <div class="content has-text-justified">
+                    <p>
+                      Although we have obtained promising results, there are several limitations in our work that could
+                      be addressed in future research:
+                    </p>
+                    <p>
+                      Multi-view consistency remains one of the most critical and challenging objectives in the field of
+                      3D image generation and editing. In our work, despite employing batches of multi-view images and
+                      experimenting with various hyperparameter settings, we observed failures in achieving semantic
+                      consistency across views for certain objects.
+                      Notably, we found that the CLIP-based loss occasionally overemphasizes semantic similarity at the
+                      expense of geometric coherence. For example, in the case of the horse model, the object may
+                      resemble a full horse from one viewpoint but appear as only a horse’s head from another. A similar
+                      inconsistency is evident in the GIF below, where the bicycle sketch exhibits view-dependent
+                      deformation appearent from the tires.
+                      Addressing this issue requires further refinement of the training strategy—particularly in the
+                      initialization and optimization of Bézier control points. Additionally, a more careful tuning of
+                      the CLIP loss weighting parameters may help balance semantic alignment with geometric structure
+                      across views.
+                    </p>
+
+                    <div class="columns is-centered">
+                      <div class="column is-half">
+                        <div align="center" class="box">
+                          <img src="static/results/bike/14.05 - bike - efe/semihelical.gif"
+                            alt="The bicycle sketch exhibits view-dependent deformation apparent from the tires">
+                          <h5 class="subtitle has-text-centered">
+                            <font size="-0.7">
+                              <span style="font-weight:normal"><em>The bicycle reconstruction exhibits view-dependent
+                                  deformation apparent from the tires</em></span>
+                            </font>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p>
+                      Another challenge encountered during training is the tendency of the optimization process to
+                      overfill the volume of the object when the number of Bézier curves becomes too high. As the sketch
+                      density increases, the CLIP-based loss drives the model to generate a solid, filled-in
+                      representation rather than preserving the sparse, abstract nature of a line-based sketch.
+                      This behavior may be partially related to the previously discussed issue, where the CLIP loss
+                      struggles to maintain a proper balance between semantic and geometric alignment across views.
+                      However, it also appears to be influenced by the number of sketch curves: as more curves are
+                      introduced, the optimization increasingly prioritizes semantic coverage, effectively “filling in”
+                      the shape.
+                      This effect is illustrated in the duck reconstruction GIF below, where the sketch—composed of 40
+                      curves—visibly fills the object’s interior volume rather than outlining its structural features.
+
+                    <div class="columns is-centered">
+                      <div class="column is-half">
+                        <div align="center" class="box">
+                          <img src="static/results/duck/18.05 - duck_2 - efe/25_curve.gif"
+                            alt="The duck reconstruction exhibits a problem of volume-filling when number of lines to model the sketch is increased.">
+                          <h5 class="subtitle has-text-centered">
+                            <font size="-0.7">
+                              <span style="font-weight:normal"><em>The duck reconstruction exhibits a problem of
+                                  volume-filling when number of lines to model the sketch is increased.</em></span>
+                            </font>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+
+                    To address this problem, additional geometric constraints on curve proximity could be introduced to
+                    discourage excessive overlap.
+                    Alternatively, further improvements to the semantic-geometric balance described earlier may also
+                    alleviate this behavior.
+                    Exploring dynamic loss weighting strategies or incorporating structural priors remains a promising
+                    direction for future work.
+                    </p>
+
+                    <p>
+                      The initialization strategy for Bézier curves plays a critical role in achieving high-quality
+                      sketch reconstruction. In CLIPasso, curve initialization is guided by thresholding saliency maps
+                      produced by the CLIP model, enabling semantically meaningful placements in 2D. However, this
+                      approach does not generalize well to 3D, where surface geometry must be taken into account. To
+                      keep the scope of the project focused and tractable, we chose not to train a NeRF or Gaussian
+                      Splatting model to obtain 3D saliency maps for curve placement.
+
+                      Instead, we adopted a random initialization strategy, which, despite its simplicity, yielded
+                      reasonably good results. Nevertheless, we believe that the visual quality and consistency of the
+                      generated sketches could be significantly improved with more informed initialization
+                      schemes—particularly those that incorporate geometric priors or 3D-aware saliency cues. </li>
+                    </p>
+
+                    <p>
+                      In this project, we developed a novel sketch generation technique built upon the principles of
+                      Gaussian splatting, enhanced with task-specific constraints. While the visual quality of our
+                      results may fall short compared to state-of-the-art methods in the literature, the framework and
+                      research introduced here offer strong potential for reuse and extension. In particular, our
+                      approach provides a foundation for future academic work focused on task-oriented, constrained 3D
+                      applications—an area that remains largely underexplored and rich with opportunity.
+                    </p>
+
+                  </div>
+                  <br />
+                  <!--/ Limitations and future work-->
+
+                </div>
+              </div>
+              <!--/ Conclusions and limitations. -->
+            </div>
+          </section>
+          <!------------------------------------------------------------------------------CONTRIBUTIONS---------------------------------------------------------------->
+
+          <section class="section">
+            <div class="container is-max-desktop">
+
+              <!-- Concurrent Work. -->
+              <div class="columns is-centered">
+                <div class="column is-full-width">
+                  <h2 class="title is-3">References</h2>
+
+                  <div class="content has-text-justified">
+                    <ol class="references">
+                      <li>
+                        Y. Vinker, E. Pajouheshgar, J. Y. Bo, R. C. Bachmann, A. H. Bermano, D. Cohen-Or, A. Zamir, and
+                        A. Shamir, “CLIPasso: Semantically-Aware Object Sketching,” ACM Transactions on Graphics, vol.
+                        41, no. 4, art. no. 86, pp. 1–11, Jul. 2022, <a
+                          href="https://doi.org/10.1145/3528223.3530068">https://doi.org/10.1145/3528223.3530068</a>.
+                      </li>
+                      <li>
+                        A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P.
+                        Mishkin, J. Clark, G. Krueger, and I. Sutskever, "Learning Transferable Visual Models From
+                        Natural Language Supervision," in Proc. 38th Int. Conf. Machine Learning (ICML), vol. 139, pp.
+                        8748–8763, 2021, <a
+                          href="https://doi.org/10.48550/arXiv.2103.00020">https://doi.org/10.48550/arXiv.2103.00020</a>.
+                      </li>
+                      <li>
+                        B. Kerbl, G. Kopanas, T. Leimkühler, and G. Drettakis, “3D Gaussian Splatting for Real-Time
+                        Radiance Field Rendering,” ACM Transactions on Graphics, vol. 42, no. 4, Article 139, pp. 1–14,
+                        Jul. 2023, <a href="https://doi.org/10.1145/3592433">https://doi.org/10.1145/3592433</a>.
+                      </li>
+                      <li>
+                        C. Choi, J. Lee, J. Park, and Y. M. Kim, “3Doodle: Compact Abstraction of Objects with 3D
+                        Strokes,” ACM Transactions on Graphics, vol. 43, no. 4, art. no. 107, pp. 1–13, Jul. 2024, <a
+                          href="https://doi.org/10.1145/3658156">https://doi.org/10.1145/3658156</a>.
+                      </li>
+                      <li>
+                        Y. Zhang, L. Wang, C. Zou, T. Wu, and R. Ma, “Diff3DS: Generating View-Consistent 3D Sketch via
+                        Differentiable Curve Rendering,” in Proc. 13th Int. Conf. Learning Representations (ICLR), 2025,
+                        <a
+                          href="https://doi.org/10.48550/arXiv.2405.15305">https://doi.org/10.48550/arXiv.2405.15305</a>.
+                      </li>
+                      <li>
+                        R. Szeliski, Computer Vision: Algorithms and Applications, 2nd ed. Cham, Switzerland: Springer,
+                        2022. [Online]. Available: <a
+                          href="https://doi.org/10.1007/978-3-030-34372-9">https://doi.org/10.1007/978-3-030-34372-9</a>.
+                      </li>
+
+                      <!-- Add more references as needed -->
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <!--/ Concurrent Work. -->
+
+            </div>
+          </section>
+
+          <!------------------------------------------------------------------------------CONTRIBUTIONS---------------------------------------------------------------->
+
+
+          <footer class="footer">
+            <div class="container">
+              <div class="content has-text-centered">
+                <!-- Optional icon link (e.g., to GitHub repo) -->
+                <a class="icon-link" href="https://github.com/tarhanefe/clipasso3d" class="external-link" disabled>
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+
+              <div class="columns is-centered">
+                <div class="column is-8">
+                  <div class="content">
+                    <h6 class="title is-6">Individual Contributions</h6>
+                    <p>
+                      E.T. developed and implemented the 3D spherical Gaussian splatting structure and the
+                      differentiable rasterization algorithms.
+                      E.T. also designed the 3D training scheme and ran experiments on both single-view and multi-view
+                      datasets.
+                      E.T. prepared the project website and written a part of the report.
+                      A.R. contributed by evaluating the rendering pipeline with multi-view data, running experiments
+                      and creating visualizations.
+                      F.M. implemented saliency map computation and constructed the dataset generation pipeline using
+                      Blender.
+                      E.I. assisted in implementing differentiable rasterization, refining the training loop, and
+                      setting up camera sampling.
+                    </p>
+                    <p><em>
+                        This website is based on the <a href="https://github.com/nerfies/nerfies.github.io"
+                          target="_blank">Nerfies website template</a>,
+                        which is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"
+                          target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+                      </em></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
 
 </body>
+
 </html>
