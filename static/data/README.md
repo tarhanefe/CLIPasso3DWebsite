@@ -11,10 +11,8 @@ python tools/export_web.py runs --out $SITE/data --family connect --pattern "con
 python tools/export_web.py index --out $SITE/data --banner_object boat \
     --connect_rows "off:no constraint" "weld:weld only" "loss01:loss 0.1 + weld" "loss1:loss 1.0 + weld" --connect_cols 5 20 50 200
 python tools/export_web.py metrics --out $SITE/data
-# ground-truth meshes (Blender) and the banner under the title
+# ground-truth meshes (Blender); the banner under the title is drawn live from these files
 for o in $(ls meshes/objaverse/*.glb); do blender -b -P tools/export_gt_glb.py -- --mesh $o --out $SITE/data/gt/$(basename $o); done
-python tools/export_banner.py --object boat --turntable turntables/boat --frame 9 \
-    --runs runs/abl_L5_normal runs/abl_L20_normal runs/abl_L50_normal runs/abl_L200_normal --out $SITE/banner
 ```
 
 Layout: `index.json`, `metrics.json`, `gt/<object>.glb`, and `<family>/<object>/{runs.json, finals.bin, history.bin}`

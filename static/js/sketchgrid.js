@@ -126,23 +126,54 @@ class Orbit {
     el.addEventListener('pointercancel', up);
   }
 
-  update(dt, camera) {
+  update(dt, camera, lookZ = 0, dist = DIST) {
     if (!this.dragging) {
       this.az += SPIN * dt;                                  // keep circling ...
       this.el += (ELEV - this.el) * (1 - Math.exp(-2 * dt)); // ... and settle back to 20 degrees
     }
     const ce = Math.cos(this.el);
-    camera.position.set(DIST * ce * Math.cos(this.az), DIST * ce * Math.sin(this.az), DIST * Math.sin(this.el));
+    camera.position.set(dist * ce * Math.cos(this.az), dist * ce * Math.sin(this.az), lookZ + dist * Math.sin(this.el));
     camera.up.set(0, 0, 1);
-    camera.lookAt(0, 0, 0);
+    camera.lookAt(0, 0, lookZ);
   }
 }
 
 // ------------------------------------------------------------------ multi-view renderer
 
+// Soft round shadow (white texture, tinted per theme) under floating objects.
+let shadowTex = null;
+function shadowTexture() {
+  if (!shadowTex) {
+    const c = document.createElement('canvas');
+    c.width = c.height = 128;
+    const g = c.getContext('2d');
+    const grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+    grad.addColorStop(0, 'rgba(255,255,255,1)');
+    grad.addColorStop(0.5, 'rgba(255,255,255,0.45)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 128, 128);
+    shadowTex = new THREE.CanvasTexture(c);
+  }
+  return shadowTex;
+}
+
+// Lowest z of a set of control points (the curves stay within their control polygon's hull).
+function minZ(cp) {
+  let z = Infinity;
+  for (let i = 2; i < cp.length; i += 3) z = Math.min(z, cp[i]);
+  return z;
+}
+
 class MultiView {
-  constructor(container) {
+  // transparent: no per-view background (objects drawn on the page itself)
+  // float: every view bobs gently above a soft shadow, each with its own phase
+  // lookZ: height the camera aims at (below 0 leaves room for the shadows); dist: camera distance
+  constructor(container, { transparent = false, float = false, lineScale = 1, lookZ = 0, dist = DIST } = {}) {
     this.container = container;
+    this.transparent = transparent; this.float = float; this.lineScale = lineScale;
+    this.lookZ = lookZ; this.dist = dist;
+    this.time = 0;
     this.canvas = document.createElement('canvas');
     this.canvas.className = 'sg-canvas';
     container.prepend(this.canvas);
@@ -162,17 +193,26 @@ class MultiView {
 
   addView(el) {
     const scene = new THREE.Scene();
-    const view = { el, scene, lines: null, material: null };
+    const pivot = new THREE.Group();
+    scene.add(pivot);
+    const view = { el, scene, pivot, lines: null, material: null, floor: null, phase: this.views.length * 1.7 };
+    if (this.float) {
+      view.shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 1.7),
+        new THREE.MeshBasicMaterial({ map: shadowTexture(), transparent: true, depthWrite: false }));
+      view.shadow.visible = false;
+      scene.add(view.shadow);
+    }
     this.views.push(view);
     return view;
   }
 
   setLines(view, cp) {
     if (view.lines) {
-      view.scene.remove(view.lines);
+      view.pivot.remove(view.lines);
       view.lines.geometry.dispose();
       view.lines = null;
     }
+    view.floor = cp ? minZ(cp) : null;
     if (!cp) return;
     if (!view.material) {
       view.material = new LineMaterial({ color: theme.dark ? 0xffffff : 0x111111, linewidth: 1.6 });
@@ -180,18 +220,40 @@ class MultiView {
     const geo = new LineSegmentsGeometry();
     geo.setPositions(curvesToSegments(cp));
     view.lines = new LineSegments2(geo, view.material);
-    view.scene.add(view.lines);
+    view.pivot.add(view.lines);
   }
 
   setObject(view, object3d) {
-    if (view.object) view.scene.remove(view.object);
+    if (view.object) view.pivot.remove(view.object);
     view.object = object3d;
-    if (object3d) view.scene.add(object3d);
+    view.floor = null;
+    if (object3d) {
+      view.pivot.add(object3d);
+      object3d.updateMatrixWorld(true);
+      view.floor = new THREE.Box3().setFromObject(object3d).min.z;
+    }
+  }
+
+  // Bob every view up and down; all shadows share one floor below the lowest object.
+  floatViews() {
+    const floors = this.views.map((v) => v.floor).filter((z) => z !== null && Number.isFinite(z));
+    const floor = (floors.length ? Math.min(...floors) : -1) - 0.1;
+    for (const v of this.views) {
+      const h = 0.06 * Math.sin(1.1 * this.time + v.phase);
+      v.pivot.position.z = h;
+      v.shadow.visible = v.floor !== null;
+      v.shadow.position.z = floor;
+      v.shadow.scale.setScalar(1 - 1.5 * h);
+      v.shadow.material.color.set(theme.dark ? 0xffffff : 0x000000);
+      v.shadow.material.opacity = (theme.dark ? 0.12 : 0.2) * (1 - 4 * h);
+    }
   }
 
   frame() {
     const dt = Math.min(this.clock.getDelta(), 0.1);
-    this.orbit.update(dt, this.camera);
+    this.time += dt;
+    this.orbit.update(dt, this.camera, this.lookZ, this.dist);
+    if (this.float) this.floatViews();
     if (this.onFrame) this.onFrame(dt);
     if (!this.visible) return;
     const r = this.container.getBoundingClientRect();
@@ -210,11 +272,13 @@ class MultiView {
       if (c.width < 2 || c.bottom < r.top || c.top > r.bottom) continue;
       this.renderer.setViewport(x, y, c.width, c.height);
       this.renderer.setScissor(x, y, c.width, c.height);
-      this.renderer.setClearColor(v.isGT ? 0xffffff : bg, 1);
-      this.renderer.clear();
+      if (!this.transparent) {
+        this.renderer.setClearColor(v.isGT ? 0xffffff : bg, 1);
+        this.renderer.clear();
+      }
       if (v.material) {
         v.material.resolution.set(c.width, c.height);
-        v.material.linewidth = THREE.MathUtils.clamp(c.width / 120, 1.0, 2.2);
+        v.material.linewidth = THREE.MathUtils.clamp(c.width / 120, 1.0, 2.2) * this.lineScale;
         v.material.color.set(theme.dark ? 0xffffff : 0x111111);
       }
       this.camera.aspect = c.width / c.height;
@@ -271,6 +335,13 @@ function objectPicker(objects, onPick, selected) {
   return bar;
 }
 
+// Row label with an optional second line (e.g. the loss ratio of an abstraction level).
+function rowHead(r, tag = 'div', cls = 'sg-rowhead') {
+  const h = el(tag, cls, r.label);
+  if (r.sub) h.append(el('span', 'sg-sub', r.sub));
+  return h;
+}
+
 function pending(view, text) {
   view.el.classList.add('sg-pending');
   view.el.dataset.pending = text;
@@ -314,7 +385,7 @@ export class RunGrid {
     cols.forEach((c) => grid.append(el('div', 'sg-colhead', c.label)));
     this.cells = {};
     for (const r of rows) {
-      grid.append(el('div', 'sg-rowhead', r.label));
+      grid.append(rowHead(r));
       for (const c of cols) {
         const cell = el('div', 'sg-cell');
         grid.append(cell);
@@ -421,6 +492,39 @@ export class RunGrid {
   }
 }
 
+// ------------------------------------------------------------------ banner
+// The object and its sketches with more and more lines, floating side by side on the page.
+
+export class Banner {
+  constructor(root, { object, family = 'ablation', level = 'normal', lines = [5, 20, 50, 200] }) {
+    root.classList.add('sg-root');
+    this.stage = el('div', 'sg-stage sg-banner-stage');
+    const row = el('div', 'sg-banner-row');
+    const add = (title) => {
+      const cell = el('div', 'sg-cell');
+      cell.title = title;
+      row.append(cell);
+      return cell;
+    };
+    const gtCell = add('object');
+    const cells = lines.map((n) => [`${level}|${n}`, add(`${n} lines`)]);
+    this.stage.append(row);
+    root.append(this.stage);
+
+    this.mv = new MultiView(this.stage, { transparent: true, float: true, lineScale: 1.25, lookZ: -0.25, dist: DIST * 1.12 });
+    const gtView = this.mv.addView(gtCell);
+    const views = cells.map(([key, cell]) => [key, this.mv.addView(cell)]);
+    loadGT(object).then((o) => this.mv.setObject(gtView, o));
+    loadRuns(object, family).then((runs) => {
+      for (const [key, v] of views) {
+        const cp = runs && controlPoints(runs, key);
+        if (!cp) pending(v, 'coming soon');
+        this.mv.setLines(v, cp);
+      }
+    });
+  }
+}
+
 // ------------------------------------------------------------------ gallery (one cell per object)
 
 export class Gallery {
@@ -432,7 +536,7 @@ export class Gallery {
     const mk = (opts, init, onChange) => {
       const sel = el('div', 'select is-small');
       const s = el('select');
-      opts.forEach((o) => { const op = el('option', '', o.label); op.value = o.key; if (o.key === init) op.selected = true; s.append(op); });
+      opts.forEach((o) => { const op = el('option', '', o.sub ? `${o.label} (${o.sub})` : o.label); op.value = o.key; if (o.key === init) op.selected = true; s.append(op); });
       s.addEventListener('change', () => onChange(s.value));
       sel.append(s);
       return sel;
@@ -509,7 +613,7 @@ export async function metricsTables(root) {
     const lo = Math.min(...vals), hi = Math.max(...vals);
     for (const r of m.rows) {
       const tr = el('tr');
-      tr.append(el('th', '', r.label));
+      tr.append(rowHead(r, 'th', ''));
       for (const c of m.cols) {
         const v = metric.values[`${r.key}|${c.key}`];
         const td = el('td', '', v == null ? '–' : v.toFixed(3));

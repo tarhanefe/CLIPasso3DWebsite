@@ -89,17 +89,14 @@
   </section>
 
   <!------------------------------------------------------------------------------ BANNER -->
-  <!-- Written by clipasso3d/tools/export_banner.py: ground truth + sketches from few to many lines. -->
+  <!-- The object and its sketches with 5 to 200 lines (normal abstraction), live 3D; drag to rotate. -->
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <div class="banner-strip" id="banner">
-          <figure><img src="./static/banner/gt.png" alt="Ground-truth object"><figcaption>object</figcaption></figure>
-          <figure><img src="./static/banner/sketch_1.svg" alt="3D sketch, fewest lines"><figcaption data-lines="1"></figcaption></figure>
-          <figure><img src="./static/banner/sketch_2.svg" alt="3D sketch"><figcaption data-lines="2"></figcaption></figure>
-          <figure><img src="./static/banner/sketch_3.svg" alt="3D sketch"><figcaption data-lines="3"></figcaption></figure>
-          <figure><img src="./static/banner/sketch_4.svg" alt="3D sketch, most lines"><figcaption data-lines="4"></figcaption></figure>
-        </div>
+        <div id="banner"></div>
+        <p class="sg-caption sg-banner-caption">
+          One object, four 3D sketches with more and more lines. Drag to look around.
+        </p>
       </div>
     </div>
   </section>
@@ -144,16 +141,32 @@
       <h2 class="title is-3" id="intro">I. Introduction</h2>
       <div class="content has-text-justified">
         <p>
-          CLIPasso <a href="#ref1">[1]</a> showed that CLIP <a href="#ref2">[2]</a> can guide a handful of vector
-          strokes towards recognizable, abstract 2D sketches of an object. A 2D sketch, however, is tied to a single
-          viewpoint and carries no 3D structure.
+          A good sketch is an abstraction: with a handful of strokes an artist decides which parts of an object carry
+          its identity and leaves out the rest. The fewer strokes there are, the more each one has to say. Computers
+          have learned to draw such sketches mostly in 2D, either from large collections of human drawings
+          <a href="#ref8">[8]</a> or by optimizing strokes directly against an image.
+        </p>
+        <p>
+          CLIPasso <a href="#ref1">[1]</a> takes the second route. It renders Bézier strokes with a differentiable
+          vector graphics rasterizer <a href="#ref9">[9]</a> and moves them until CLIP <a href="#ref2">[2]</a> sees
+          the sketch and the photo alike, with no sketch data at all. The number of strokes sets the level of
+          abstraction, and CLIPascene <a href="#ref10">[10]</a> extends the idea to whole scenes. A 2D sketch, however,
+          belongs to one viewpoint: turning the object around needs a new, unrelated drawing, and nothing in the
+          sketch describes the object's 3D structure.
         </p>
         <p>
           We optimize the strokes directly in 3D. Every stroke is a cubic Bézier curve rendered as a chain of spherical
           Gaussians <a href="#ref3">[3]</a>, so its projection into any camera is differentiable with respect to the
           control points. Supervising many views of the object at once makes the strokes consistent in 3D, without any
-          3D supervision. Two knobs control the result: the number of lines and the abstraction level, i.e. the
-          balance between CLIP's geometric and semantic losses.
+          3D supervision. Two knobs control the result: the number of lines and the abstraction level, set by the
+          ratio \(\lambda\) between the weights of CLIP's semantic and geometric losses.
+        </p>
+        <p>
+          The result is one 3D object that reads as a sketch from every direction. It can be inspected from any angle,
+          and, when its strokes touch each other, it could be bent from wire and stand on a table. We study how the
+          number of lines and the abstraction level shape these sketches on 20 objects from Objaverse
+          <a href="#ref7">[7]</a>, and add a connectivity constraint that turns every sketch into a single connected
+          piece.
         </p>
       </div>
     </div>
@@ -165,20 +178,38 @@
       <h2 class="title is-3" id="related-work">II. Related Work</h2>
       <div class="content has-text-justified">
         <p>
-          <strong>2D sketch abstraction.</strong> CLIPasso <a href="#ref1">[1]</a> optimizes 2D Bézier strokes so that
-          the sketch and the photo agree in CLIP's intermediate (geometric) and final (semantic) features; the stroke
-          count sets the level of abstraction. We keep its objective and move the strokes to 3D.
+          <strong>2D sketch abstraction.</strong> Sketch-RNN <a href="#ref8">[8]</a> learns to draw stroke by stroke
+          from human doodles, which ties it to the categories and style of its training data. CLIPasso
+          <a href="#ref1">[1]</a> needs no sketches: it optimizes 2D Bézier strokes through a differentiable rasterizer
+          <a href="#ref9">[9]</a> so that the sketch and the photo agree in CLIP's intermediate (geometric) and final
+          (semantic) features, and the stroke count sets the level of abstraction. CLIPascene
+          <a href="#ref10">[10]</a> separates two axes of abstraction for scenes, fidelity and simplicity. We keep
+          CLIPasso's objective and its two-term balance, and move the strokes to 3D.
         </p>
         <p>
-          <strong>Differentiable primitives.</strong> 3D Gaussian Splatting <a href="#ref3">[3]</a> renders scenes as
-          differentiable anisotropic Gaussians. We use a strongly constrained version: isotropic, single-color Gaussians
-          of fixed size whose centers lie on Bézier curves.
+          <strong>Differentiable 3D representations.</strong> NeRF <a href="#ref11">[11]</a> and 3D Gaussian Splatting
+          <a href="#ref3">[3]</a> reconstruct scenes from posed images by differentiable rendering; Gaussian splatting
+          does so with explicit, anisotropic Gaussians that are fast to rasterize. We use a strongly constrained
+          version: isotropic, single-color Gaussians of fixed size whose centers lie on Bézier curves, so the only free
+          parameters are the curves' control points.
         </p>
         <p>
-          <strong>3D sketches.</strong> 3Doodle <a href="#ref4">[4]</a> abstracts objects from multi-view images with 3D
-          strokes, and Diff3DS <a href="#ref5">[5]</a> generates view-consistent 3D sketches with differentiable curve
-          rendering and score distillation from a diffusion model. Our method needs only posed images and CLIP, with no
-          generative prior.
+          <strong>Curves from multi-view images.</strong> NEF <a href="#ref12">[12]</a> recovers parametric 3D edge
+          curves from multi-view images, aiming at an accurate reconstruction of every edge rather than an abstraction
+          with a fixed budget of strokes. Like classic silhouette-based methods, we carve a visual hull
+          <a href="#ref13">[13]</a> from the object masks, but only to place the initial strokes.
+        </p>
+        <p>
+          <strong>3D sketches.</strong> 3Doodle <a href="#ref4">[4]</a> abstracts objects from multi-view images with
+          view-independent 3D Bézier strokes combined with view-dependent contours, and Diff3DS <a href="#ref5">[5]</a>
+          generates view-consistent 3D sketches with differentiable curve rendering and score distillation from a
+          diffusion model. Our sketches use view-independent strokes only, so a sketch is a single physical object, and
+          need nothing but posed images and CLIP, with no generative prior.
+        </p>
+        <p>
+          <strong>Wire art.</strong> Multi-view wire art <a href="#ref14">[14]</a> designs one connected wire sculpture
+          whose shadows match a few given line drawings from chosen viewpoints. Our connectivity constraint aims at the
+          same buildability, but starting from images of a real object and seen from every direction.
         </p>
       </div>
     </div>
@@ -249,16 +280,16 @@
         </p>
         <p>
           The loss is averaged over 8 random views per step and over random perspective and crop augmentations. The
-          ratio \(w_s / w_g\) sets the abstraction level:
+          ratio \(\lambda = w_s / w_g\) sets the abstraction level; we name the five levels after their weighting:
         </p>
         <table class="table is-narrow is-striped" style="margin: 0 auto;">
-          <thead><tr><th>abstraction</th><th>\(w_g\)</th><th>\(w_s\)</th><th>\(w_s / w_g\)</th></tr></thead>
+          <thead><tr><th>abstraction level</th><th>\(w_g\)</th><th>\(w_s\)</th><th>\(\lambda = w_s / w_g\)</th></tr></thead>
           <tbody>
-            <tr><td>too geometric</td><td>1</td><td>0</td><td>0</td></tr>
-            <tr><td>middle geometric</td><td>1</td><td>0.02</td><td>0.02</td></tr>
-            <tr><td>normal (CLIPasso)</td><td>1</td><td>0.1</td><td>0.1</td></tr>
-            <tr><td>middle abstract</td><td>1</td><td>1</td><td>1</td></tr>
-            <tr><td>too abstract</td><td>0.1</td><td>1</td><td>10</td></tr>
+            <tr><td>geometric only</td><td>1</td><td>0</td><td>0</td></tr>
+            <tr><td>geometry-weighted</td><td>1</td><td>0.02</td><td>0.02</td></tr>
+            <tr><td>CLIPasso default</td><td>1</td><td>0.1</td><td>0.1</td></tr>
+            <tr><td>equal weights</td><td>1</td><td>1</td><td>1</td></tr>
+            <tr><td>semantics-weighted</td><td>0.1</td><td>1</td><td>10</td></tr>
           </tbody>
         </table>
         <figure class="method-figure">
@@ -377,6 +408,28 @@
             A. Kembhavi, and A. Farhadi, “Objaverse: A Universe of Annotated 3D Objects,” in Proc. IEEE/CVF Conf.
             Computer Vision and Pattern Recognition (CVPR), 2023,
             <a href="https://doi.org/10.48550/arXiv.2212.08051">https://doi.org/10.48550/arXiv.2212.08051</a>.</li>
+          <li id="ref8">D. Ha and D. Eck, “A Neural Representation of Sketch Drawings,” in Proc. 6th Int. Conf.
+            Learning Representations (ICLR), 2018,
+            <a href="https://doi.org/10.48550/arXiv.1704.03477">https://doi.org/10.48550/arXiv.1704.03477</a>.</li>
+          <li id="ref9">T.-M. Li, M. Lukáč, M. Gharbi, and J. Ragan-Kelley, “Differentiable Vector Graphics
+            Rasterization for Editing and Learning,” ACM Transactions on Graphics, vol. 39, no. 6, art. no. 193,
+            pp. 1–15, Dec. 2020, <a href="https://doi.org/10.1145/3414685.3417871">https://doi.org/10.1145/3414685.3417871</a>.</li>
+          <li id="ref10">Y. Vinker, Y. Alaluf, D. Cohen-Or, and A. Shamir, “CLIPascene: Scene Sketching with Different
+            Types and Levels of Abstraction,” in Proc. IEEE/CVF Int. Conf. Computer Vision (ICCV), 2023,
+            <a href="https://doi.org/10.48550/arXiv.2211.17256">https://doi.org/10.48550/arXiv.2211.17256</a>.</li>
+          <li id="ref11">B. Mildenhall, P. P. Srinivasan, M. Tancik, J. T. Barron, R. Ramamoorthi, and R. Ng, “NeRF:
+            Representing Scenes as Neural Radiance Fields for View Synthesis,” in Proc. European Conf. Computer Vision
+            (ECCV), 2020, <a href="https://doi.org/10.48550/arXiv.2003.08934">https://doi.org/10.48550/arXiv.2003.08934</a>.</li>
+          <li id="ref12">Y. Ye, R. Yi, Z. Gao, C. Zhu, Z. Cai, and K. Xu, “NEF: Neural Edge Fields for 3D Parametric
+            Curve Reconstruction from Multi-view Images,” in Proc. IEEE/CVF Conf. Computer Vision and Pattern
+            Recognition (CVPR), 2023,
+            <a href="https://doi.org/10.48550/arXiv.2303.07653">https://doi.org/10.48550/arXiv.2303.07653</a>.</li>
+          <li id="ref13">A. Laurentini, “The Visual Hull Concept for Silhouette-Based Image Understanding,” IEEE
+            Transactions on Pattern Analysis and Machine Intelligence, vol. 16, no. 2, pp. 150–162, Feb. 1994,
+            <a href="https://doi.org/10.1109/34.273735">https://doi.org/10.1109/34.273735</a>.</li>
+          <li id="ref14">K.-W. Hsiao, J.-B. Huang, and H.-K. Chu, “Multi-view Wire Art,” ACM Transactions on Graphics,
+            vol. 37, no. 6, art. no. 242, pp. 1–11, Dec. 2018,
+            <a href="https://doi.org/10.1145/3272127.3275070">https://doi.org/10.1145/3272127.3275070</a>.</li>
         </ol>
       </div>
     </div>
@@ -407,7 +460,7 @@
   </button>
 
   <script type="module">
-    import { loadIndex, RunGrid, Gallery, metricsTables, theme } from './static/js/sketchgrid.js';
+    import { loadIndex, Banner, RunGrid, Gallery, metricsTables, theme } from './static/js/sketchgrid.js';
 
     // Defaults until static/data/index.json exists (it is written by clipasso3d/tools/export_web.py).
     const DEFAULT = {
@@ -417,9 +470,11 @@
         'teapot', 'tractor_(farm_equipment)',
       ].map((k) => ({ key: k, label: k.split('_(')[0].replace(/_/g, ' ') })),
       levels: [
-        { key: 'too_geometric', label: 'too geometric' }, { key: 'middle_geometric', label: 'middle geometric' },
-        { key: 'normal', label: 'normal' }, { key: 'middle_abstract', label: 'middle abstract' },
-        { key: 'too_abstract', label: 'too abstract' },
+        { key: 'too_geometric', label: 'geometric only', sub: 'λ = 0' },
+        { key: 'middle_geometric', label: 'geometry-weighted', sub: 'λ = 0.02' },
+        { key: 'normal', label: 'CLIPasso default', sub: 'λ = 0.1' },
+        { key: 'middle_abstract', label: 'equal weights', sub: 'λ = 1' },
+        { key: 'too_abstract', label: 'semantics-weighted', sub: 'λ = 10' },
       ],
       lines: [5, 10, 20, 50, 100, 200].map((n) => ({ key: String(n), label: `${n} lines` })),
       connect: {
@@ -429,22 +484,15 @@
         ],
         cols: [5, 20, 50, 200].map((n) => ({ key: String(n), label: `${n} lines` })),
       },
-      banner: { object: 'bicycle', lines: [5, 20, 50, 200] },
+      banner: { object: 'boat', lines: [5, 20, 50, 200] },
     };
 
     const index = { ...DEFAULT, ...((await loadIndex()) || {}) };
     const first = index.objects.find((o) => o.key === (index.banner?.object || 'bicycle'))?.key || index.objects[0].key;
 
-    // banner captions and missing-image placeholders
-    document.querySelectorAll('#banner figcaption[data-lines]').forEach((c) => {
-      const n = index.banner?.lines?.[Number(c.dataset.lines) - 1];
-      c.textContent = n ? `${n} lines` : '';
+    new Banner(document.getElementById('banner'), {
+      object: index.banner?.object || first, lines: index.banner?.lines || [5, 20, 50, 200],
     });
-    document.querySelectorAll('#banner img').forEach((img) => img.addEventListener('error', () => {
-      const p = document.createElement('div'); p.className = 'placeholder'; p.textContent = 'coming soon';
-      img.replaceWith(p);
-    }));
-
     new RunGrid(document.getElementById('grid-ablation'), {
       family: 'ablation', rows: index.levels, cols: index.lines, objects: index.objects, initial: first,
     });

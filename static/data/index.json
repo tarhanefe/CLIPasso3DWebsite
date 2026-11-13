@@ -164,23 +164,28 @@
  "levels": [
   {
    "key": "too_geometric",
-   "label": "too geometric"
+   "label": "geometric only",
+   "sub": "λ = 0"
   },
   {
    "key": "middle_geometric",
-   "label": "middle geometric"
+   "label": "geometry-weighted",
+   "sub": "λ = 0.02"
   },
   {
    "key": "normal",
-   "label": "normal"
+   "label": "CLIPasso default",
+   "sub": "λ = 0.1"
   },
   {
    "key": "middle_abstract",
-   "label": "middle abstract"
+   "label": "equal weights",
+   "sub": "λ = 1"
   },
   {
    "key": "too_abstract",
-   "label": "too abstract"
+   "label": "semantics-weighted",
+   "sub": "λ = 10"
   }
  ],
  "lines": [
@@ -216,12 +221,16 @@
     "label": "no constraint"
    },
    {
-    "key": "loss",
-    "label": "connectivity loss"
+    "key": "weld",
+    "label": "weld only"
    },
    {
-    "key": "loss_weld",
-    "label": "loss + weld"
+    "key": "loss01",
+    "label": "loss 0.1 + weld"
+   },
+   {
+    "key": "loss1",
+    "label": "loss 1.0 + weld"
    }
   ],
   "cols": [
