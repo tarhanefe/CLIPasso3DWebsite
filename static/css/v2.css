@@ -1,0 +1,76 @@
+/* v2 additions: banner, figures, interactive sketch grids (static/js/sketchgrid.js) */
+
+.banner-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+  align-items: end;
+}
+.banner-strip figure { margin: 0; text-align: center; }
+.banner-strip img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; }
+.banner-strip figcaption { font-family: 'Google Sans', sans-serif; font-size: 0.85rem; color: #555; }
+.banner-strip .placeholder {
+  width: 100%; aspect-ratio: 1 / 1; border: 1px dashed #ccc; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.8rem;
+}
+
+.figure-svg { width: 100%; height: auto; }
+.method-figure { margin: 1.25rem 0 1.5rem; }
+.method-figure figcaption { text-align: center; font-size: 0.9rem; color: #555; margin-top: 0.4rem; }
+
+.sketch-theme-toggle { position: fixed; right: 1rem; bottom: 1rem; z-index: 30; }
+
+/* ---------- interactive grids ---------- */
+.sg-root { position: relative; }
+.sg-toolbar {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center;
+  margin-bottom: 0.75rem;
+}
+.sg-toolbar .buttons { margin-bottom: 0; }
+.sg-toolbar-label { font-size: 0.85rem; color: #666; margin-left: 0.5rem; }
+.sg-stage { position: relative; user-select: none; touch-action: none; cursor: grab; }
+.sg-stage:active { cursor: grabbing; }
+.sg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+.sg-stage > * { position: relative; z-index: 1; }
+.sg-stage > .sg-canvas { position: absolute; z-index: 0; }
+
+.sg-cell { aspect-ratio: 1 / 1; width: 100%; border: 1px solid #eee; border-radius: 4px; }
+html.sketch-dark .sg-cell { border-color: #333; }
+.sg-cell.sg-pending { display: flex; align-items: center; justify-content: center; }
+.sg-cell.sg-pending::after { content: attr(data-pending); color: #aaa; font-size: 0.75rem; }
+
+/* rows x columns grid with the ground truth on the left */
+.sg-stage:has(.sg-grid) { display: grid; grid-template-columns: minmax(120px, 0.9fr) 5fr; gap: 1rem; align-items: center; }
+.sg-gt { text-align: center; }
+.sg-gt .sg-label { margin-bottom: 0.3rem; }
+.sg-grid { display: grid; gap: 4px; align-items: center; }
+.sg-colhead, .sg-rowhead, .sg-corner, .sg-label {
+  font-family: 'Google Sans', sans-serif; font-size: 0.8rem; color: #444; text-align: center;
+}
+.sg-rowhead { text-align: right; padding-right: 0.5rem; white-space: nowrap; }
+.sg-colhead { padding-bottom: 0.2rem; }
+
+.sg-timeline { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.75rem; }
+.sg-timeline .slider { flex: 1; margin: 0; }
+.sg-step { font-size: 0.8rem; color: #666; min-width: 7.5rem; text-align: right; font-variant-numeric: tabular-nums; }
+.sg-picker { margin-top: 0.9rem; }
+.sg-picker .button { margin-bottom: 0.3rem !important; }
+.sg-caption { text-align: center; font-size: 0.85rem; color: #666; }
+
+/* gallery */
+.sg-gallery { display: grid; gap: 0.6rem; }
+.sg-gallery-item .sg-label { margin-top: 0.2rem; }
+
+/* metric heat maps */
+.sg-metric { margin: 0 auto; font-size: 0.75rem; }
+.sg-metric caption { font-weight: 600; font-size: 0.8rem; padding-bottom: 0.3rem; }
+.sg-metric td { text-align: center; font-variant-numeric: tabular-nums; }
+.sg-metric th { font-weight: 500; white-space: nowrap; }
+
+@media (max-width: 768px) {
+  .banner-strip { grid-template-columns: repeat(3, 1fr); }
+  .sg-stage:has(.sg-grid) { grid-template-columns: 1fr; }
+  .sg-gt .sg-cell { max-width: 220px; margin: 0 auto; }
+  .sg-rowhead { font-size: 0.65rem; }
+}

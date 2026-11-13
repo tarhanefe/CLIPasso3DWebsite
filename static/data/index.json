@@ -1,0 +1,255 @@
+{
+ "objects": [
+  {
+   "key": "airplane",
+   "label": "airplane",
+   "name": "Gee Bee",
+   "author": "manilov.ap",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/9382585b9e5c47999f83ed9658f82dcb"
+  },
+  {
+   "key": "armchair",
+   "label": "armchair",
+   "name": "old_leather_armchair",
+   "author": "VoGAn",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/ae47fb3d061045569f1089aaabd840ca"
+  },
+  {
+   "key": "bench",
+   "label": "bench",
+   "name": "Wooden Bench",
+   "author": "3DMish",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/dd5f87e5b8644111b8180515eed4c54e"
+  },
+  {
+   "key": "bicycle",
+   "label": "bicycle",
+   "name": "Old Bicycle",
+   "author": "Tidominer",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/17ab00cb733443a2b552a2b620a68087"
+  },
+  {
+   "key": "boat",
+   "label": "boat",
+   "name": "Viking Longship",
+   "author": "Foxx Assets",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/ecc03f0875e34a0cb2e66c40b22383e5"
+  },
+  {
+   "key": "car_(automobile)",
+   "label": "car",
+   "name": "Smart ForTwo w451 Low poly model",
+   "author": "Daniel Zhabotinsky",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/25c6874d173a4f6ca63e150bbd505686"
+  },
+  {
+   "key": "chair",
+   "label": "chair",
+   "name": "Wooden Folding Chair",
+   "author": "FlukierJupiter",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/b843c63d853a4b788a6a6b1aad4b2c15"
+  },
+  {
+   "key": "fire_engine",
+   "label": "fire engine",
+   "name": "Zil 131 AC 40",
+   "author": "Phobos",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/aac70737c4f5478ebf9e14387a123214"
+  },
+  {
+   "key": "guitar",
+   "label": "guitar",
+   "name": "Low Poly Guitar.",
+   "author": "Pixel",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/757b3b5aaf6d4052933edc329c4f5aa5"
+  },
+  {
+   "key": "helicopter",
+   "label": "helicopter",
+   "name": "Helicopter",
+   "author": "irs1182",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/91366449ce6842f784748a914e29d641"
+  },
+  {
+   "key": "jeep",
+   "label": "jeep",
+   "name": "Jeep",
+   "author": "DJMaesen",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/8dd9a0b3faa84aaa813431b44c716a6d"
+  },
+  {
+   "key": "lamp",
+   "label": "lamp",
+   "name": "Wall-Lamp",
+   "author": "Matt LeMoine",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/f93be18847144f1fbd87930d2070cb71"
+  },
+  {
+   "key": "motorcycle",
+   "label": "motorcycle",
+   "name": "HCR2 Chopper",
+   "author": "oakar258",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/4caff3c560474f8988a37d7ceed5236d"
+  },
+  {
+   "key": "mug",
+   "label": "mug",
+   "name": "Jack Skellington cup",
+   "author": "AoBlue_Moon",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/6142a5564edb4a7ba1c948673460afe0"
+  },
+  {
+   "key": "pickup_truck",
+   "label": "pickup truck",
+   "name": "Low Poly Car - Chevrolet C10 Pickup 1963",
+   "author": "ROH3D",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/679354c151984747bb74310ec5af8995"
+  },
+  {
+   "key": "race_car",
+   "label": "race car",
+   "name": "Cyberpunk Car",
+   "author": "SamTheCaribbean",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/040f40e20e9344f5bd368e4db3d3b2ac"
+  },
+  {
+   "key": "school_bus",
+   "label": "school bus",
+   "name": "volkswagen t3 poly",
+   "author": "Dzhusi one",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/77c72e749da24942b34cc2d2959d66bf"
+  },
+  {
+   "key": "table",
+   "label": "table",
+   "name": "De_Table",
+   "author": "DeCloud",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/63e4d8faac73435fa7e9e929baa2c175"
+  },
+  {
+   "key": "teapot",
+   "label": "teapot",
+   "name": "Sat, 25 Aug 2018 17:40:41",
+   "author": "newfields-3dprinting",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/2e1138b6296b4f518d8a128c51df04f6"
+  },
+  {
+   "key": "tractor_(farm_equipment)",
+   "label": "tractor",
+   "name": "Tractor",
+   "author": "le0tard",
+   "license": "by",
+   "source": "https://sketchfab.com/3d-models/278fc1e0516c401eba358d3aa2e55635"
+  }
+ ],
+ "levels": [
+  {
+   "key": "too_geometric",
+   "label": "too geometric"
+  },
+  {
+   "key": "middle_geometric",
+   "label": "middle geometric"
+  },
+  {
+   "key": "normal",
+   "label": "normal"
+  },
+  {
+   "key": "middle_abstract",
+   "label": "middle abstract"
+  },
+  {
+   "key": "too_abstract",
+   "label": "too abstract"
+  }
+ ],
+ "lines": [
+  {
+   "key": "5",
+   "label": "5 lines"
+  },
+  {
+   "key": "10",
+   "label": "10 lines"
+  },
+  {
+   "key": "20",
+   "label": "20 lines"
+  },
+  {
+   "key": "50",
+   "label": "50 lines"
+  },
+  {
+   "key": "100",
+   "label": "100 lines"
+  },
+  {
+   "key": "200",
+   "label": "200 lines"
+  }
+ ],
+ "connect": {
+  "rows": [
+   {
+    "key": "off",
+    "label": "no constraint"
+   },
+   {
+    "key": "loss",
+    "label": "connectivity loss"
+   },
+   {
+    "key": "loss_weld",
+    "label": "loss + weld"
+   }
+  ],
+  "cols": [
+   {
+    "key": "5",
+    "label": "5 lines"
+   },
+   {
+    "key": "20",
+    "label": "20 lines"
+   },
+   {
+    "key": "50",
+    "label": "50 lines"
+   },
+   {
+    "key": "200",
+    "label": "200 lines"
+   }
+  ]
+ },
+ "banner": {
+  "object": "boat",
+  "lines": [
+   5,
+   20,
+   50,
+   200
+  ]
+ }
+}
