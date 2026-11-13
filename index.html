@@ -138,7 +138,7 @@
   <!------------------------------------------------------------------------------ INTRODUCTION -->
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3" id="intro">I. Introduction</h2>
+      <h2 class="title is-3" id="intro">Introduction</h2>
       <div class="content has-text-justified">
         <p>
           A good sketch is an abstraction: with a handful of strokes an artist decides which parts of an object carry
@@ -175,7 +175,7 @@
   <!------------------------------------------------------------------------------ RELATED WORK -->
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3" id="related-work">II. Related Work</h2>
+      <h2 class="title is-3" id="related-work">Related Work</h2>
       <div class="content has-text-justified">
         <p>
           <strong>2D sketch abstraction.</strong> Sketch-RNN <a href="#ref8">[8]</a> learns to draw stroke by stroke
@@ -226,9 +226,9 @@
   <!------------------------------------------------------------------------------ METHOD -->
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3" id="method">III. Method</h2>
+      <h2 class="title is-3" id="method">Method</h2>
 
-      <h3 class="title is-4">III-A. Strokes as chains of spherical Gaussians</h3>
+      <h3 class="title is-4">Strokes as chains of spherical Gaussians</h3>
       <div class="content has-text-justified">
         <p>Each stroke is a cubic Bézier curve with control points \(\{\mathbf{P}_0, \mathbf{P}_1, \mathbf{P}_2, \mathbf{P}_3\} \subset \mathbb{R}^3\):</p>
         <p>
@@ -272,7 +272,7 @@
         <p>drawn as dark strokes on a white background, \(\mathbf{S} = 1 - \mathbf{V}\).</p>
       </div>
 
-      <h3 class="title is-4">III-B. CLIP objective and abstraction</h3>
+      <h3 class="title is-4">CLIP objective and abstraction</h3>
       <div class="content has-text-justified">
         <p>
           A sketch view \(\mathbf{S}\) and the photo \(\mathbf{I}\) of the same view are compared with a frozen CLIP
@@ -306,7 +306,7 @@
         </figure>
       </div>
 
-      <h3 class="title is-4">III-C. Training</h3>
+      <h3 class="title is-4">Training</h3>
       <div class="content has-text-justified">
         <ul>
           <li><strong>Initialization.</strong> A visual hull is carved from the object masks of the training views, and
@@ -327,7 +327,7 @@
   <!------------------------------------------------------------------------------ RESULTS -->
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3" id="results">IV. Results</h2>
+      <h2 class="title is-3" id="results">Results</h2>
       <div class="content has-text-justified">
         <p>
           We use 20 objects from Objaverse <a href="#ref7">[7]</a>, each rendered from 100 training, 30 validation and
@@ -336,7 +336,7 @@
         </p>
       </div>
 
-      <h3 class="title is-4">IV-A. Number of lines vs. abstraction</h3>
+      <h3 class="title is-4">Number of lines vs. abstraction</h3>
       <div class="content has-text-justified">
         <p>
           Columns add lines, rows move from purely geometric to strongly semantic supervision. <em>Training</em>
@@ -345,13 +345,13 @@
       </div>
       <div id="grid-ablation"></div>
 
-      <h3 class="title is-4" style="margin-top: 3rem;">IV-B. All objects</h3>
+      <h3 class="title is-4" style="margin-top: 3rem;">All objects</h3>
       <div class="content has-text-justified">
         <p>One setting for all 20 objects; change the setting or switch to the ground-truth meshes at the top.</p>
       </div>
       <div id="grid-gallery"></div>
 
-      <h3 class="title is-4" style="margin-top: 3rem;">IV-C. Physically connected sketches</h3>
+      <h3 class="title is-4" style="margin-top: 3rem;">Physically connected sketches</h3>
       <div class="content has-text-justified">
         <p>
           A connectivity loss pulls every curve towards another curve and every separate cluster towards the main one,
@@ -361,7 +361,7 @@
       </div>
       <div id="grid-connect"></div>
 
-      <h3 class="title is-4" style="margin-top: 3rem;">IV-D. Quantitative results</h3>
+      <h3 class="title is-4" style="margin-top: 3rem;">Quantitative results</h3>
       <div class="content has-text-justified">
         <p>
           Means over the 20 objects on the held-out test views: CLIP similarity between sketch and photo, the fraction
@@ -375,7 +375,7 @@
   <!------------------------------------------------------------------------------ CONCLUSION -->
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3" id="conclusion">V. Conclusion</h2>
+      <h2 class="title is-3" id="conclusion">Conclusion</h2>
       <div class="content has-text-justified">
         <p>
           Restricting Gaussian splatting to strokes turns CLIP-guided sketch abstraction into a 3D problem that can be
