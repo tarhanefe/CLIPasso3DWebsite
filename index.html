@@ -424,8 +424,8 @@
       lines: [5, 10, 20, 50, 100, 200].map((n) => ({ key: String(n), label: `${n} lines` })),
       connect: {
         rows: [
-          { key: 'off', label: 'no constraint' }, { key: 'loss', label: 'connectivity loss' },
-          { key: 'loss_weld', label: 'loss + weld' },
+          { key: 'off', label: 'no constraint' }, { key: 'weld', label: 'weld only' },
+          { key: 'loss01', label: 'loss 0.1 + weld' }, { key: 'loss1', label: 'loss 1.0 + weld' },
         ],
         cols: [5, 20, 50, 200].map((n) => ({ key: String(n), label: `${n} lines` })),
       },

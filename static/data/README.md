@@ -6,10 +6,10 @@ Written by the tools of [clipasso3d](https://github.com/tarhanefe/clipasso3d) (b
 SITE=../CLIPasso3DWebsite/static
 # lines x abstraction grid + gallery (all objects), connectivity grid, index, metrics
 python tools/export_web.py runs --out $SITE/data --family ablation --pattern "abl_L{col}_{row}"
-python tools/export_web.py runs --out $SITE/data --family connect --pattern "<connect run pattern>" \
-    --rows off loss loss_weld --cols 5 20 50 200
+python tools/export_web.py runs --out $SITE/data --family connect --pattern "conn_L{col}_{row}" \
+    --row_pattern "off=abl_L{col}_normal" --rows off weld loss01 loss1 --cols 5 20 50 200
 python tools/export_web.py index --out $SITE/data --banner_object boat \
-    --connect_rows "off:no constraint" "loss:connectivity loss" "loss_weld:loss + weld" --connect_cols 5 20 50 200
+    --connect_rows "off:no constraint" "weld:weld only" "loss01:loss 0.1 + weld" "loss1:loss 1.0 + weld" --connect_cols 5 20 50 200
 python tools/export_web.py metrics --out $SITE/data
 # ground-truth meshes (Blender) and the banner under the title
 for o in $(ls meshes/objaverse/*.glb); do blender -b -P tools/export_gt_glb.py -- --mesh $o --out $SITE/data/gt/$(basename $o); done
