@@ -149,7 +149,8 @@ function shadowTexture() {
     const g = c.getContext('2d');
     const grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
     grad.addColorStop(0, 'rgba(255,255,255,1)');
-    grad.addColorStop(0.5, 'rgba(255,255,255,0.45)');
+    grad.addColorStop(0.35, 'rgba(255,255,255,0.6)');
+    grad.addColorStop(0.7, 'rgba(255,255,255,0.15)');
     grad.addColorStop(1, 'rgba(255,255,255,0)');
     g.fillStyle = grad;
     g.fillRect(0, 0, 128, 128);
@@ -197,7 +198,7 @@ class MultiView {
     scene.add(pivot);
     const view = { el, scene, pivot, lines: null, material: null, floor: null, phase: this.views.length * 1.7 };
     if (this.float) {
-      view.shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 1.7),
+      view.shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 1.3),
         new THREE.MeshBasicMaterial({ map: shadowTexture(), transparent: true, depthWrite: false }));
       view.shadow.visible = false;
       scene.add(view.shadow);
@@ -511,7 +512,7 @@ export class Banner {
     this.stage.append(row);
     root.append(this.stage);
 
-    this.mv = new MultiView(this.stage, { transparent: true, float: true, lineScale: 1.25, lookZ: -0.25, dist: DIST * 1.12 });
+    this.mv = new MultiView(this.stage, { transparent: true, float: true, lineScale: 1.25, lookZ: -0.32, dist: DIST * 1.15 });
     const gtView = this.mv.addView(gtCell);
     const views = cells.map(([key, cell]) => [key, this.mv.addView(cell)]);
     loadGT(object).then((o) => this.mv.setObject(gtView, o));

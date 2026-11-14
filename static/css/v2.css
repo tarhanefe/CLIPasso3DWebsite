@@ -6,7 +6,6 @@
 html.sketch-dark .sg-banner-stage { background: #111; }
 .sg-banner-row { display: grid; grid-template-columns: repeat(5, 1fr); }
 .sg-banner-row .sg-cell, html.sketch-dark .sg-banner-row .sg-cell { border: none; }
-.sg-banner-caption { margin-top: 0.4rem; }
 
 .figure-svg { width: 100%; height: auto; }
 .katex { font-size: 1.08em; }
