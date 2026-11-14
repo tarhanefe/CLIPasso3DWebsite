@@ -63,8 +63,8 @@ function cameraDirs() {
   return dirs.slice(0, N_CAMS);
 }
 
-function frustum(dir) {
-  const apex = dir.clone().multiplyScalar(RING), fwd = dir.clone().negate();
+export function frustum(dir, ring = RING) {
+  const apex = dir.clone().multiplyScalar(ring), fwd = dir.clone().negate();
   const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 0, 1)).normalize();
   const up = new THREE.Vector3().crossVectors(right, fwd).normalize();
   const base = apex.clone().addScaledVector(fwd, 0.32), s = 0.11;

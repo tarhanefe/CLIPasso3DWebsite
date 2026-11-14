@@ -182,3 +182,23 @@ html.sketch-dark .sg-cell { border-color: #333; }
   .pf-wires, .pf-back-label { display: none; }
   .pf-trap { height: 6rem; }
 }
+
+/* ---------- animated initialization + respawn figure (static/js/initfig.js) ---------- */
+.if { margin: 1.5rem 0 1.75rem; }
+.if-strip { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.35rem; margin-bottom: 0.6rem; }
+.if-thumb {
+  width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; box-shadow: 0 0 0 1px #e3e7ee;
+  opacity: 0.35; transition: opacity 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+.if-thumb.is-seen { opacity: 0.8; }
+.if-thumb.is-on { opacity: 1; box-shadow: 0 0 0 2px #e8743b, 0 0 0 5px rgba(232, 116, 59, 0.18); transform: translateY(-2px); }
+.if-stage {
+  position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: 12px; cursor: grab; touch-action: none;
+  background: radial-gradient(circle at 50% 45%, #fbfcfe, #eef1f6); box-shadow: inset 0 0 0 1px #e3e7ee;
+}
+.if-stage:active { cursor: grabbing; }
+.if-canvas { display: block; width: 100%; height: 100%; }
+@media (max-width: 768px) {
+  .if-strip { grid-template-columns: repeat(6, 1fr); }
+  .if-stage { aspect-ratio: 4 / 3; }
+}

@@ -301,10 +301,7 @@
           <li><strong>Optimization.</strong> Adam on the control points, 8 views per step, and early stopping once the
             validation loss stops improving.</li>
         </ul>
-        <figure class="method-figure">
-          <img class="figure-svg" src="./static/figures/init_respawn.svg" alt="Visual hull initialization and respawning of stray curves.">
-          <figcaption>Initialization on the visual hull and respawning of curves that leave the object.</figcaption>
-        </figure>
+        <figure id="init-figure"></figure>
       </div>
     </div>
   </section>
@@ -456,9 +453,11 @@
     import { loadIndex, Banner, RunGrid, Gallery, metricsTables, theme } from './static/js/sketchgrid.js';
     import { bezierFigure } from './static/js/bezierfig.js';
     import { pipelineFigure } from './static/js/pipelinefig.js';
+    import { initFigure } from './static/js/initfig.js';
 
     bezierFigure(document.getElementById('bezier-figure'));
     pipelineFigure(document.getElementById('pipeline-figure'), { object: 'bicycle', key: 'normal|20' });
+    initFigure(document.getElementById('init-figure'), { object: 'mug', key: 'middle_abstract|20' });
 
     // Defaults until static/data/index.json exists (it is written by clipasso3d/tools/export_web.py).
     const DEFAULT = {
