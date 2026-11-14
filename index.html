@@ -336,9 +336,44 @@
       <h3 class="title is-4" style="margin-top: 3rem;">Physically connected sketches</h3>
       <div class="content has-text-justified">
         <p>
-          A connectivity loss pulls every curve towards another curve and every separate cluster towards the main one,
-          and a final weld translates the remaining clusters until they touch. The result is one connected piece that
-          could be built as a wire sculpture.
+          A sketch of floating strokes cannot be built: bent from wire, every stroke has to touch another one. We call
+          two curves in <em>contact</em> when they come closer than two stroke radii, \(\varepsilon = 2r\), and look at the
+          contact graph whose pieces are its connected components. From step 490 on, when the sketch has found its
+          shape, a connectivity term is added to the CLIP objective:
+        </p>
+        <div class="eq-card"><span class="eq-tag">connectivity</span>
+          \[\mathcal{L}_{\mathrm{conn}} = w_c \Biggl( \underbrace{\frac{1}{C}\sum_{i=1}^{C} \operatorname{relu}\bigl(d_i - \tfrac{\varepsilon}{2}\bigr)}_{\text{no curve floats alone}}
+          + \underbrace{\frac{1}{K}\sum_{k \neq \mathrm{main}} \operatorname{relu}\bigl(D_{k,\mathrm{main}} - \tfrac{\varepsilon}{2}\bigr)}_{\text{every piece joins the main one}} \Biggr),
+          \qquad d_i = \min_{j \neq i} \operatorname{dist}(\mathbf{B}_i, \mathbf{B}_j).\]
+        </div>
+        <p>
+          \(d_i\) is the distance from curve \(i\) to its nearest neighbour and \(D_{k,\mathrm{main}}\) the gap between
+          piece \(k\) and the largest piece, both measured between points sampled on the curves. Pulling to
+          \(\varepsilon/2\) rather than \(\varepsilon\) keeps contacts from flickering at the threshold. Whatever is
+          still separate after training is welded: each remaining piece is translated rigidly, without changing its
+          shape, until it touches the main piece.
+        </p>
+        <p>
+          <strong>The loss does the connecting, the weld only finishes it.</strong> Without the loss, sketches fall apart
+          into many pieces, and welding them afterwards drags strokes almost half the object's radius. With
+          \(w_c = 0.1\), sketches leave training nearly in one piece, the weld moves them 30–180× less, and CLIP
+          similarity drops by at most 0.015 (means over 20 objects):
+        </p>
+        <table class="table is-narrow cc-table">
+          <thead><tr><th>lines</th><th>pieces without loss</th><th>pieces with loss, before weld</th>
+            <th>weld shift without / with loss</th><th>CLIP without / with loss</th></tr></thead>
+          <tbody>
+            <tr><td>5</td><td>4.75</td><td>1.55</td><td>0.450 / 0.011</td><td>0.762 / 0.752</td></tr>
+            <tr><td>20</td><td>13.35</td><td>2.30</td><td>0.459 / 0.015</td><td>0.846 / 0.833</td></tr>
+            <tr><td>50</td><td>17.35</td><td>1.60</td><td>0.484 / 0.006</td><td>0.865 / 0.850</td></tr>
+            <tr><td>200</td><td>8.75</td><td>1.15</td><td>0.180 / 0.001</td><td>0.875 / 0.867</td></tr>
+          </tbody>
+        </table>
+        <p>
+          A ten times stronger loss (\(w_c = 1\)) connects slightly more at 5 lines but costs 0.03–0.06 CLIP similarity,
+          as strokes bunch together instead of following the shape. Below, each separate piece of an unconstrained
+          sketch has its own color; the connected sketches are a single piece, through which the light can travel from
+          one end to the other.
         </p>
       </div>
       <div id="grid-connect"></div>
@@ -454,6 +489,7 @@
     import { bezierFigure } from './static/js/bezierfig.js';
     import { pipelineFigure } from './static/js/pipelinefig.js';
     import { initFigure } from './static/js/initfig.js';
+    import { ConnectCompare } from './static/js/connectfig.js';
 
     bezierFigure(document.getElementById('bezier-figure'));
     pipelineFigure(document.getElementById('pipeline-figure'), { object: 'bicycle', key: 'normal|20' });
@@ -497,8 +533,8 @@
       objects: index.objects, rows: index.levels, cols: index.lines,
       initialRow: 'normal', initialCol: '50', columns: 5,
     });
-    new RunGrid(document.getElementById('grid-connect'), {
-      family: 'connect', rows: index.connect.rows, cols: index.connect.cols, objects: index.objects, initial: first,
+    new ConnectCompare(document.getElementById('grid-connect'), {
+      objects: ['airplane', 'car_(automobile)', 'chair', 'lamp', 'school_bus', 'teapot'].map((k) => index.objects.find((o) => o.key === k)).filter(Boolean),
     });
     metricsTables(document.getElementById('metrics'));
 

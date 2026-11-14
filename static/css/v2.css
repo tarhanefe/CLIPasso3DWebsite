@@ -202,3 +202,17 @@ html.sketch-dark .sg-cell { border-color: #333; }
   .if-strip { grid-template-columns: repeat(6, 1fr); }
   .if-stage { aspect-ratio: 4 / 3; }
 }
+
+/* ---------- connected vs. not connected (static/js/connectfig.js) ---------- */
+.cc .sg-stage { display: block; }
+.cc-cell { position: relative; }
+.cc-badge {
+  position: absolute; right: 6px; bottom: 5px; font-size: 0.68rem; color: #777; background: rgba(255, 255, 255, 0.85);
+  border-radius: 999px; padding: 0 0.4rem; z-index: 2; pointer-events: none; white-space: nowrap;
+}
+.cc-badge.is-one { color: #8a6416; background: #fff6dc; box-shadow: 0 0 0 1px #f0d48a; }
+.cc-rowhead.cc-loss01 { color: #8a6416; }
+.cc-grid .sg-cell { border-color: #edf0f4; }
+.cc-table { margin: 0.4rem auto 1rem; font-size: 0.85rem; }
+.cc-table th { font-weight: 500; font-size: 0.8rem; }
+.cc-table td, .cc-table th { text-align: center !important; }

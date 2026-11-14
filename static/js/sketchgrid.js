@@ -10,11 +10,11 @@ import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const DATA = './static/data';
-const FOV_DEG = 39.6;                 // horizontal FOV of the training cameras
-const DIST = 3.25 / 1.12;             // training camera distance, zoomed in a little (unit sphere still fits)
+export const FOV_DEG = 39.6;                 // horizontal FOV of the training cameras
+export const DIST = 3.25 / 1.12;             // training camera distance, zoomed in a little (unit sphere still fits)
 const ELEV = THREE.MathUtils.degToRad(20);
 const SPIN = (2 * Math.PI) / 18;      // one turn every 18 s
-const SEGMENTS = 24;                  // line segments per Bezier curve
+export const SEGMENTS = 24;                  // line segments per Bezier curve
 
 // ------------------------------------------------------------------ data
 
@@ -106,7 +106,7 @@ export const theme = {
 
 // ------------------------------------------------------------------ orbit
 
-class Orbit {
+export class Orbit {
   constructor(el) {
     this.az = Math.PI / 4;
     this.el = ELEV;
