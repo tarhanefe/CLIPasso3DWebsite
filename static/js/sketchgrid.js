@@ -55,7 +55,7 @@ export async function loadRuns(objectKey, family = 'ablation') {
 }
 
 // Control points (C*4*3 floats) of a run at a snapshot index (or the final state).
-function controlPoints(runs, key, snapshot = null, history = null) {
+export function controlPoints(runs, key, snapshot = null, history = null) {
   const run = runs.meta.runs[key];
   if (!run) return null;
   const n = run.curves * 12;
@@ -72,7 +72,7 @@ function controlPoints(runs, key, snapshot = null, history = null) {
 }
 
 // Sample cubic Bezier curves into line-segment endpoints (x0,y0,z0,x1,y1,z1 per segment).
-function curvesToSegments(cp) {
+export function curvesToSegments(cp) {
   const C = cp.length / 12;
   const pos = new Float32Array(C * SEGMENTS * 6);
   let k = 0;
@@ -294,7 +294,7 @@ class MultiView {
 const gltfLoader = new GLTFLoader();
 const gtCache = new Map();
 
-function loadGT(objectKey) {
+export function loadGT(objectKey) {
   if (!gtCache.has(objectKey)) {
     gtCache.set(objectKey, new Promise((resolve) => {
       gltfLoader.load(`${DATA}/gt/${objectKey}.glb`, (g) => {

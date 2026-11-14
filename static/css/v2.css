@@ -111,3 +111,74 @@ html.sketch-dark .sg-cell { border-color: #333; }
   .bz-arrow { margin: 0; transform: rotate(90deg); }
   .eq-tag { position: static; display: block; }
 }
+
+/* ---------- animated training loop (static/js/pipelinefig.js) ---------- */
+.pf { margin: 1.5rem 0 1.75rem; }
+.pf-flow {
+  position: relative; display: grid; align-items: center; gap: 2.4rem;
+  grid-template-columns: 1.6fr 0.78fr 0.58fr 1.05fr 1.1fr; padding-top: 3.6rem;
+}
+.pf-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.pf-wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; overflow: visible; }
+.pf-node { position: relative; z-index: 1; text-align: center; transition: transform 0.25s, filter 0.25s; }
+.pf-col { display: flex; flex-direction: column; gap: 1.1rem; position: relative; z-index: 1; }
+.pf-cell {
+  aspect-ratio: 1 / 1; width: 100%; border-radius: 10px; box-shadow: inset 0 0 0 1px #e3e7ee; background: #fff;
+  transition: box-shadow 0.25s;
+}
+.pf-cell-3d { background: radial-gradient(circle at 50% 45%, #fbfcfe, #eef1f6); cursor: grab; touch-action: none; }
+.pf-cell-3d:active { cursor: grabbing; }
+.pf-cap { font-size: 0.78rem; color: #555; margin-top: 0.3rem; line-height: 1.25; }
+.pf-trap {
+  height: 9.5rem; display: flex; align-items: center; justify-content: center;
+  font-family: 'Google Sans', sans-serif; font-size: 1.05rem; color: #2e6b3a;
+  background: linear-gradient(180deg, #eaf5ec, #dcefe0); clip-path: polygon(0 0, 100% 16%, 100% 84%, 0 100%);
+  transition: filter 0.25s;
+}
+.pf-box {
+  border-radius: 10px; padding: 0.55rem 0.5rem; font-size: 0.8rem; transition: box-shadow 0.25s, transform 0.25s;
+}
+.pf-box-title { font-family: 'Google Sans', sans-serif; font-size: 0.78rem; margin-bottom: 0.15rem; }
+.pf-box-eq { font-size: 0.82rem; }
+.pf-geo { background: #fdf0e6; color: #8a4310; box-shadow: inset 0 0 0 1px #f2c9a6; }
+.pf-sem { background: #efecfa; color: #4a3b8f; box-shadow: inset 0 0 0 1px #cdc5ee; }
+.pf-loss { background: #fff; box-shadow: inset 0 0 0 1px #c9ced8; padding: 0.9rem 0.3rem; white-space: nowrap; }
+.pf-loss .pf-box-eq { font-size: 0.78rem; }
+.pf-on .pf-cell { box-shadow: inset 0 0 0 2px #e8743b, 0 0 0 4px rgba(232, 116, 59, 0.15); }
+.pf-on.pf-box { transform: scale(1.04); box-shadow: inset 0 0 0 2px #e8743b, 0 4px 14px rgba(232, 116, 59, 0.18); }
+.pf-on .pf-trap { filter: saturate(1.6) brightness(0.97); }
+.pf-wire { fill: none; stroke: #b4bac5; stroke-width: 1.4; }
+.pf-wire-back { stroke: #d6453d; stroke-dasharray: 5 5; opacity: 0.55; transition: opacity 0.25s; }
+.pf-wire-back.pf-hot { opacity: 1; animation: pf-dash 0.6s linear infinite; }
+@keyframes pf-dash { to { stroke-dashoffset: -10; } }
+.pf-pulse { fill: #e8743b; filter: drop-shadow(0 0 4px rgba(232, 116, 59, 0.8)); opacity: 0; }
+.pf-pulse-back { fill: #d6453d; filter: drop-shadow(0 0 4px rgba(214, 69, 61, 0.8)); }
+.pf-back-label {
+  position: absolute; z-index: 2; transform: translate(-50%, -100%); font-size: 0.78rem; color: #b5372f;
+  white-space: nowrap; background: rgba(255, 255, 255, 0.85); padding: 0 0.3rem;
+}
+.pf-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; margin-top: 1.1rem; }
+.pf-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid #dfe3ea; background: #fff; color: #555;
+  border-radius: 999px; padding: 0.22rem 0.75rem 0.22rem 0.3rem; font-size: 0.8rem; cursor: pointer;
+  transition: all 0.2s;
+}
+.pf-chip-n {
+  width: 1.3rem; height: 1.3rem; border-radius: 50%; background: #eef0f4; display: inline-flex;
+  align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600;
+}
+.pf-chip.is-active { border-color: #e8743b; color: #8a4310; background: #fff6ef; }
+.pf-chip.is-active .pf-chip-n { background: #e8743b; color: #fff; }
+.pf-is-fast .pf-chip { opacity: 0.5; }
+.pf-text { text-align: center; font-size: 0.88rem; color: #555; min-height: 2.8em; margin: 0.6rem auto 0 !important; max-width: 46rem; }
+.pf-bar { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; justify-content: center; margin-top: 0.4rem; }
+.pf-modes { margin-bottom: 0 !important; }
+.pf-modes .button { margin-bottom: 0 !important; }
+.pf-scrub { width: 220px; accent-color: #e8743b; }
+.pf-counter { font-size: 0.8rem; color: #666; font-variant-numeric: tabular-nums; min-width: 11rem; }
+@media (max-width: 768px) {
+  .pf-flow { grid-template-columns: 1fr 1fr; gap: 1.2rem; padding-top: 0; }
+  .pf-scene { grid-column: 1 / -1; }
+  .pf-wires, .pf-back-label { display: none; }
+  .pf-trap { height: 6rem; }
+}

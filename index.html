@@ -288,10 +288,7 @@
             <tr><td>semantics-weighted</td><td>0.1</td><td>1</td><td>10</td></tr>
           </tbody>
         </table>
-        <figure class="method-figure">
-          <img class="figure-svg" src="./static/figures/training_loop.svg" alt="Training loop: project curves, compare with photos in CLIP, backpropagate to the control points.">
-          <figcaption>One optimization step. Gradients of \(\mathcal{L}\) flow through CLIP, the splatting and the projection back to the control points.</figcaption>
-        </figure>
+        <figure id="pipeline-figure"></figure>
       </div>
 
       <h3 class="title is-4">Training</h3>
@@ -458,8 +455,10 @@
   <script type="module">
     import { loadIndex, Banner, RunGrid, Gallery, metricsTables, theme } from './static/js/sketchgrid.js';
     import { bezierFigure } from './static/js/bezierfig.js';
+    import { pipelineFigure } from './static/js/pipelinefig.js';
 
     bezierFigure(document.getElementById('bezier-figure'));
+    pipelineFigure(document.getElementById('pipeline-figure'), { object: 'bicycle', key: 'normal|20' });
 
     // Defaults until static/data/index.json exists (it is written by clipasso3d/tools/export_web.py).
     const DEFAULT = {

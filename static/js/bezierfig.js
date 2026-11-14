@@ -31,13 +31,13 @@ function arcSamples(P, d) {
   return { centers: out, L };
 }
 
-function tex(el, src) {
+export function tex(el, src) {
   if (window.katex) window.katex.render(src, el, { throwOnError: false });
   else el.textContent = src;
 }
 
 // Text with inline \( math \) pieces.
-function rich(el, src) {
+export function rich(el, src) {
   src.split(/\\\((.*?)\\\)/).forEach((part, i) => {
     const span = document.createElement('span');
     if (i % 2) tex(span, part); else span.textContent = part;
