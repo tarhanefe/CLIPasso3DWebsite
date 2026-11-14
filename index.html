@@ -17,8 +17,11 @@
     gtag('config', 'G-BQXL0D54M7');
   </script>
 
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, { delimiters: [
+      { left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }] });"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
@@ -232,19 +235,15 @@
       <div class="content has-text-justified">
         <p>Each stroke is a cubic Bézier curve with control points \(\{\mathbf{P}_0, \mathbf{P}_1, \mathbf{P}_2, \mathbf{P}_3\} \subset \mathbb{R}^3\):</p>
         <p>
-          <script type="math/tex; mode=display">
-            \mathbf{B}(t) = (1 - t)^3 \mathbf{P}_0 + 3(1 - t)^2 t\, \mathbf{P}_1 + 3(1 - t) t^2 \mathbf{P}_2 + t^3 \mathbf{P}_3,\quad t \in [0, 1].
-          </script>
+          \[\mathbf{B}(t) = (1 - t)^3 \mathbf{P}_0 + 3(1 - t)^2 t\, \mathbf{P}_1 + 3(1 - t) t^2 \mathbf{P}_2 + t^3 \mathbf{P}_3,\quad t \in [0, 1].\]
         </p>
         <p>
           It is sampled into centers \(\mathbf{c}_n = \mathbf{B}(t_n)\), spaced uniformly in arc length at most \(d = r/2\)
           apart, and each center carries a spherical Gaussian of radius \(r\):
         </p>
         <p>
-          <script type="math/tex; mode=display">
-            \phi\left(\mathbf{x}; \mathbf{c}_n, r\right) = \exp\left(-\frac{\|\mathbf{x} - \mathbf{c}_n\|^2}{2r^2}\right),
-            \qquad N = \left\lceil \frac{L}{d} \right\rceil + 1 \ \text{ centers for a curve of length } L.
-          </script>
+          \[\phi\left(\mathbf{x}; \mathbf{c}_n, r\right) = \exp\left(-\frac{\|\mathbf{x} - \mathbf{c}_n\|^2}{2r^2}\right),
+            \qquad N = \left\lceil \frac{L}{d} \right\rceil + 1 \ \text{ centers for a curve of length } L.\]
         </p>
         <figure class="method-figure">
           <img class="figure-svg" src="./static/figures/curve_to_gaussians.svg" alt="A Bézier curve is sampled into spherical Gaussians that splat into a continuous stroke.">
@@ -254,20 +253,16 @@
           A center is projected with the intrinsics \(\mathbf{In}\) and the camera pose \(\mathbf{Ex}\),
         </p>
         <p>
-          <script type="math/tex; mode=display">
-            \mathbf{In} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix}, \qquad
-            \mathbf{Ex} = \begin{bmatrix} \mathbf{R} & \mathbf{t} \\ \mathbf{0}^{1 \times 3} & 1 \end{bmatrix},
-          </script>
+          \[\mathbf{In} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix}, \qquad
+            \mathbf{Ex} = \begin{bmatrix} \mathbf{R} & \mathbf{t} \\ \mathbf{0}^{1 \times 3} & 1 \end{bmatrix},\]
         </p>
         <p>
           giving a pixel position \(\mathbf{u}_n\) and a screen radius \(r_n = f r / z_n\) at depth \(z_n\). The sketch
           is the union of all splats:
         </p>
         <p>
-          <script type="math/tex; mode=display">
-            w_n(\mathbf{p}) = \exp\left(-\frac{\|\mathbf{p} - \mathbf{u}_n\|^2}{2 r_n^2}\right), \qquad
-            \mathbf{V}(\mathbf{p}) = 1 - \prod_{n} \bigl(1 - w_n(\mathbf{p})\bigr),
-          </script>
+          \[w_n(\mathbf{p}) = \exp\left(-\frac{\|\mathbf{p} - \mathbf{u}_n\|^2}{2 r_n^2}\right), \qquad
+            \mathbf{V}(\mathbf{p}) = 1 - \prod_{n} \bigl(1 - w_n(\mathbf{p})\bigr),\]
         </p>
         <p>drawn as dark strokes on a white background, \(\mathbf{S} = 1 - \mathbf{V}\).</p>
       </div>
@@ -280,11 +275,9 @@
           semantics.
         </p>
         <p>
-          <script type="math/tex; mode=display">
-            \mathcal{L} = w_g \,\mathcal{L}_{\mathrm{geometric}} + w_s \,\mathcal{L}_{\mathrm{semantic}}, \qquad
+          \[\mathcal{L} = w_g \,\mathcal{L}_{\mathrm{geometric}} + w_s \,\mathcal{L}_{\mathrm{semantic}}, \qquad
             \mathcal{L}_{\mathrm{geometric}} = \sum_{l \in \{2,3\}} \bigl\|f_l(\mathbf{S}) - f_l(\mathbf{I})\bigr\|^2, \qquad
-            \mathcal{L}_{\mathrm{semantic}} = 1 - \cos\bigl(e(\mathbf{S}), e(\mathbf{I})\bigr)
-          </script>
+            \mathcal{L}_{\mathrm{semantic}} = 1 - \cos\bigl(e(\mathbf{S}), e(\mathbf{I})\bigr)\]
         </p>
         <p>
           The loss is averaged over 8 random views per step and over random perspective and crop augmentations. The
