@@ -233,37 +233,35 @@
 
       <h3 class="title is-4">Strokes as chains of spherical Gaussians</h3>
       <div class="content has-text-justified">
-        <p>Each stroke is a cubic Bézier curve with control points \(\{\mathbf{P}_0, \mathbf{P}_1, \mathbf{P}_2, \mathbf{P}_3\} \subset \mathbb{R}^3\):</p>
+        <p>Each stroke is a cubic Bézier curve \(\textcolor{#2f6fdf}{\mathbf{B}}\) with control points \(\{\textcolor{#e8743b}{\mathbf{P}_0}, \textcolor{#e8743b}{\mathbf{P}_1}, \textcolor{#e8743b}{\mathbf{P}_2}, \textcolor{#e8743b}{\mathbf{P}_3}\} \subset \mathbb{R}^3\):</p>
+        <div class="eq-card"><span class="eq-tag">curve</span>
+          \[\textcolor{#2f6fdf}{\mathbf{B}(t)} = (1 - t)^3\, \textcolor{#e8743b}{\mathbf{P}_0} + 3(1 - t)^2 t\, \textcolor{#e8743b}{\mathbf{P}_1} + 3(1 - t) t^2\, \textcolor{#e8743b}{\mathbf{P}_2} + t^3\, \textcolor{#e8743b}{\mathbf{P}_3},\quad t \in [0, 1].\]
+        </div>
         <p>
-          \[\mathbf{B}(t) = (1 - t)^3 \mathbf{P}_0 + 3(1 - t)^2 t\, \mathbf{P}_1 + 3(1 - t) t^2 \mathbf{P}_2 + t^3 \mathbf{P}_3,\quad t \in [0, 1].\]
+          It is sampled into centers \(\textcolor{#2f6fdf}{\mathbf{c}_n} = \textcolor{#2f6fdf}{\mathbf{B}}(t_n)\), spaced
+          uniformly in arc length at most \(d = \textcolor{#d6453d}{r}/2\) apart, and each center carries a spherical
+          Gaussian of radius \(\textcolor{#d6453d}{r}\):
         </p>
-        <p>
-          It is sampled into centers \(\mathbf{c}_n = \mathbf{B}(t_n)\), spaced uniformly in arc length at most \(d = r/2\)
-          apart, and each center carries a spherical Gaussian of radius \(r\):
-        </p>
-        <p>
-          \[\phi\left(\mathbf{x}; \mathbf{c}_n, r\right) = \exp\left(-\frac{\|\mathbf{x} - \mathbf{c}_n\|^2}{2r^2}\right),
+        <div class="eq-card"><span class="eq-tag">Gaussians</span>
+          \[\phi\left(\mathbf{x}; \textcolor{#2f6fdf}{\mathbf{c}_n}, \textcolor{#d6453d}{r}\right) = \exp\left(-\frac{\|\mathbf{x} - \textcolor{#2f6fdf}{\mathbf{c}_n}\|^2}{2\textcolor{#d6453d}{r}^2}\right),
             \qquad N = \left\lceil \frac{L}{d} \right\rceil + 1 \ \text{ centers for a curve of length } L.\]
-        </p>
-        <figure class="method-figure">
-          <img class="figure-svg" src="./static/figures/curve_to_gaussians.svg" alt="A Bézier curve is sampled into spherical Gaussians that splat into a continuous stroke.">
-          <figcaption>Every center is a differentiable function of the control points, and the dense spacing keeps long strokes continuous.</figcaption>
-        </figure>
+        </div>
+        <figure id="bezier-figure"></figure>
         <p>
           A center is projected with the intrinsics \(\mathbf{In}\) and the camera pose \(\mathbf{Ex}\),
         </p>
-        <p>
+        <div class="eq-card"><span class="eq-tag">projection</span>
           \[\mathbf{In} = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix}, \qquad
             \mathbf{Ex} = \begin{bmatrix} \mathbf{R} & \mathbf{t} \\ \mathbf{0}^{1 \times 3} & 1 \end{bmatrix},\]
-        </p>
+        </div>
         <p>
-          giving a pixel position \(\mathbf{u}_n\) and a screen radius \(r_n = f r / z_n\) at depth \(z_n\). The sketch
+          giving a pixel position \(\mathbf{u}_n\) and a screen radius \(r_n = f \textcolor{#d6453d}{r} / z_n\) at depth \(z_n\). The sketch
           is the union of all splats:
         </p>
-        <p>
+        <div class="eq-card"><span class="eq-tag">splatting</span>
           \[w_n(\mathbf{p}) = \exp\left(-\frac{\|\mathbf{p} - \mathbf{u}_n\|^2}{2 r_n^2}\right), \qquad
             \mathbf{V}(\mathbf{p}) = 1 - \prod_{n} \bigl(1 - w_n(\mathbf{p})\bigr),\]
-        </p>
+        </div>
         <p>drawn as dark strokes on a white background, \(\mathbf{S} = 1 - \mathbf{V}\).</p>
       </div>
 
@@ -274,11 +272,11 @@
           ViT-B/32, as in CLIPasso: intermediate layers measure geometry, the final embedding \(e(\cdot)\) measures
           semantics.
         </p>
-        <p>
+        <div class="eq-card"><span class="eq-tag">objective</span>
           \[\mathcal{L} = w_g \,\mathcal{L}_{\mathrm{geometric}} + w_s \,\mathcal{L}_{\mathrm{semantic}}, \qquad
             \mathcal{L}_{\mathrm{geometric}} = \sum_{l \in \{2,3\}} \bigl\|f_l(\mathbf{S}) - f_l(\mathbf{I})\bigr\|^2, \qquad
             \mathcal{L}_{\mathrm{semantic}} = 1 - \cos\bigl(e(\mathbf{S}), e(\mathbf{I})\bigr)\]
-        </p>
+        </div>
         <p>
           The loss is averaged over 8 random views per step and over random perspective and crop augmentations. The
           ratio \(\lambda = w_s / w_g\) sets the abstraction level; we name the five levels after their weighting:
@@ -462,6 +460,9 @@
 
   <script type="module">
     import { loadIndex, Banner, RunGrid, Gallery, metricsTables, theme } from './static/js/sketchgrid.js';
+    import { bezierFigure } from './static/js/bezierfig.js';
+
+    bezierFigure(document.getElementById('bezier-figure'));
 
     // Defaults until static/data/index.json exists (it is written by clipasso3d/tools/export_web.py).
     const DEFAULT = {

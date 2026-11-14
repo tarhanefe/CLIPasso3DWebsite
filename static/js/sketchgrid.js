@@ -601,7 +601,7 @@ export async function metricsTables(root) {
   if (!m) { root.append(el('p', 'sg-caption', 'Quantitative results will appear here when all runs are finished.')); return; }
   const wrap = el('div', 'columns is-multiline is-centered');
   for (const metric of m.metrics) {
-    const col = el('div', 'column is-full');
+    const col = el('div', 'column is-full sg-metric-wrap');
     const t = el('table', 'table is-narrow sg-metric');
     const cap = el('caption', '', `${metric.label} ${metric.higher_is_better ? '(higher is better)' : '(lower is better)'}`);
     t.append(cap);
