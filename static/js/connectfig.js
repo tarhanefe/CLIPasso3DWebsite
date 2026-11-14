@@ -172,32 +172,36 @@ export class ConnectCompare {
     const lines = new LineSegments2(geo, mat);
     const scene = new THREE.Scene();
     scene.add(lines);
-    const view = { scene, lines, mat, pos, label, n, connected, C, phase: Math.random() * 6 };
-    if (connected) {
-      view.hop = hops(cp, adj);
-      // sparkles at random points of the curves
-      const S = Math.min(60, 8 + C * 2), sp = new Float32Array(S * 3);
-      view.sparkSeeds = Float32Array.from({ length: S }, () => Math.random());
-      const p = [0, 0, 0];
-      for (let k = 0; k < S; k++) sp.set(bezier(cp, Math.floor(Math.random() * C), Math.random(), p), k * 3);
-      const g = new THREE.BufferGeometry();
-      g.setAttribute('position', new THREE.BufferAttribute(sp, 3));
-      view.cp = cp; view.sparkCycle = new Int32Array(S).fill(-1);
-      view.sparks = new THREE.Points(g, new THREE.PointsMaterial({
-        map: sparkTexture(), size: 0.11, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xffe9b0,
-      }));
-      view.sparkMats = view.sparks.material;
-      scene.add(view.sparks);
-    } else {
-      // every piece floats on its own: a small random direction per piece
-      view.drift = Array.from({ length: n }, () => new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize());
-      view.phases = Float32Array.from({ length: n }, () => Math.random() * 6.28);
-      const col = new THREE.Color();
-      for (let c = 0; c < C; c++) {
-        col.set(n === 1 ? '#111111' : PALETTE[label[c] % PALETTE.length]);
-        for (let s = 0; s < SEGMENTS * 2; s++) colors.set([col.r, col.g, col.b], (c * SEGMENTS * 2 + s) * 3);
+    // keep an untouched copy: the geometry uses `pos` itself as its buffer and the drift rewrites it
+    const view = { scene, lines, mat, pos: pos.slice(), label, n, connected, C, phase: Math.random() * 6 };
+    view.pieceColor = Array.from({ length: n }, (_, k) => new THREE.Color(connected || n === 1 ? GOLD : PALETTE[k % PALETTE.length]));
+    view.piecePhase = Float32Array.from({ length: n }, () => Math.random());
+    view.hop = connected ? hops(cp, adj) : new Float32Array(C);
+    // sparkles at random points of the curves
+    const S = Math.min(60, 8 + C * 2), sp = new Float32Array(S * 3);
+    view.sparkSeeds = Float32Array.from({ length: S }, () => Math.random());
+    const p = [0, 0, 0];
+    for (let k = 0; k < S; k++) sp.set(bezier(cp, Math.floor(Math.random() * C), Math.random(), p), k * 3);
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(sp, 3));
+    view.cp = cp; view.sparkCycle = new Int32Array(S).fill(-1);
+    g.setAttribute('color', new THREE.BufferAttribute(new Float32Array(S * 3).fill(1), 3));
+    view.sparks = new THREE.Points(g, new THREE.PointsMaterial({
+      map: sparkTexture(), size: 0.11, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, vertexColors: true,
+    }));
+    view.sparkMats = view.sparks.material;
+    scene.add(view.sparks);
+    if (!connected) {
+      // pieces drift apart a little, each straight away from the sketch's center
+      const cen = Array.from({ length: n }, () => [0, 0, 0, 0]), all = [0, 0, 0];
+      for (let c = 0; c < C; c++) for (let k = 0; k < 4; k++) for (let a = 0; a < 3; a++) {
+        const v = cp[c * 12 + k * 3 + a]; cen[label[c]][a] += v; all[a] += v / (4 * C);
       }
-      geo.attributes.instanceColorStart.data.needsUpdate = true;
+      for (let c = 0; c < C; c++) cen[label[c]][3] += 4;
+      view.drift = cen.map(([x, y, z, w]) => {
+        const d = new THREE.Vector3(x / w - all[0], y / w - all[1], z / w - all[2]);
+        return d.lengthSq() > 1e-6 ? d.normalize() : new THREE.Vector3(0, 0, 1);
+      });
     }
     c.badge.textContent = n === 1 ? '1 piece' : `${n} pieces`;
     c.badge.classList.toggle('is-one', n === 1);
@@ -205,46 +209,54 @@ export class ConnectCompare {
   }
 
   animate(v, t) {
-    const geo = v.lines.geometry;
-    if (v.connected) {
-      // light wave through the contact graph, plus a slow shimmer along each curve
-      const arr = geo.attributes.instanceColorStart.data.array, col = new THREE.Color();
-      for (let c = 0; c < v.C; c++) {
-        for (let s = 0; s < SEGMENTS; s++) {
-          for (let e = 0; e < 2; e++) {
-            const u = (s + e) / SEGMENTS;
-            const wave = Math.max(0, Math.cos(2 * Math.PI * (0.35 * t - v.hop[c] - 0.08 * u)));
-            const tw = 0.15 * Math.max(0, Math.sin(9 * u + 3 * t + c));
-            col.copy(GOLD).lerp(GLOW, Math.min(1, wave ** 6 * 0.9 + tw));
-            arr.set([col.r, col.g, col.b], ((c * SEGMENTS + s) * 2 + e) * 3);
-          }
+    const geo = v.lines.geometry, arr = geo.attributes.instanceColorStart.data.array, col = new THREE.Color();
+    // shimmer: connected = one wave running through the contact graph; separate = every piece on its own rhythm
+    for (let c = 0; c < v.C; c++) {
+      const k = v.label[c], base = v.pieceColor[k], ph = v.connected ? v.hop[c] : v.piecePhase[k];
+      const rate = v.connected ? 0.35 : 0.22 + 0.12 * v.piecePhase[k];
+      for (let s = 0; s < SEGMENTS; s++) {
+        for (let e = 0; e < 2; e++) {
+          const u = (s + e) / SEGMENTS;
+          const wave = Math.max(0, Math.cos(2 * Math.PI * (rate * t - ph - 0.08 * u)));
+          const tw = 0.12 * Math.max(0, Math.sin(9 * u + 2 * t + c));
+          col.copy(base).lerp(GLOW, Math.min(1, wave ** 6 * 0.85 + tw));
+          arr.set([col.r, col.g, col.b], ((c * SEGMENTS + s) * 2 + e) * 3);
         }
       }
-      geo.attributes.instanceColorStart.data.needsUpdate = true;
-      // twinkle: every sparkle jumps to a new random point of the structure once per (own) cycle
-      const pa = v.sparks.geometry.attributes.position, p = [0, 0, 0];
-      v.sparkSeeds.forEach((seed, k) => {
-        const cyc = Math.floor(t / 0.9 + seed * 7);
-        if (cyc !== v.sparkCycle[k]) {
-          v.sparkCycle[k] = cyc;
-          pa.array.set(bezier(v.cp, Math.floor(Math.random() * v.C), Math.random(), p), k * 3);
-          pa.needsUpdate = true;
-        }
-      });
-      v.sparkMats.size = 0.075 + 0.035 * Math.sin(5.1 * t + v.phase);
-      v.sparkMats.opacity = 0.7 + 0.3 * Math.sin(3.3 * t + v.phase);
-    } else if (v.n > 1) {
-      const arr = geo.attributes.instanceStart.data.array, base = v.pos;
-      const off = v.drift.map((d, k) => d.clone().multiplyScalar(0.035 * Math.sin(1.3 * t + v.phases[k])));
+    }
+    geo.attributes.instanceColorStart.data.needsUpdate = true;
+
+    // separate pieces detach: a slow, small outward drift (about 2% of the object's size)
+    const off = v.connected || v.n === 1 ? null
+      : v.drift.map((d, k) => d.clone().multiplyScalar(0.022 * (0.5 - 0.5 * Math.cos(2 * Math.PI * (t / 7 + 0.1 * v.piecePhase[k])))));
+    if (off) {
+      const pa = geo.attributes.instanceStart.data.array, base = v.pos;
       for (let c = 0; c < v.C; c++) {
         const o = off[v.label[c]];
         for (let s = 0; s < SEGMENTS * 2; s++) {
           const i = (c * SEGMENTS * 2 + s) * 3;
-          arr[i] = base[i] + o.x; arr[i + 1] = base[i + 1] + o.y; arr[i + 2] = base[i + 2] + o.z;
+          pa[i] = base[i] + o.x; pa[i + 1] = base[i + 1] + o.y; pa[i + 2] = base[i + 2] + o.z;
         }
       }
       geo.attributes.instanceStart.data.needsUpdate = true;
     }
+
+    // sparkles: each jumps to a new random point once per own cycle, tinted like the piece it lands on
+    const pa = v.sparks.geometry.attributes.position, pc = v.sparks.geometry.attributes.color, p = [0, 0, 0];
+    v.sparkSeeds.forEach((seed, k) => {
+      const cyc = Math.floor(t / 1.1 + seed * 7);
+      if (cyc === v.sparkCycle[k]) return;
+      v.sparkCycle[k] = cyc;
+      const c = Math.floor(Math.random() * v.C), o = off ? off[v.label[c]] : null;
+      bezier(v.cp, c, Math.random(), p);
+      if (o) { p[0] += o.x; p[1] += o.y; p[2] += o.z; }
+      pa.array.set(p, k * 3);
+      col.copy(v.pieceColor[v.label[c]]).lerp(GLOW, 0.6);
+      pc.array.set([col.r, col.g, col.b], k * 3);
+      pa.needsUpdate = pc.needsUpdate = true;
+    });
+    v.sparkMats.size = 0.075 + 0.03 * Math.sin(3.1 * t + v.phase);
+    v.sparkMats.opacity = 0.7 + 0.3 * Math.sin(2.3 * t + v.phase);
   }
 
   frame() {

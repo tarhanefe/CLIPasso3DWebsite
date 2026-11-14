@@ -485,7 +485,8 @@
   </button>
 
   <script type="module">
-    import { loadIndex, Banner, RunGrid, Gallery, metricsTables, theme } from './static/js/sketchgrid.js';
+    import { loadIndex, Banner, RunGrid, Gallery, theme } from './static/js/sketchgrid.js';
+    import { metricsCharts } from './static/js/metricsfig.js';
     import { bezierFigure } from './static/js/bezierfig.js';
     import { pipelineFigure } from './static/js/pipelinefig.js';
     import { initFigure } from './static/js/initfig.js';
@@ -536,7 +537,7 @@
     new ConnectCompare(document.getElementById('grid-connect'), {
       objects: ['airplane', 'car_(automobile)', 'chair', 'lamp', 'school_bus', 'teapot'].map((k) => index.objects.find((o) => o.key === k)).filter(Boolean),
     });
-    metricsTables(document.getElementById('metrics'));
+    metricsCharts(document.getElementById('metrics'));
 
     // model credits (CC-BY requires attribution)
     const list = document.getElementById('model-credit-list');
